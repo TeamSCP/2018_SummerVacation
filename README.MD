@@ -1,10 +1,10 @@
 ﻿# TeamSCP Document
 
-> Folder format
+### Folder format
 
 - YYYYMMDD	
 
-> File format
+### File format
 
 Grade_Name_Title.md, Grade_Name_Title.pdf
 
