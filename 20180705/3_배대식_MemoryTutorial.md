@@ -1,4 +1,4 @@
-# Memory Tutorial document.
+# Memory Tutorial document
 
 > STL String
 
