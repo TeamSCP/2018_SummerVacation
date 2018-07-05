@@ -2,7 +2,7 @@
 
 > Folder format
 
-- YYMMDD	
+- YYYYMMDD	
 
 > File format
 
