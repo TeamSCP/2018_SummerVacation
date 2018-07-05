@@ -2,9 +2,7 @@
 
 > Folder format
 
-- YYMMDD
-ㄴ md
-ㄴ pdf	
+- YYMMDD	
 
 > File format
 
