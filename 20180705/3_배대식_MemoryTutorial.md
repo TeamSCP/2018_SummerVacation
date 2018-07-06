@@ -3,9 +3,8 @@
 다른 프로세스의 메모리를 읽기 위한 방법과 거기서 사용되는 개념
 그리고 CheatEngine을 사용하여 가상메모리 주소와 물리메모리 주소 변경을
 연습 할 것입니다.
-
+------
 > PID
-
 Process Identifier의 약자이며 프로세스를 구분하기 위해서 사용하는 식별자이다.
 크기는 DWORD(4Byte)이며 윈도우에서 예약되어 있는 PID는
 `0 - System Idle Time Process`
