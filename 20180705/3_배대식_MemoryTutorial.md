@@ -53,8 +53,16 @@ API 사용방법은 생략하고 사용시에 주의 해야 할 점만..
 `1, 99(dec), 0x8E9`가 된다.
 
 이것을 가지고 치트엔진을 사용하여 변환 해보도록 하자!
-<img src="https://user-images.githubusercontent.com/40850499/42355759-a6b12ca2-8109-11e8-9650-3ae28cc0add6.PNG" style="zoom:150%" />
-<img src="https://user-images.githubusercontent.com/40850499/42355761-a946a2c6-8109-11e8-9791-9285ede9fe5f.PNG" style="zoom:150%" />
-<img src="https://user-images.githubusercontent.com/40850499/42355762-aae95b8c-8109-11e8-97b2-11d77df7e9f6.PNG" style="zoom:150%" />
-<img src="https://user-images.githubusercontent.com/40850499/42355764-ac0584d2-8109-11e8-8c25-92a835fecdac.PNG" style="zoom:150%" />
+`Kenrel tools → Paging`에 들어가 위의 정보를 가지고 찾아 들어가는 이미지 파일이다.
 
+<img src="https://user-images.githubusercontent.com/40850499/42355759-a6b12ca2-8109-11e8-9650-3ae28cc0add6.PNG" style="zoom:100%" />
+<img src="https://user-images.githubusercontent.com/40850499/42355761-a946a2c6-8109-11e8-9791-9285ede9fe5f.PNG" style="zoom:100%" />
+<img src="https://user-images.githubusercontent.com/40850499/42355762-aae95b8c-8109-11e8-97b2-11d77df7e9f6.PNG" style="zoom:100%" />
+<img src="https://user-images.githubusercontent.com/40850499/42355764-ac0584d2-8109-11e8-8c25-92a835fecdac.PNG" style="zoom:100%" />
+
+```
+참조:
+주소를 직접 따라가게 되면(메모리 뷰로) 페이지 오프셋 만큼(4KB = 2^12) 하위 비트를 0으로 AND연산 해주어야 한다.
+```
+
+최종적으로 나온 물리메모리 주소인 `20CF4A000`에 페이지의 오프셋 값인 `8E9` 를 더해주게 되면 최종 물리주소가 나오게 된다.
