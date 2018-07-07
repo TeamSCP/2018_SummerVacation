@@ -1,11 +1,11 @@
-Machine Learing - Tensorflow#1
-
+####Machine Learing - Tensorflow#1
+--
 7월 8일, 2018 edithedith404(plit00) 김두형
 
 필자가 Mac OS X를 쓰기에 mac위주의 설명이다.
 
 #— 보기 이 커뮤니티를 통해 공부한 내용
-
+--
 컴퓨터가 개발스킬 등을 배울수 있도록 만드는 프로그래밍 알고리즘  & 딥러닝
 
 - C
