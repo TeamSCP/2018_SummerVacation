@@ -21,11 +21,11 @@
 
 
 
-install
+#install
 
 먼저 pip를 설치해야한다.
 
-#pip는 파이썬 패키지를 설치하고 관리하는 패키지 매니저 프로그램이다.
+| -pip는 파이썬 패키지를 설치하고 관리하는 패키지 매니저 프로그램이다.
 
 1.pip 설치하기
 
@@ -44,7 +44,7 @@ install
 
   
 
-설치테스트
+#설치테스트
 
     $ source activate tensorflow
     #텐서플로우를 사용한 프로그램을 실행한다.
@@ -54,7 +54,7 @@ install
 
 
 
-텐서플로우 실행(& Example)
+#텐서플로우 실행(& Example)
 
 터미널을 실행하여 아래 명령을 실행한다.
 
@@ -75,7 +75,7 @@ install
 
 
 
-Graph 만들기
+#Graph 만들기
 
 파이썬 라이브러리의 작업 생성 함수는 만들어진 op들의 결과값을 반환하는데, 변한된 작업들의 결과값은 다른 op를 생성할 때 함수의 입력값으로 이용할 수 있다. Graph class 에서 명시적으로 관리하는 방법을 볼 수 있다.
 
@@ -115,7 +115,7 @@ Graph 만들기
 
 
 
-Interactive Usage
+#Interactive Usage
 
 파이썬 예제들은 Session을 실행시키고 Session.run() 메서드를 이용해서 graph의 작업을 처리한다.!
 
@@ -136,17 +136,17 @@ Interactive Usage
 
 
 
-Tensors
+#Tensors
 
 tensorflow 프로그램은 모든 데이터를 tensor 데이터 구조로 나타낸다. 연산 graph에 있는 op간엔tensor만 주고받을 수 있기 때문인데, tensorflow의 tensor를 n 차원의 배열이라고 보면 된다.
 
 Static type,rank,shape 값을 가지고있다.
 
-Variables
+#Variables
 
 그래프를 실행하여도 variable의 상태가 유지가 된다.
 
-#Count example
+- Count example
 
     state = tf.Variable(0, name="counter")
     
