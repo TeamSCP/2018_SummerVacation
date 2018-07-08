@@ -8,7 +8,7 @@
 
   ### * sql injection EX ###
 
-  ![KakaoTalk_20180708_221212758](C:\Users\Yellme\Desktop\KakaoTalk_20180708_221212758.png)
+ ![kakaotalk_20180708_221212758](https://user-images.githubusercontent.com/40850499/42420617-a2ccbf56-8303-11e8-8597-29e2d5bb2cba.png)
 
   
 
