@@ -20,7 +20,7 @@
 
 
 
-![KakaoTalk_20180708_222029269](C:\Users\Yellme\Desktop\KakaoTalk_20180708_222029269.png)
+![kakaotalk_20180708_222029269](https://user-images.githubusercontent.com/40850499/42420696-95b366ac-8304-11e8-8598-0230f29d4cf9.png)
 
 ```
 이때, 공격자가 sql문을 악의적으로 "select 국어,영어 from 성적 where 이름 = '황선홍'" 으로 바꾸게 되면  황선홍 학생의 성적을 보여달라는 것으로 받아드려 황선홍 학생의 성적 데이터를 결과로 보여주게 된다. 이로써, 학생 본인의 성적만 확인 할 수 있었던 것을 sql 구문을 변경 시켜 다른 사람들의 성적 정보를 조회할 수 있게 된다. 
@@ -45,7 +45,8 @@
 
 에서 1번 문제인 gremlin 문제를 풀었다.
 
-![22394843582D6EE618](C:\Users\Yellme\Desktop\22394843582D6EE618.png)
+![22394843582d6ee618](https://user-images.githubusercontent.com/40850499/42420712-be6fa772-8304-11e8-88aa-421bdb9abcf9.png)
+
 
 이 문제는 sql문과 php언어만 알면 굉장히 간단한 문제이다.
 
@@ -62,8 +63,7 @@ id의 결과 값과 내가 입력해주는 id이 참 일때,  이 문제는 해�
 
 
 ?id=yell&pw=1234 를 해보니
-
-![ㅇ옐](C:\Users\Yellme\Desktop\ㅇ옐.png)
+![default](https://user-images.githubusercontent.com/40850499/42420720-d3984852-8304-11e8-800d-c605fcf1e9cb.png)
 
 쿼리에서 id 와 pw가 싱글 쿼터(' ')로 묶여져 있는 것을 확인 할 수 있다.
 
