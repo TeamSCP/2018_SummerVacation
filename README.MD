@@ -3,6 +3,8 @@
 ### Folder format
 
 - YYYYMMDD	
+  - md
+  - pdf
 
 ### File format
 
