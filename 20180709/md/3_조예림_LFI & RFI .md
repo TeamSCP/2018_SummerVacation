@@ -13,11 +13,13 @@
 
 
 
-![KakaoTalk_20180712_200615980](C:\Users\Yellme\Desktop\KakaoTalk_20180712_200615980.png)
+![kakaotalk_20180712_200615980](https://user-images.githubusercontent.com/40850499/42701325-4311bbdc-8701-11e8-92c2-695c6f13b850.png)
+
 
 LFI 를 통해 일반적인 파일을 불러와서 실행 시킨 웹 프로그래밍을 나타낸 것이다.
 
-여기서 로컬 파일 대신 원격 파일을 불러 RFI 를 실행 할 수도 있다.![KakaoTalk_20180712_200758113](C:\Users\Yellme\Desktop\KakaoTalk_20180712_200758113.png)
+여기서 로컬 파일 대신 원격 파일을 불러 RFI 를 실행 할 수도 있다.
+![kakaotalk_20180712_200758113](https://user-images.githubusercontent.com/40850499/42701347-4f7ee192-8701-11e8-9bec-14616b78dff4.png)
 
 저기 http 로컬 파일 부분에서 공격자가 특정 악성 파일을 넣거나 시스템상의 중요한 파일을 불러오게 만드는 것이 LFI 의 기본적인 이론이다.
 
@@ -41,8 +43,7 @@ LFI 를 통해 일반적인 파일을 불러와서 실행 시킨 웹 프로그�
 
 실습 과정은 다음과 같은 과정으로 이루어진다.
 
-![KakaoTalk_20180712_200919235](C:\Users\Yellme\Desktop\KakaoTalk_20180712_200919235.png)
-
+![kakaotalk_20180712_200919235](https://user-images.githubusercontent.com/40850499/42701382-60cd9ace-8701-11e8-992e-0d72dbc8acf9.png)
 **1) Step 1  : 색상 변환 php 예제 만들기**
 
 < color.html >
@@ -92,12 +93,14 @@ include ($color.'.hello.txt');
 
 
 자 ! 이제 작성한 파일을 모두 lfi 폴더에 넣고 color.html를 실행 해보면 
+![image](https://user-images.githubusercontent.com/40850499/42701410-7d7c7a28-8701-11e8-8e69-3d49f2b2924e.png)
 
-![1531415797993](C:\Users\Yellme\AppData\Local\Temp\1531415797993.png)
 
 이런 화면이 뜰 것이다.  그럼 일단 반은 성공이다. 
 
-그리고 나서 기본 값인 red를 선택후 제출을 누르면 다음 화면이 나오게 된다.![1531416311508](C:\Users\Yellme\AppData\Local\Temp\1531416311508.png)
+그리고 나서 기본 값인 red를 선택후 제출을 누르면 다음 화면이 나오게 된다.
+
+![image](https://user-images.githubusercontent.com/40850499/42701442-8d14503c-8701-11e8-80df-386078aba382.png)
 
 **2) Step 2 : 색상 외의 다른 파일 포함**
 
@@ -120,7 +123,7 @@ Vulneable.php 의 include ($color.'.php') 에 hello.txt 를 넣는다.
 
 하지만  hello.txt를 넘겨주게 되면 다음과 같은 에러가 발생한다.
 
-![1531417593323](C:\Users\Yellme\AppData\Local\Temp\1531417593323.png)
+![image](https://user-images.githubusercontent.com/40850499/42701512-ba1c43fa-8701-11e8-953c-a60367b6eacd.png)
 
 에러가 발생한 이유는 hello.txt 만 포함을 시키고 싶은데 Vulneable.php는 파일명을 받아 뒤에 
 
@@ -140,7 +143,7 @@ http://127.0.0.1/lfi/Vulneable.php?COLOR=C:\\upload\\hello.txt%00
 
 위에 있는 url 를 넘겨주게 되면 다음과 같은 화면이 나온다.
 
-![1531418120190](C:\Users\Yellme\AppData\Local\Temp\1531418120190.png)
+![image](https://user-images.githubusercontent.com/40850499/42701546-d7b56a7c-8701-11e8-8eae-fa669ab80027.png)
 
 LFI 공격은 웹 프로그램의 'COLOR'와 같은 매개변수 등의 취약점을 통해 의도치 않은 서버 내 파일인 'hello.txt' 를 실행을 시킨다.
 
@@ -161,8 +164,7 @@ http://127.0.0.1/lfi/Vulneable.php?COLOR=C:\\Temp\\password.txt%00
 ```
 
 
-
-![1531419440184](C:\Users\Yellme\AppData\Local\Temp\1531419440184.png)
+![image](https://user-images.githubusercontent.com/40850499/42701574-ebaed68a-8701-11e8-9fd6-1c795df2b46b.png)
 
  
 
