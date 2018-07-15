@@ -1,6 +1,6 @@
 xcz.kr Prob11
 
-
+![1531502771209](C:\Users\user\AppData\Local\Temp\1531502771209.png)
 
 
 
