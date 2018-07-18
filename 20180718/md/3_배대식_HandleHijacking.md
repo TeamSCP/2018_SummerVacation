@@ -23,6 +23,7 @@
 오래 전(중학교~대1)에는 공격 대상이 타겟 프로세스
 
 ## 전체적인 이미지 개요도(이미지 삽입)
+<img src="https://user-images.githubusercontent.com/40850499/42858623-6f81303a-8a8a-11e8-88f3-90f182cab2bd.png"/>
 
 ## 프로세스 간 통신(Inter-Process Communication, IPC)
 
