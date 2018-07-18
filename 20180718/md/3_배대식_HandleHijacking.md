@@ -37,7 +37,7 @@ RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 �
 프로세스간 통신방법에는 아래와 같이 많은 방법이 있습니다.
   - File (*)
   - Anonymous Pipe
-  - *Named Pipe*
+  - **Named Pipe**
   - Socket (*)
   - Shared Memory
   - Memory Mapped File
