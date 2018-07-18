@@ -1,7 +1,7 @@
 # :speech_balloon: Handle Hijacking
 
 해당 기술은 UC 포럼의 `harakrinox`의 글을 참조 하였습니다.<br>
-원문 글을 보고 싶은 분들은 <a href="https://www.unknowncheats.me/forum/anti-cheat-bypass/217995-poc-remote-memory-operations-using-existing-handle.html">`링크`</a>를 클릭 해 주세요 :)
+원문 글을 보고 싶은 분들은 <a href="https://www.unknowncheats.me/forum/anti-cheat-bypass/217995-poc-remote-memory-operations-using-existing-handle.html">링크</a>를 클릭 해 주세요 :)
 
 ## :green_book: ReadMe
   
