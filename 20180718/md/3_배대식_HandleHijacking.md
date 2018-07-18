@@ -23,10 +23,13 @@
 - 오래 전(중학교~대1)에는 공격 대상이 타겟 프로세스
 
 ## IPC에 대한 설명
+- File
+- Anonymous Pipe
 - Named Pipe (*)
-- MailSlot
+- Socket
+- Shared Memory
+- Memory Mapped File
 - Windows Message (*)
-등이 있다
 
 ## IPC중 Named Pipe 설명
 
