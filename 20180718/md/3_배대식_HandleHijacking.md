@@ -14,7 +14,8 @@
 - 개념은 아주 간단합니다. 이미 사용되고 있는 무언가(세션, 쿠키, 핸들 ···)를 가져와 사용 하는 것입니다.
 
 ```
-참조: https://en.wikipedia.org/wiki/Hijacking
+참조: 
+<a href="https://en.wikipedia.org/wiki/Hijacking">
 ```
 
 ## 핸들에 대해 복습
