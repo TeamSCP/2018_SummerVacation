@@ -1,6 +1,6 @@
 # :speech_balloon: Handle Hijacking
 
-해당 기술은 UC 포럼의 <font color="green">`harakrinox`</font>의 글을 참조 하였습니다.<br>
+해당 기술은 UC 포럼의 <p style="color:green;">`harakrinox`</p>의 글을 참조 하였습니다.<br>
 원문 글을 보고 싶은 분들은 <a href="https://www.unknowncheats.me/forum/anti-cheat-bypass/217995-poc-remote-memory-operations-using-existing-handle.html">`링크`</a>로 이동해주세요 :)
 
 ## :green_book: 읽기 전..
