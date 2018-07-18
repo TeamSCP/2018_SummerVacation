@@ -50,7 +50,7 @@ RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 �
 이번 기술문서에서는 Named Pipe(이름있는 파이프)를 사용하여 서버-클라이언트간의 원격명령을 시행 하는 것을 최종목표로 두고 있습니다.
 
 ## :pushpin: Named Pipe
-- 파이프의 이름은 특별한 규약이 있습니다. \\.\pipe\pipeNAME 입니다.
+- 파이프의 이름은 특별한 규약이 있습니다. \\\\.\pipe\pipeNAME 입니다.
 - 이름이 정의된 파이프이기 때문에 관계 없이 파이프 이름을 가지고 통신 할 수 있습니다.
 - Anonymous Pipe와 다르게 양방향 통신이 가능합니다(PIPE_ACCESS_DUPLEX)
 - Named Pipe의 사용법에 대해서는 <a href="https://www.joinc.co.kr/w/man/4200/CreateNamedPipe">여기</a>를 참조 해 주세요.
