@@ -52,7 +52,7 @@ RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 �
 ## :pushpin: Named Pipe
 - 파이프의 이름은 특별한 규약이 있습니다. \\.\pipe\pipeNAME 입니다.
 - 이름이 정의된 파이프이기 때문에 관계 없이 파이프 이름을 가지고 통신 할 수 있습니다.
-- Anonymous Pipe와 다르게 양방향 통신이 가능합니다(PIPE_ACCESS_DUPLEX)
+- Anonymous Pipe와 다르게 양방향 통신이 가능합니다(PIPE_ACCESS_DUPLEX)<br>
 Named Pipe의 사용법에 대해서는 <a href="https://www.joinc.co.kr/w/man/4200/CreateNamedPipe">여기</a>를 참조 해 주세요.
 
 ## :one: 테스트 프로그램 작성(타겟 프로그램)
