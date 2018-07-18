@@ -28,14 +28,22 @@
 
 ## 전체적인 이미지 개요도(이미지 삽입)
 
-## IPC에 대한 설명
-- File
-- Anonymous Pipe
-- Named Pipe (*)
-- Socket
-- Shared Memory
-- Memory Mapped File
-- Windows Message (*)
+## 프로세스 간 통신(Inter-Process Communication, IPC)
+
+프로세스간 통신방법에는 아래와 같이 많은 방법이 있습니다.
+  - File (*)
+  - Anonymous Pipe
+  - Named Pipe
+  - Socket (*)
+  - Shared Memory
+  - Memory Mapped File
+  - Windows Message (*)
+  
+위의 이미지의 서버가 되는 부분에는 Dll Injection되어 타겟 프로세스의 핸들 정보를 가지고 있을 것입니다.
+이 상태에서 클라이언트 측에서 명령을 요청하면 서버는 알아 듣고 해당 작업을 해주어야 합니다.
+즉, 서버-클라이언트 혹은 프로세스간의 통신을 할 수 있는 방법이 필요하게됩니다.
+여기서 *가 되어있는 부분은 제가 사용 해봤던 IPC 방법입니다.
+이번 기술문서에서는 Named Pipe(이름있는 파이프)를 사용하여 서버-클라이언트간의 원격명령을 시행 하는 것을 최종목표로 두고 있습니다.
 
 ## IPC중 Named Pipe 설명
 
