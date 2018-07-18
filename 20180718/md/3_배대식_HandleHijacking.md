@@ -32,12 +32,12 @@ RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 �
 이미 가지고 있는 프로세스에 대해 dll을 주입 한 뒤, dll을 실제 명령을 시행하는 서버로 두고 명령을 내리는 클라이언트를 만들어주면
 타겟 프로세스에 직접 접근하는 코드는 없어 지는 것이죠.
 
-## :heavy_plus_sign: 프로세스 간 통신(Inter-Process Communication, IPC)
+## :pushpin: 프로세스 간 통신(Inter-Process Communication, IPC)
 
 프로세스간 통신방법에는 아래와 같이 많은 방법이 있습니다.
   - File (*)
   - Anonymous Pipe
-  - Named Pipe
+  - *Named Pipe*
   - Socket (*)
   - Shared Memory
   - Memory Mapped File
@@ -49,9 +49,9 @@ RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 �
 여기서 *가 되어있는 부분은 제가 사용 해봤던 IPC 방법입니다.<br>
 이번 기술문서에서는 Named Pipe(이름있는 파이프)를 사용하여 서버-클라이언트간의 원격명령을 시행 하는 것을 최종목표로 두고 있습니다.
 
-## :heavy_plus_sign: IPC중 Named Pipe 설명
+## :pushpin: Named Pipe
 
-- 소켓 프로그래밍 해봤다면.. 나름 이해 가는듯?
+- 
 
 ## :one: 테스트 프로그램 작성(타겟 프로그램)
   - Int, String 타입의 변수의 상태를 확인 할 수 있는 프로그램
