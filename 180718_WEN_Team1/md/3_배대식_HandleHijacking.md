@@ -57,6 +57,35 @@ RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 �
 
 ## :one: 테스트 프로그램 작성(타겟 프로그램)
   - Int, String 타입의 변수의 상태를 확인 할 수 있는 프로그램
+  ```
+#include <iostream>
+#include <string>
+#include <stdint.h>
+
+using namespace std;
+
+int main()
+{
+	bool isExit = true;
+	uint32_t varNum = 0;
+	string varString;
+
+	cout << "Enter a number to load in memory: ";
+	cin >> varNum;
+	cout << "Enter a string to load in memory: ";
+	cin >> varString;
+
+	do {
+		cout << "varNum (address = " << hex << &varNum << ") = " << dec << varNum << endl;
+		cout << "varString (address = " << hex << &varString << ") = " << varString << endl;
+		cout << endl;
+		cout << "Enter 1 to exit or 0 to loop :" ;
+		cin >> isExit;
+	} while (isExit != 0);
+
+	return 0;
+}
+```
   
 ## :two: 테스트 프로그램 작성(파이프 서버)
   - 하이재킹, Dll Injection이 되는 대상입니다.
