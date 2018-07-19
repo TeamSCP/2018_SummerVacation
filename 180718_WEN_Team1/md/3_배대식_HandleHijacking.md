@@ -57,7 +57,7 @@ RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 �
 
 ## :one: 테스트 프로그램 작성(타겟 프로그램)
   - Int, String 타입의 변수의 상태를 확인 할 수 있는 프로그램
-  ```
+```c++
 #include <iostream>
 #include <string>
 #include <stdint.h>
