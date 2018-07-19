@@ -1,6 +1,6 @@
 ﻿# :ledger: TeamSCP Document
 
-### :file_folder: <p>Folder format</p>
+### <p>:file_folder: Folder format</p>
 
 - YYMMDD_TeamN	
   - md
