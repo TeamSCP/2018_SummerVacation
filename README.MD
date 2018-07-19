@@ -1,8 +1,8 @@
-﻿# TeamSCP Document
+﻿# :ledger: TeamSCP Document
 
-### Folder format
+### :file_folder: Folder format
 
-- YYYYMMDD	
+- YYMMDD_TeamN	
   - md
   - pdf
 
@@ -12,3 +12,20 @@
 
   - ex) 3_배대식_CRC Bypass.pdf
  
+### Team1
+- 3_이정모
+- 3_배대식
+- 3_황선홍
+- 3_조예림
+- 2_정재훈
+- 1_이상혁
+
+### Team2
+- 2_안지현
+- 2_유재겸
+- 2_박지윤
+- 1_김두형
+- 1_김성준
+- 1_김상민
+- 1_서동훈
+- 1_전유민
