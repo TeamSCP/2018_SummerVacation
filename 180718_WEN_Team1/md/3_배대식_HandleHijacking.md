@@ -94,9 +94,149 @@ int main()
   - ConnectNamedPipe로 클라이언트에서 파이프에 연결이 되어있는지 확인합니다.
   - Request, Reply 구조체를 가지고 있습니다. 이것으로 서로 명령이나 상태를 확인 합니다.
   - ReadFile, WriteFile로 서버와 클라이언트간 수신, 송신을 합니다.
+```
+#include <iostream>
+#include <stdint.h>
+#include <windows.h>
+
+#define _CRT_SECURE_NO_WARNINGS
+#define PIPE_NAME "\\\\.\\pipe\\mypipe"
+#pragma warning(disable: 4996)
+
+using namespace std;
+
+typedef struct RPMReq {
+	char message[10];
+	uint32_t Address;
+	uint8_t nRead;
+}RPMReq;
+
+typedef struct RPMRep {
+	uint8_t nRead;
+	char buf[10];
+}RPMRep;
+
+int main()
+{
+	HANDLE hProcess, hPipe;
+	DWORD PID;
+	char buf[256] = { 0, };
+	RPMReq* req = (RPMReq*)malloc(sizeof(RPMReq));
+	RPMRep* rep = (RPMRep*)malloc(sizeof(RPMRep));
+
+	cout << "Open handle on PID: ";
+	cin >> PID;
+	hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, PID);
+	if (hProcess != NULL)
+	{
+		cout << "[ OK ] Process " << PID << " " << "successfully opened" << endl;
+		cout << "[ OK ] Process handle: " << hProcess << endl;
+		cout << "[ OK ] Process handle memory address: " << hex << &hProcess << endl;
+	}
+	hPipe = CreateNamedPipe(
+		PIPE_NAME,
+		PIPE_ACCESS_DUPLEX,
+		PIPE_TYPE_MESSAGE | PIPE_WAIT,
+		PIPE_UNLIMITED_INSTANCES,
+		0,
+		0,
+		NMPWAIT_USE_DEFAULT_WAIT,
+		NULL
+	);
+	
+	if (!hPipe)
+	{
+		cout << "Error : " << GetLastError() << endl;
+		return false;
+	}
+	else
+	{
+		cout << "[ OP ] Pipe Created.." << endl;
+	}
+	while (1)
+	{
+		if (ConnectNamedPipe(hPipe, NULL))
+		{
+			ReadFile(hPipe, req, sizeof(RPMReq), NULL, NULL);
+			if (!strncmp(req->message, "doit", 4))
+			{
+				if (ReadProcessMemory(hProcess, (LPCVOID)req->Address, &buf, req->nRead, NULL))
+				{
+					cout << "RPM Success Sending.." << endl;
+					memcpy(rep->buf, buf, 10);
+					rep->nRead = req->nRead;
+					WriteFile(hPipe, rep, sizeof(RPMRep), NULL, NULL);
+				}
+				else
+				{
+					cout << "RPM Failed.. " << endl;
+				}
+			}
+			else
+			{
+				cout << "Unknown Commands" << endl;
+			}
+		}
+	}
+	DisconnectNamedPipe(hPipe);
+	CloseHandle(hPipe);
+	free(req);
+	free(rep);
+}
+```
+
   
 ## :three: 테스트 프로그램 작성(파이프 클라이언트)
   - 원격 명령을 내릴 클라이언트 프로그램입니다.
   - CreateFile로 파이프 핸들을 가져옵니다.
   - Request, Reply 구조체를 가지고 있습니다. 이것으로 서로 명령이나 상태를 확인 합니다.
   - ReadFile, WriteFile로 서버와 클라이언트간 수신, 송신을 합니다.
+  
+```
+#include <iostream>
+#include <windows.h>
+
+#define PIPE_NAME "\\\\.\\pipe\\mypipe"
+
+using namespace std;
+
+typedef struct RPMReq {
+	char message[10];
+	uint32_t Address;
+	uint8_t nRead;
+}RPMReq;
+
+typedef struct RPMRep {
+	uint8_t nRead;
+	char buf[10];
+}RPMRep;
+
+int main()
+{
+	HANDLE pipe;
+	RPMReq* req = (RPMReq*)malloc(sizeof(RPMReq));
+	RPMRep* rep = (RPMRep*)malloc(sizeof(RPMRep));
+	char buf[256] = { 0, };
+	pipe = CreateFile(PIPE_NAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+
+	cout << "> Input command: ";
+	fgets(req->message, 256, stdin);
+	cout << "> Input Address: ";
+	cin >> hex >> req->Address;
+	cout << "> Input Number: ";
+	cin >> dec >> req->nRead;
+	while (1)
+	{
+		WriteFile(pipe, req, sizeof(RPMReq), NULL, NULL);
+		if (ReadFile(pipe, rep, sizeof(RPMRep), NULL, NULL))
+		{
+			printf("RPM Success : %s", rep->buf+4);
+		}
+	}
+	free(req);
+	free(rep);
+	CloseHandle(pipe);
+
+	return 0;
+}
+```
