@@ -23,7 +23,8 @@
 
 ## :question: 핸들을 빌려 쓰는 것이 왜 우회인가요?
 오래 전(중학교~대학교 1학년)에는 공격 대상이 타겟 프로세스인 경우가 많았습니다.<br>
-RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 코드를 수정하던, 대상 프로세스에 직접 접근하여야 했습니다.<br>
+RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 코드를 수정하던,<br>
+대상 프로세스에 직접 접근하여야 했습니다.<br>
 그렇다면 Anti-Cheat 개발자 입장에서 바라 봤을 때 대상 프로세스에 대한 핸들을 얻어 오지 못하게 하려는 작업을 해두지 않을까요?<br>
 
 ## :exclamation: 결론부터 말하자면 가능합니다!
@@ -35,37 +36,38 @@ RPM/WPM으로 메모리를 읽기/쓰기를 하던, Dll을 인젝션을 하여 �
 ## :pushpin: 프로세스 간 통신(Inter-Process Communication, IPC)
 
 프로세스간 통신방법에는 아래와 같이 많은 방법이 있습니다.
-  - File (*)
+  - File
   - Anonymous Pipe
   - **Named Pipe**
-  - Socket (*)
+  - Socket
   - Shared Memory
   - Memory Mapped File
-  - Windows Message (*)
+  - Windows Message
   
 위의 이미지의 서버가 되는 부분에는 Dll Injection되어 타겟 프로세스의 핸들 정보를 가지고 있을 것입니다.<br>
-이 상태에서 클라이언트 측에서 명령을 요청하면 서버는 알아 듣고 해당 작업을 해주어야 합니다.<br>
-즉, 서버-클라이언트 혹은 프로세스간의 통신을 할 수 있는 방법이 필요하게됩니다.<br>
-여기서 *가 되어있는 부분은 제가 사용 해봤던 IPC 방법입니다.<br>
-이번 기술문서에서는 Named Pipe(이름있는 파이프)를 사용하여 서버-클라이언트간의 원격명령을 시행 하는 것을 최종목표로 두고 있습니다.
+이 상태에서 클라이언트 측에서 명령을 요청하면 서버는 알아 듣고 명령에 맞는 작업을 해주어야 합니다.<br>
+즉, 서버-클라이언트 혹은 프로세스간의 통신을 할 수 있는 방법이 필요 하게됩니다.<br>
+이번 기술 문서에서는 Named Pipe(이름있는 파이프)를 사용하여 서버-클라이언트간의 원격명령을 시행 할 것입니다.
 
 ## :pushpin: Named Pipe
 - 파이프의 이름은 특별한 규약이 있습니다. `\\.\pipe\pipeNAME` 입니다.
 - 이름이 정의된 파이프이기 때문에 관계 없이 파이프 이름을 가지고 통신 할 수 있습니다.
-- Anonymous Pipe와 다르게 양방향 통신이 가능합니다(PIPE_ACCESS_DUPLEX)
+- Anonymous Pipe와 다르게 양방향 통신이 가능합니다.(PIPE_ACCESS_DUPLEX)
 - Named Pipe의 사용법에 대해서는 <a href="https://www.joinc.co.kr/w/man/4200/CreateNamedPipe">여기</a>를 참조 해 주세요.
 
 ## :one: 테스트 프로그램 작성(타겟 프로그램)
   - Int, String 타입의 변수의 상태를 확인 할 수 있는 프로그램
   
 ## :two: 테스트 프로그램 작성(파이프 서버)
-  - 하이재킹 , Dll Injection이 되는 대상입니다.
+  - 하이재킹, Dll Injection이 되는 대상입니다.
   - 타겟 프로그램의 핸들을 가지고 있어야 합니다.
   - CreateNamedPipe로 파이프 핸들을 열어줍니다.
   - ConnectNamedPipe로 클라이언트에서 파이프에 연결이 되어있는지 확인합니다.
+  - Request, Reply 구조체를 가지고 있습니다. 이것으로 서로 명령이나 상태를 확인 합니다.
   - ReadFile, WriteFile로 서버와 클라이언트간 수신, 송신을 합니다.
   
 ## :three: 테스트 프로그램 작성(파이프 클라이언트)
   - 원격 명령을 내릴 클라이언트 프로그램입니다.
   - CreateFile로 파이프 핸들을 가져옵니다.
+  - Request, Reply 구조체를 가지고 있습니다. 이것으로 서로 명령이나 상태를 확인 합니다.
   - ReadFile, WriteFile로 서버와 클라이언트간 수신, 송신을 합니다.
