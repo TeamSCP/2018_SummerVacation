@@ -94,7 +94,7 @@ int main()
   - ConnectNamedPipe로 클라이언트에서 파이프에 연결이 되어있는지 확인합니다.
   - Request, Reply 구조체를 가지고 있습니다. 이것으로 서로 명령이나 상태를 확인 합니다.
   - ReadFile, WriteFile로 서버와 클라이언트간 수신, 송신을 합니다.
-```
+```c++
 #include <iostream>
 #include <stdint.h>
 #include <windows.h>
@@ -192,7 +192,7 @@ int main()
   - Request, Reply 구조체를 가지고 있습니다. 이것으로 서로 명령이나 상태를 확인 합니다.
   - ReadFile, WriteFile로 서버와 클라이언트간 수신, 송신을 합니다.
   
-```
+```c++
 #include <iostream>
 #include <windows.h>
 
