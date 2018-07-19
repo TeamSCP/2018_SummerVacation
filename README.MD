@@ -1,18 +1,18 @@
 ﻿# :ledger: TeamSCP Document
 
-### <p>:file_folder: Folder format</p>
+### :file_folder: Folder format
 
 - YYMMDD_TeamN	
   - md
   - pdf
 
-### File format
+### :white_check_mark: File format
 
 - Grade_Name_Title.md, Grade_Name_Title.pdf
 
   - ex) 3_배대식_CRC Bypass.pdf
  
-### Team1
+### :pushpin: Team1
 - 3_이정모
 - 3_배대식
 - 3_황선홍
@@ -20,7 +20,7 @@
 - 2_정재훈
 - 1_이상혁
 
-### Team2
+### :pushpin: Team2
 - 2_안지현
 - 2_유재겸
 - 2_박지윤
