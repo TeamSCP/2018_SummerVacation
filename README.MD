@@ -2,7 +2,7 @@
 
 ### :file_folder: Folder format
 
-- YYMMDD_TeamN	
+- YYMMDD_DAY_TeamN
   - md
   - pdf
 
