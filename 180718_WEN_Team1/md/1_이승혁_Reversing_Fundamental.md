@@ -169,7 +169,7 @@ PE란 윈도우 운영체제에서 사용하는 실행 파일 형식입니다. �
 
 PE 파일 헤더와 바디로 구성되고, 헤더는 PE 파일이 어떻게 동작해야 하는지에 대한 규칙을 담고있습다. 바디는 헤더에 적혀있는 규칙에 따라 실행되는 기계어들이 저장되어 있습니다.
 
-![Screen Shot 2018-07-18 at 10.08.21 PM](/Users/lsh/Desktop/Screen Shot 2018-07-18 at 10.08.21 PM.png)
+<img width="993" alt="screen shot 2018-07-19 at 1 09 07 pm" src="https://user-images.githubusercontent.com/40850499/42921101-fca2a92e-8b54-11e8-81d9-91bd1cc6d0ea.png">
 
 PE 파일은 PE 헤더(Header), 섹션 헤더(Section Header) 그리고 섹션 데이터(Section Data)로 구성됩니다. 특히 PE 헤더와 섹션 헤더를 PE 헤더라고 통칭하기도 합니다. 모든 윈도우 PE 파일 공통으로 PE 헤더(IMAGE_DOS_HEADER, MS-DOS Stub Program, IMAGE_NT_HEADERS)를 가지고 있습니다. 섹션 헤더 부분은 PE 파일마다 가지는 내용과 형태가 다르며, PE 파일은 최소 한 개 이상의 섹션 헤더를 가지고 있습니다. 섹션 데이터 영역 역시 PE 파일마다 가지는 내용과 형태가 다르며 최소 한 개 이상의 섹션 데이터 영역이 있습니다. 
 
