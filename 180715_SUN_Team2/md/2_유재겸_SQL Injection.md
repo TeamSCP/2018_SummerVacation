@@ -33,9 +33,9 @@
 <br>다음과 같은 화면이 나온다.
 username에 '를 입력했고 password에 d를 입력했으므로<br>
 username = ''의 따옴표 사이에 입력한 '가 들어가고 password=''의 따옴표 사이에 입력한 d 가 들어갔다는 것을 알 수 있다.
-
-<br>
 ![](https://user-images.githubusercontent.com/37801624/42921499-3d86c662-8b57-11e8-9f78-63f80f76d724.PNG)
+<br>
+![]()
 <br>username에 ' or 1=1; --을 넣으면
 'username = ''or 1=1; --'AND password = '입력한 Password값' 이 될텐데<br>
 -- 이후는 주석처리가 되어서 'username = ''or 1=1; 만 남을것이다.<br>
