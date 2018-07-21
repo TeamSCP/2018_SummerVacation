@@ -1,6 +1,6 @@
 ## XCZ.KR Prob 12
 
-![1532202988952](C:\Users\user\AppData\Local\Temp\1532202988952.png)
+https://user-images.githubusercontent.com/40850499/43039906-0e86c66a-8d72-11e8-9a0a-6e275c99e0c1.png
 
 ### 문제 개요
 
@@ -20,13 +20,13 @@ Description에는 힌트 3가지와 다운로드 파일 하나가 주어집니�
 
 ### OpenPuff
 
-![1532204022723](C:\Users\user\AppData\Local\Temp\1532204022723.png)
+https://user-images.githubusercontent.com/40850499/43039908-271d0d92-8d72-11e8-85e9-15abd2821889.png
 
 -OpenPuff를 실행시키면 맨 처음 실행 화면입니다.
 
 -Steganography에서 숨긴 파일을 분석해야 하기 때문에 Unhide를 눌러줍니다.
 
-![1532204703610](C:\Users\user\AppData\Local\Temp\1532204703610.png)
+https://user-images.githubusercontent.com/40850499/43039914-3f9f3b2e-8d72-11e8-88b6-3f618ea812f5.png
 
 -Unhide를 눌러주면 여러가지 복잡해보이는 화면이 보입니다.
 
@@ -36,19 +36,19 @@ Description에는 힌트 3가지와 다운로드 파일 하나가 주어집니�
 
 -마지막으로 Add Carriers를 눌러 다운로드 받은 파일(WindScene)을 찾아줍니다.
 
-![1532204782233](C:\Users\user\AppData\Local\Temp\1532204782233.png)
+https://user-images.githubusercontent.com/40850499/43039918-52bebdc4-8d72-11e8-88dc-9e99d885f409.png
 
 -위의 사항들을 모두 설정해주시면 위의 화면으로 바뀌게되고 마지막으로 우측 하단에 있는 Unhide!를 눌러줍니다.
 
-![1532204910737](C:\Users\user\AppData\Local\Temp\1532204910737.png)
+https://user-images.githubusercontent.com/40850499/43039922-62351078-8d72-11e8-8375-95d314109531.png
 
 -Unhide를 눌러주시면 숨겨져 있던 파일(이름이 key로 되어있음)이 나오게 됩니다.
 
-![1532205024310](C:\Users\user\AppData\Local\Temp\1532205024310.png)
+https://user-images.githubusercontent.com/40850499/43039929-7a9b616c-8d72-11e8-8d0d-5dd9ae03b80a.png
 
 -이름은 역시 key라고 되어있으며 열기를 눌러주시면 메모장 파일이라는걸 확인하실 수 있습니다.
 
-![1532205092842](C:\Users\user\AppData\Local\Temp\1532205092842.png)
+https://user-images.githubusercontent.com/40850499/43039935-8b896622-8d72-11e8-95f9-8f3e22053551.png
 
 -열어주시면 메모장 파일안에 key값이 나오게 됩니다. (검은색 부분)
 
