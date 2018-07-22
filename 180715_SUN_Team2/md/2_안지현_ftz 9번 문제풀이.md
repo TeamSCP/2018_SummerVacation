@@ -8,7 +8,7 @@
 
 스택의 구조 ; 지역 변수가 스택에 배치되는 순서와 위치를 알자 
 
- ![1](C:\Users\96dks\Desktop\SCP_발표ppt_2018SV\3주차_180716월\사용자료\1.png)
+![1](https://user-images.githubusercontent.com/40850499/43044897-b6951be6-8de9-11e8-98a1-ecb3a1ed90cb.png)
 
 
 
@@ -24,7 +24,7 @@
 
 #### 03 나의 풀이 
 
-![3-1](C:\Users\96dks\Desktop\SCP_발표ppt_2018SV\3주차_180716월\사용자료\3-1.JPG)
+![3-1](https://user-images.githubusercontent.com/40850499/43044900-c0074dca-8de9-11e8-8246-7246e1b8c0a1.JPG)
 
 buf와 buf2 배열 사이의 더미값이 얼마인지 몰라서 buf2에 go가 들어갈 때까지 위 과정을 반복했다. 
 
@@ -39,23 +39,23 @@ my-pass명령어를 입력하면 패스워드가 나온다.
 1. hint 파일을 베껴와서 tmp 폴더에 bof.c를 만들었다. 
 2. (1) vi 편집기를 실행하여
 
-![1](C:\Users\96dks\Desktop\1.JPG)
+![1](https://user-images.githubusercontent.com/40850499/43044906-d2740354-8de9-11e8-8cb0-c7b65814a673.JPG)
 
 2. (2) 한글을 모두 제외한 후에 
 
-   ![2](C:\Users\96dks\Desktop\2.JPG)
+![2](https://user-images.githubusercontent.com/40850499/43044907-d4608e58-8de9-11e8-846e-acd65f78fc32.JPG)
 
 
 
 3. tmp 폴더에 컴파일 하고 gdb로 열었다. 
 
-![3](C:\Users\96dks\Desktop\3.JPG)
+![3](https://user-images.githubusercontent.com/40850499/43044908-d7b77ddc-8de9-11e8-8358-883359cff677.JPG)
 
 
 
 4. 다음에서 lea 오피코드가 있는 두 부분을 따로 떼어보면 
 
-   ![4](C:\Users\96dks\Desktop\4.JPG)
+![4](https://user-images.githubusercontent.com/40850499/43044910-d9273da6-8de9-11e8-86b3-6c07156af2fa.JPG)
 
    1. > lea  eax, [ebp-40]
       >
