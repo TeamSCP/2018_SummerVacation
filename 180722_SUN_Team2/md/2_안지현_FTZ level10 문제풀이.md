@@ -90,7 +90,7 @@ shmat함수를 이용해서 해당 메모리를 사용가능하도록 만든다.
 
 프로그램을 작성 후 gcc로 컴파일을 했다. 
 
-![gcc _pw](https://user-images.githubusercontent.com/40850499/43044864-3d530144-8de9-11e8-931f-6991dbb07e0a.jpg
+![gcc _pw](https://user-images.githubusercontent.com/40850499/43044864-3d530144-8de9-11e8-931f-6991dbb07e0a.jpg)
 
 컴파일했더니 smemory 파일이 생겼다. 
 
