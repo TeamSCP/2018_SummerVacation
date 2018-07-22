@@ -24,7 +24,7 @@
 
 문제는 다음과 같다  
 
-![레벨10문제](C:\Users\96dks\Desktop\레벨10문제.png)
+![10](https://user-images.githubusercontent.com/40850499/43044851-0026c6b6-8de9-11e8-98d6-7a4a138674f1.png)
 
 여기서 알 수 있는 키워드는 "공유메모리"와 "key_t의 값이 7530" 이라고 적혀있다. 
 
@@ -44,13 +44,13 @@
 
 우선 문제를 다시 한 번 보자 
 
-![레벨10문제](C:\Users\96dks\Desktop\레벨10문제.png)
+![10](https://user-images.githubusercontent.com/40850499/43044851-0026c6b6-8de9-11e8-98d6-7a4a138674f1.png)
 
 공유메모리 관련된 문제라는 것을 알았으나 "key_t값은 7530" 이라는 말이 무엇인지 모르겠어서
 
 공유메모리 관련 명령어인 ipcs를 입력했다. 
 
-![ipcs](C:\Users\96dks\Desktop\ipcs.JPG)
+![ipcs](https://user-images.githubusercontent.com/40850499/43044856-1c5d73fc-8de9-11e8-8bad-955d4f7ef27f.JPG)
 
 공유메모리 세그먼트에 한가지 목록이 뜬다.  
 
@@ -62,7 +62,7 @@ root 권한을 가진 사람이 존재하고 퍼미션은 666이라고 한다. b
 
 key값의 16진수인 수를 10진수로 변환해봤다. 
 
-![16진수 변환](C:\Users\96dks\Desktop\16진수 변환.JPG)
+![16](https://user-images.githubusercontent.com/40850499/43044857-265dfa3e-8de9-11e8-913a-f376ca2bf93c.JPG)
 
 7530이라는 10진수 값이 나왔다. 
 
@@ -72,7 +72,7 @@ key값의 16진수인 수를 10진수로 변환해봤다.
 
 현재 디렉토리에서는 cat 명령어로 .c파일을 만들 수 없으니까 /tmp 임시파일 디렉토리로 이동하고 코딩을 했다. 
 
-![tmp에서 코드작성](C:\Users\96dks\Desktop\tmp에서 코드작성.JPG)
+![tmp](https://user-images.githubusercontent.com/40850499/43044861-34a61e32-8de9-11e8-911b-d25a5981d1cc.JPG)
 
 //위 코드에는 잘못 코딩한 부분이 두 군데 있다. (포인터 선언에 ';' 누락, shmat함수 세번째 인자값은 알파벳 'o'가 아니라 숫자 '0'이다. ㅋㅋ)
 
@@ -90,7 +90,7 @@ shmat함수를 이용해서 해당 메모리를 사용가능하도록 만든다.
 
 프로그램을 작성 후 gcc로 컴파일을 했다. 
 
-![gcc로컴파일_pw획득](C:\Users\96dks\Desktop\gcc로컴파일_pw획득.jpg)
+![gcc _pw](https://user-images.githubusercontent.com/40850499/43044864-3d530144-8de9-11e8-931f-6991dbb07e0a.jpg
 
 컴파일했더니 smemory 파일이 생겼다. 
 
