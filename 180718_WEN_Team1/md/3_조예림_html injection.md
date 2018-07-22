@@ -8,8 +8,7 @@
 
 
 ###   ! Html Injection 공격 개념 ! ###
-
-![1532266545751](C:\Users\Yellme\AppData\Local\Temp\1532266545751.png)
+![png1](https://user-images.githubusercontent.com/40850499/43046468-5cd3a9e0-8e04-11e8-8b82-161631cc4bc5.PNG)
 
 
 
@@ -33,7 +32,8 @@ http에서 공격자가 악의적인 html를 주입시키게 되면,
 
 [autoset](http://autoset.net/xe/download_autoset_9_0_0)다운을 받고 구글링해서 설정을 해준다음 따라하기로 한다.
 
-![1532266855729](C:\Users\Yellme\AppData\Local\Temp\1532266855729.png)
+![png2](https://user-images.githubusercontent.com/40850499/43046477-6614606c-8e04-11e8-8fb6-613e219c731d.PNG)
+
 
 실습은 브라우저 주소창에서 공격자가 url 로 ip 탈취 html를 주입하게 되면 
 
@@ -41,7 +41,9 @@ http에서 공격자가 악의적인 html를 주입시키게 되면,
 
 먼저, C 드라이브에 있는 autoset 에 html폴더를 생성을 한 뒤
 
- 이 실습에서 필요한 php 파일을 만든다.![1532267213500](C:\Users\Yellme\AppData\Local\Temp\1532267213500.png)
+ 이 실습에서 필요한 php 파일을 만든다.
+
+![kakaotalk_20180722_230930126](https://user-images.githubusercontent.com/40850499/43046495-820f22b6-8e04-11e8-9420-9fe586bd5485.png)
 
  < vul.php > 
 
@@ -99,7 +101,8 @@ http://127.0.0.1/html/vul.php?name=test<iframe width=“0” height=“0” src=
 
 저 url 를 치고 나면 다음과 같은 화면이 보일 것이다.
 
-![1532267809690](C:\Users\Yellme\AppData\Local\Temp\1532267809690.png)
+![default](https://user-images.githubusercontent.com/40850499/43046501-951068a2-8e04-11e8-918f-64af7cc8f2cf.PNG)
+
 
 
 
@@ -107,7 +110,7 @@ http://127.0.0.1/html/vul.php?name=test<iframe width=“0” height=“0” src=
 
 이제 html 폴더에 가서 log.txt 를 확인 해보면
 
-![1532267918204](C:\Users\Yellme\AppData\Local\Temp\1532267918204.png)
+![2](https://user-images.githubusercontent.com/40850499/43046503-9dea96a0-8e04-11e8-978c-9ccdc3b29349.PNG)
 
 
 
