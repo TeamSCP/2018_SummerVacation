@@ -1,3 +1,4 @@
+# 수요일까지 다못올리면 문제올리겠습니다
 # CODE GATE - RedVelvet
 
 2018.07.23 Pvgodd 김성준
