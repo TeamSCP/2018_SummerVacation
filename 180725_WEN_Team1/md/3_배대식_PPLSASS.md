@@ -26,7 +26,7 @@ Windows2000, Windows XP, ···, Windows 10에서 lsass 프로세스를 찾아 �
 Windows 8.1 부터 적용 되었습니다.
 
 - Windows7 64bit Dll Injection
-<img src="https://user-images.githubusercontent.com/40850499/42859182-6858e3b8-8a8d-11e8-9a8c-105a4f39ec9f.PNG"/>
+<img src="https://user-images.githubusercontent.com/40850499/43158769-7eabde12-8fbb-11e8-9849-49e41b6f571d.PNG"/>
 - Windows10 64bit Dll Injection
-<img src="https://user-images.githubusercontent.com/40850499/42859182-6858e3b8-8a8d-11e8-9a8c-105a4f39ec9f.PNG"/>
+<img src="https://user-images.githubusercontent.com/40850499/43158763-7b6af940-8fbb-11e8-9eda-d16c10357b20.PNG"/>
 
