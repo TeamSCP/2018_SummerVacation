@@ -6,7 +6,7 @@
 
 ## :green_book: ReadMe
   - 객체 지향 프로그래밍중 클래스의 구상과 생성자, 소멸자에 대해서 알아 볼 것 입니다.
-  - PPL
+  - PPL 우회시 드라이버에서 발생하는 취약점을 사용합니다. <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-6593">CVE-2018-6593</a>
   - LSASS
 
 ## -
