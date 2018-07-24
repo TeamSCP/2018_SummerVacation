@@ -23,72 +23,9 @@ Windows2000, Windows XP, ···, Windows 10에서 lsass 프로세스를 찾아 �
 
 ## PPL(Protected Process Light)
 
-> Windows 8.1 부터 적용 되었습니다.
+Windows 8.1 부터 적용 되었습니다.
 
-- Demo.cpp
-```c++
-#include <iostream>
-#include <windows.h>
-
-using namespace std;
-
-bool SetPrivilege(LPCWSTR lpszPrivilege, BOOL bEnablePrivilege) {
-  // coded by harakrinox
-	TOKEN_PRIVILEGES priv = { 0,0,0,0 };
-	HANDLE hToken = NULL;
-	LUID luid = { 0,0 };
-
-	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken)) {
-		if (hToken)
-			CloseHandle(hToken);
-		return false;
-	}
-	if (!LookupPrivilegeValueW(0, lpszPrivilege, &luid)) {
-		if (hToken)
-			CloseHandle(hToken);
-		return false;
-	}
-	priv.PrivilegeCount = 1;
-	priv.Privileges[0].Luid = luid;
-	priv.Privileges[0].Attributes = bEnablePrivilege ? SE_PRIVILEGE_ENABLED : SE_PRIVILEGE_REMOVED;
-	if (!AdjustTokenPrivileges(hToken, false, &priv, 0, 0, 0)) {
-		if (hToken)
-			CloseHandle(hToken);
-		return false;
-	}
-	if (hToken)
-		CloseHandle(hToken);
-	return true;
-}
-
-int main()
-{
-	DWORD PID;
-	HANDLE hProcess;
-	
-	cout << "Input lasss.exe id : ";
-	cin >> PID;
-
-	cout << SetPrivilege(SE_DEBUG_NAME, TRUE) << endl;
-
-	hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, PID);
-
-	if (!hProcess)
-	{
-		cout << "Error code : " << GetLastError() << endl;
-	}
-	else
-	{
-		cout << "handle : " << hProcess << endl;
-	}
-	return 0;
-}
-```
-
-- Windows 7에서 lsass 프로세스 핸들 
-- Windows 10에서 lsass 프로세스 핸들
-
-발단: lsass 프로세스를 이용하여 로컬 사용자의 비밀번호를 유추 할 수 있는 점이 있었습니다.
-
+- Windows7 64bit Dll Injection
+- Windows10 64bit Dll Injection
 
 
