@@ -9,4 +9,7 @@
   - PPL
   - PPL Bypass
   
-## -
+## LSASS(Local Security Authority)
+
+lsass.exe 프로세스는 Windows 2000부터 윈도우 보안 모델에 적용된 기술입니다.
+Windows2000, Windows XP, ···, Windows 10에서 lsass.exe 프로세스를 찾아 볼 수 있습니다.
