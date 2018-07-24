@@ -9,7 +9,7 @@
   - PPL
   - PPL Bypass
   
-## LSASS(Local Security Authority)
+## :purple_heart: LSASS(Local Security Authority)
 
 `lsass` 프로세스는 `Windows 2000`부터 윈도우 보안 모델에 적용된 기술입니다.<br>
 Windows2000, Windows XP, ···, Windows 10에서 lsass 프로세스를 찾아 볼 수 있습니다.<br>
@@ -21,7 +21,7 @@ Windows2000, Windows XP, ···, Windows 10에서 lsass 프로세스를 찾아 �
 `lsass`는 로컬 로그인의 권한을 확인하는 프로세스이므로 프로세스의 권한에 관련된 작업을 다루고 있기 때문에, <br>
 실행 되고 있는 프로세스의 핸들과 실행 될 프로세스의 핸들을 가지고 있다고 유추하고 있습니다.
 
-## PPL(Protected Process Light)
+## :blue_heart: PPL(Protected Process Light)
 
 Windows 8.1 부터 적용 되었습니다.
 
