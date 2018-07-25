@@ -97,22 +97,32 @@ _PS_PROTECTED_SIGNER
 자 그러면 실제 LSASS 프로세스의 _PS_PROTECTED 구조체를 확인 해보고, 비트를 설정 해준 뒤 다시 인젝션을 해보자!<br>
 
 > kd : process 0 0 lsass.exe
-<이미지>
+
+<img src="https://user-images.githubusercontent.com/40850499/43199611-82948276-904d-11e8-81f3-99eebeb0f21d.PNG"/>
+
 빨간색 박스 부분이 EPROCESS의 시작 주소이다.
 
 > kd : ?? ((nt!_EPROCESS*)0xADDRESS)
-<이미지>
+
+ProtectedProcess 멤버의 오프셋
+<img src="https://user-images.githubusercontent.com/40850499/43199618-83151e18-904d-11e8-89c6-60579042ddaf.PNG"/>
+
 EPROCESS 시작주소를 심볼에서 가져온 EPROCESS랑 매칭 시켜준다.
 이미지를 확인해보면 0x6B2에 1Byte를 사용 하는 것을 알 수 있다!
 상세한 내용을 확인해보면?
 
+<img src="https://user-images.githubusercontent.com/40850499/43199616-82eb85ee-904d-11e8-95ed-c98caa702f66.PNG"/>
+
+아무런 보호가 되어 있지 않다.
+
 > kd : eb <EPROCESS+0x6B2> <0x41>
 	
+<img src="https://user-images.githubusercontent.com/40850499/43199613-82c04d52-904d-11e8-9607-70a8823622b1.PNG"/>
 나는 dll injection을 막고 싶은거니 Signer를 Lsa 4와 ProtectedLight 1비트를 합치면 0x41이 된다.
+<img src="https://user-images.githubusercontent.com/40850499/43199620-8343f602-904d-11e8-958c-70043ace44fe.PNG"/>
 
 > 최종 결과
-
-<이미지>
+<img src="https://user-images.githubusercontent.com/40850499/43199609-82671b24-904d-11e8-851a-c9119fc18e2c.PNG"/>
 
 
 ## PPL Bypass
