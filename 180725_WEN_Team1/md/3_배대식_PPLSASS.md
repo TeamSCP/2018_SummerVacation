@@ -35,10 +35,10 @@ Windows2000, Windows XP, ···, Windows 10에서 lsass 프로세스를 찾아 �
 1. WinDBG 설치(<a href="http://www.windbg.org/">링크</a>)
 
 EPROCESS -> Protection
-```
+```C
 1 _PS_PROTECTION
-2 +0x000 Level            : UChar
-3 +0x000 Type             : Pos 0, 3 Bits
-4 +0x000 Audit            : Pos 3, 1 Bit
-5 +0x000 Signer           : Pos 4, 4 Bits
+2   +0x000 Level            : UChar
+3   +0x000 Type             : Pos 0, 3 Bits
+4   +0x000 Audit            : Pos 3, 1 Bit
+5   +0x000 Signer           : Pos 4, 4 Bits
 ```
