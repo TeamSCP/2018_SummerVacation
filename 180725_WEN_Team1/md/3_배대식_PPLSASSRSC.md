@@ -27,11 +27,11 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 
 같은 Dll Injector로 `LSASS.exe` 프로세스에 더미 dll 파일을 인젝션 해 보았습니다.
 
-> Windows7 64bit Dll Injection
-<img src="https://user-images.githubusercontent.com/40850499/43158769-7eabde12-8fbb-11e8-9849-49e41b6f571d.PNG"/>
+> Windows7 32bit Dll Injection
+<img src="https://user-images.githubusercontent.com/40850499/43191449-2cc2ed72-9036-11e8-9318-4d9575e8eeaf.PNG"/>
 
 > Windows10 64bit Dll Injection
-<img src="https://user-images.githubusercontent.com/40850499/43158763-7b6af940-8fbb-11e8-9eda-d16c10357b20.PNG"/>
+<img src="https://user-images.githubusercontent.com/40850499/43191450-2dbeed2a-9036-11e8-96f1-5805c086ee20.PNG"/>
 
 두 운영체제 모두 다 잘 되는것을 확인 할 수 있습니다.<br>
 그렇다면 Windows10에서 `_PS_PROTECTION` 구조체의 값을 수정하여 DLL Injection을 차단 해 보겠습니다.<br>
