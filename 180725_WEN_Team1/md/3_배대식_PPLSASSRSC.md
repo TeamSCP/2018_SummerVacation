@@ -140,6 +140,7 @@ EPROCESS 시작주소를 심볼에서 가져온 EPROCESS랑 매칭 시켜준다.
 using namespace std;
 
 bool SetPrivilege(LPCWSTR lpszPrivilege, BOOL bEnablePrivilege) {
+	// coded by harakrinox - I using test code privilege check. sorry :(
 	TOKEN_PRIVILEGES priv = { 0,0,0,0 };
 	HANDLE hToken = NULL, hProcess = NULL;
 	LUID luid = { 0,0 };
