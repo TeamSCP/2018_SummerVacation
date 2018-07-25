@@ -23,6 +23,8 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 
 ## :heart: CSRSS(Client/Server Runtime Subsystem)
 
+
+
 ## :blue_heart: PPL(Protected Process Light)
 
 같은 Dll Injector로 `LSASS` 프로세스에 더미 dll 파일을 인젝션 해 보았습니다.
@@ -82,3 +84,75 @@ _PS_PROTECTED_SIGNER
 8   PsProtectedSignerWinTcb = 0n6
 9   PsProtectedSignerMax = 0n7
 ```
+
+## PPL Bypass
+
+매우 간단합니다. 보호 된 프로세스의 EPROCESS 주소를 구한 뒤 ProtectedProcess bit를 0으로 off 해주면 됩니다.<br>
+하지만 커널모드에 접근 해야 되므로 드라이버를 로드하여 작업을 해야되는 번거로움이 있습니다.<br>
+그 외에도 패치가드나 인증된 드라이버등 잡다한 기능이 우리를 가로 막고 있지만, 자기 컴퓨터에 적용하는거라 상관 없는 내용이긴 합니다.<br>
+
+- Sample.cpp
+```CPP
+#include <iostream>
+#include <windows.h>
+#include <stdint.h>
+
+using namespace std;
+
+bool SetPrivilege(LPCWSTR lpszPrivilege, BOOL bEnablePrivilege) {
+	TOKEN_PRIVILEGES priv = { 0,0,0,0 };
+	HANDLE hToken = NULL, hProcess = NULL;
+	LUID luid = { 0,0 };
+
+	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken)) {
+		if (hToken)
+			CloseHandle(hToken);
+		return false;
+	}
+	if (!LookupPrivilegeValueW(0, lpszPrivilege, &luid)) {
+		if (hToken)
+			CloseHandle(hToken);
+		return false;
+	}
+	priv.PrivilegeCount = 1;
+	priv.Privileges[0].Luid = luid;
+	priv.Privileges[0].Attributes = bEnablePrivilege ? SE_PRIVILEGE_ENABLED : SE_PRIVILEGE_REMOVED;
+	if (!AdjustTokenPrivileges(hToken, false, &priv, 0, 0, 0)) {
+		if (hToken)
+			CloseHandle(hToken);
+		return false;
+	}
+	if (hToken)
+		CloseHandle(hToken);
+	return true;
+}
+
+int main()
+{
+	DWORD PID;
+	HANDLE hProcess;
+	uint8_t byte[10];
+	
+	cout << "Input pid : ";
+	cin >> PID;
+
+	cout << SetPrivilege(SE_DEBUG_NAME, TRUE) << endl;
+
+	hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, PID);
+
+	if (!hProcess)
+	{
+		cout << "Error code : " << GetLastError() << endl;
+	}
+	else
+	{
+		cout << "handle : " << hProcess << endl;
+	}
+	return 0;
+}
+```
+위의 코드는 PID를 요청 했을 때 OpenProcess로 프로세스 핸들을 출력 해주는 간단한 프로그램입니다.
+만약 ProtectedProcess가 걸려있을 경우 ErrorCode: 5를 리턴하며 끝나게 되는데요.
+
+WinDbg로 직접 해당 값을 수정하여 핸들을 구해보도록 하겠습니다.
+
