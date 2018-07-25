@@ -1,5 +1,5 @@
 
-# :speech_balloon: PPL + LSASS
+# :speech_balloon: PPL + LSASS + CSRSS
 
 해당 기술은 Windows Internals의 저자인 `Alex Ionescu`의 글을 참조 하였습니다.</br>
 원문 글을 보고 싶은 분들은 <a href="http://www.alex-ionescu.com/?p=97">링크</a>를 클릭 해 주세요 :)
@@ -19,6 +19,8 @@ Windows2000, Windows XP, ···, Windows 10에서 lsass 프로세스를 찾아 �
 프로그램을 실행하기전 윈도우 비스타부터 `관리자 권한으로 실행` 이라는 항목이 있다.</br>
 `lsass`는 로컬 로그인의 권한을 확인하는 프로세스이므로 프로세스의 권한에 관련된 작업을 다루고 있기 때문에, </br>
 실행 되고 있는 프로세스의 핸들과 실행 될 프로세스의 핸들을 가지고 있다고 유추하고 있습니다.
+
+## :heart: CSRSS(Client/Server Runtime Subsystem)
 
 ## :blue_heart: PPL(Protected Process Light)
 
