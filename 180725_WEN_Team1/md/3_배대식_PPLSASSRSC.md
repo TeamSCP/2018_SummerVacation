@@ -33,7 +33,7 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 > Windows10 64bit Dll Injection
 <img src="https://user-images.githubusercontent.com/40850499/43158763-7b6af940-8fbb-11e8-9eda-d16c10357b20.PNG"/>
 
-두 운영체제 모두 다 잘 되는것을 확인 할 수 있습니다.
+두 운영체제 모두 다 잘 되는것을 확인 할 수 있습니다.<br>
 그렇다면 Windows10에서 `_PS_PROTECTION` 구조체의 값을 수정하여 DLL Injection을 차단 해 보겠습니다.<br>
 `_PS_PROTECTION` 구조체는 EPROCESS 구조체의 멤버입니다.<br>
 하지만 EPROCESS 구조체는 커널모드에서 사용하는 리소스이기 때문에 커널 디버거로 데이터를 확인 해야 합니다.</br>
