@@ -27,16 +27,16 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 <a href="https://ko.wikipedia.org/wiki/%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8/%EC%84%9C%EB%B2%84_%EB%9F%B0%ED%83%80%EC%9E%84_%ED%95%98%EC%9C%84_%EC%8B%9C%EC%8A%A4%ED%85%9C">링크</a>를 참조했으면 하는데.. 이해가 안가..<br>
 쨋든 그게 중요한게 아니라 csrss 프로세스는 위키를 읽어보면 다른 프로세스의 핸들을 가지고 있는데는 납득이 간다.<br>
 사용자 프로세스가 콘솔, 프로세스, 스레드 관련 함수를 호출 할 때 시스템 호출이 아닌 이놈한테 대신 전달하여 통신하는 방식이라 다른 프로세스의 핸들을 가지고 있는게 아닐까..?<br>
-그리고 이 프로세스는 시스템 프로세스이며 SeTcbPrivilege 이상의 권한을 가지고 있을 때 열 수 있다.<br>
-결과적으로 csrss 프로세스에게 인젝션이나 핸들을 가져올려면 실행 권한과, 보호된 프로세스를 우회 해야할 것 이다.<br>
+그리고 이 프로세스는 시스템 프로세스이며 `SeTcbPrivilege` 이상의 권한을 가지고 있을 때 열 수 있다.<br>
+결과적으로 CSRSS 프로세스에게 인젝션이나 핸들을 가져올려면 실행 권한과, 보호된 프로세스를 우회 해야할 것 이다.<br>
 
 ## :blue_heart: PPL(Protected Process Light)
 
 Windows 8.1 부터 도입된 개념이다.</br>
 저자의 글을 살펴보면 LSASS 프로세스에서 해쉬화된 로컬 관련 데이터들이 평문으로 유출 되는 점 외에도 문제점이 많아 보호된 프로세스 개념을 도입 했다고 칸다..<br>
-이제 PPL을 사용하여 lsass 프로세스로의 dll injection을 차단하는 작업을 해볼 것이다.<br>
+이제 PPL을 사용하여 lsass 프로세스로의 dll injection을 차단하는 작업을 해볼 것입니다.<br>
 
-같은 Dll Injector로 `LSASS` 프로세스에 더미 dll 파일을 인젝션 해 보았습니다.
+우선 같은 Dll Injector로 `LSASS` 프로세스에 더미 dll 파일을 인젝션 해 보았습니다.
 
 > Windows7 32bit Dll Injection
 <img src="https://user-images.githubusercontent.com/40850499/43191449-2cc2ed72-9036-11e8-9318-4d9575e8eeaf.PNG"/>
@@ -72,7 +72,9 @@ Windows 8.1 부터 도입된 개념이다.</br>
 5   +0x000 Signer           : Pos 4, 4 Bits
 ```
 _PS_PROTECTION 구조체는 8Bit의 크기이다.<br>
+
 - 타입은 아래의 10진수 값이 적용되며 PPL은 1의 값을 가지고 있다.
+
 ```C
 1 _PS_PROTECTED_TYPE
 2   PsProtectedTypeNone = 0n0
@@ -80,7 +82,9 @@ _PS_PROTECTION 구조체는 8Bit의 크기이다.<br>
 4   PsProtectedTypeProtected = 0n2
 5   PsProtectedTypeMax = 0n3
 ```
+
 - 서명자는 ProtectedSigner 뒤의 문자열이 서명자가 된다.
+
 _PS_PROTECTED_SIGNER
 ```C
 1 _PS_PROTECTED_SIGNER
@@ -107,18 +111,20 @@ _PS_PROTECTED_SIGNER
 ProtectedProcess 멤버의 오프셋
 <img src="https://user-images.githubusercontent.com/40850499/43199618-83151e18-904d-11e8-89c6-60579042ddaf.PNG"/>
 
-EPROCESS 시작주소를 심볼에서 가져온 EPROCESS랑 매칭 시켜준다.
-이미지를 확인해보면 0x6B2에 1Byte를 사용 하는 것을 알 수 있다!
-상세한 내용을 확인해보면?
+EPROCESS 시작주소를 심볼에서 가져온 EPROCESS랑 매칭 시켜준다.<br>
+이미지를 확인해보면 0x6B2에 1Byte를 사용 하는 것을 알 수 있다!<br>
+상세한 내용을 확인해보면?<br>
 
 <img src="https://user-images.githubusercontent.com/40850499/43199616-82eb85ee-904d-11e8-95ed-c98caa702f66.PNG"/>
 
-아무런 보호가 되어 있지 않다.
+아무런 보호가 되어 있지 않다.<br>
 
 > kd : eb <EPROCESS+0x6B2> <0x41>
 	
 <img src="https://user-images.githubusercontent.com/40850499/43199613-82c04d52-904d-11e8-9607-70a8823622b1.PNG"/>
-나는 dll injection을 막고 싶은거니 Signer를 Lsa 4와 ProtectedLight 1비트를 합치면 0x41이 된다.
+
+나는 dll injection을 막고 싶은거니 Signer를 Lsa 4와 ProtectedLight 1비트를 합치면 0x41이 된다.<br>
+
 <img src="https://user-images.githubusercontent.com/40850499/43199620-8343f602-904d-11e8-958c-70043ace44fe.PNG"/>
 
 > 최종 결과
