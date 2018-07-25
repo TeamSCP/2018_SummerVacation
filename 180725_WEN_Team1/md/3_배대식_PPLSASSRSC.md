@@ -198,8 +198,22 @@ int main()
 	return 0;
 }
 ```
-위의 코드는 PID를 요청 했을 때 OpenProcess로 프로세스 핸들을 출력 해주는 간단한 프로그램입니다.
-만약 ProtectedProcess가 걸려있을 경우 ErrorCode: 5를 리턴하며 끝나게 되는데요.
+위의 코드는 PID를 요청 했을 때 OpenProcess로 프로세스 핸들을 출력 해주는 간단한 프로그램입니다.<br>
+만약 ProtectedProcess가 걸려있을 경우 ErrorCode: 5를 리턴하며 끝나게 되는데요.<br>
+WinDbg로 직접 해당 값을 수정하여 핸들을 구해보도록 하겠습니다.<br>
 
-WinDbg로 직접 해당 값을 수정하여 핸들을 구해보도록 하겠습니다.
+1. csrss.exe의 핸들 값 구하기 시도.
 
+<img src="https://user-images.githubusercontent.com/40850499/43200955-250bd2a8-9052-11e8-86a4-804bf1576787.PNG"/>
+
+2. csrss.exe의 권한 확인
+
+<img src="https://user-images.githubusercontent.com/40850499/43200701-539a116c-9051-11e8-922b-793f971718a2.PNG"/>
+
+3. PPL Off
+
+<img src="https://user-images.githubusercontent.com/40850499/43200700-536fe87e-9051-11e8-8e4c-6e126e9a4dea.PNG"/>
+
+4. 성공!
+
+<img src="https://user-images.githubusercontent.com/40850499/43200699-5346ead2-9051-11e8-85b9-27592b44f611.PNG"/>
