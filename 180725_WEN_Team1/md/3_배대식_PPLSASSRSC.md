@@ -35,8 +35,8 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 
 두 운영체제 모두 다 잘 되는것을 확인 할 수 있습니다.<br>
 그렇다면 Windows10에서 `_PS_PROTECTION` 구조체의 값을 수정하여 DLL Injection을 차단 해 보겠습니다.<br>
-`_PS_PROTECTION` 구조체는 EPROCESS 구조체의 멤버입니다.<br>
-하지만 EPROCESS 구조체는 커널모드에서 사용하는 리소스이기 때문에 커널 디버거로 데이터를 확인 해야 합니다.</br>
+`_PS_PROTECTION` 구조체는 `EPROCESS` 구조체의 `멤버`입니다.<br>
+하지만 `EPROCESS` 구조체는 커널모드에서 사용하는 리소스이기 때문에 커널 디버거로 데이터를 확인 해야 합니다.</br>
 
 > Settings
 
@@ -51,7 +51,7 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 
 사진과 함께 있는 자세한 설명은 <a href="http://ruinick.tistory.com/96">여기</a>를 참조하세요!
 
-> EPROCESS -> Protection
+> EPROCESS → Protection
 
 ```C
 1 _PS_PROTECTION
@@ -60,8 +60,8 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 4   +0x000 Audit            : Pos 3, 1 Bit
 5   +0x000 Signer           : Pos 4, 4 Bits
 ```
-_PS_PROTECTION 구조체는 8Bit를 사용하며  Type은 아래의 규격을 </br>
-
+_PS_PROTECTION 구조체는 8Bit의 크기이다.<br>
+- 타입은 아래의 10진수 값이 적용되며 PPL은 1의 값을 가지고 있다.
 ```C
 1 _PS_PROTECTED_TYPE
 2   PsProtectedTypeNone = 0n0
@@ -69,7 +69,7 @@ _PS_PROTECTION 구조체는 8Bit를 사용하며  Type은 아래의 규격을 </
 4   PsProtectedTypeProtected = 0n2
 5   PsProtectedTypeMax = 0n3
 ```
-
+- 서명자는 ProtectedSigner 뒤의 문자열이 서명자가 된다.
 _PS_PROTECTED_SIGNER
 ```C
 1 _PS_PROTECTED_SIGNER
