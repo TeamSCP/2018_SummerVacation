@@ -94,6 +94,27 @@ _PS_PROTECTED_SIGNER
 9   PsProtectedSignerMax = 0n7
 ```
 
+자 그러면 실제 LSASS 프로세스의 _PS_PROTECTED 구조체를 확인 해보고, 비트를 설정 해준 뒤 다시 인젝션을 해보자!<br>
+
+> kd : process 0 0 lsass.exe
+<이미지>
+빨간색 박스 부분이 EPROCESS의 시작 주소이다.
+
+> kd : ?? ((nt!_EPROCESS*)0xADDRESS)
+<이미지>
+EPROCESS 시작주소를 심볼에서 가져온 EPROCESS랑 매칭 시켜준다.
+이미지를 확인해보면 0x6B2에 1Byte를 사용 하는 것을 알 수 있다!
+상세한 내용을 확인해보면?
+
+> kd : eb <EPROCESS+0x6B2> <0x41>
+	
+나는 dll injection을 막고 싶은거니 Signer를 Lsa 4와 ProtectedLight 1비트를 합치면 0x41이 된다.
+
+> 최종 결과
+
+<이미지>
+
+
 ## PPL Bypass
 
 매우 간단합니다. 보호 된 프로세스의 EPROCESS 주소를 구한 뒤 ProtectedProcess bit를 0으로 off 해주면 됩니다.<br>
