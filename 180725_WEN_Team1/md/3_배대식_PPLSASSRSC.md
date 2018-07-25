@@ -23,7 +23,11 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 
 ## :heart: CSRSS(Client/Server Runtime Subsystem)
 
-
+솔직히 이놈이 뭐하는 프로세스인지는 잘 모르겠다.<br>
+<a href="https://ko.wikipedia.org/wiki/%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8/%EC%84%9C%EB%B2%84_%EB%9F%B0%ED%83%80%EC%9E%84_%ED%95%98%EC%9C%84_%EC%8B%9C%EC%8A%A4%ED%85%9C">링크</a>를 참조했으면 하는데.. 이해가 안가..<br>
+쨋든 그게 중요한게 아니라 csrss 프로세스는 위키를 읽어보면 다른 프로세스의 핸들을 가지고 있는데는 납득이 간다.<br>
+그리고 이 프로세스는 시스템 프로세스이며 SeTcbPrivilege 이상의 권한을 가지고 있을 때 열 수 있다.<br>
+결과적으로 csrss 프로세스에게 인젝션이나 핸들을 가져올려면 실행 권한과, 보호된 프로세스를 우회 해야할 것 이다.<br>
 
 ## :blue_heart: PPL(Protected Process Light)
 
