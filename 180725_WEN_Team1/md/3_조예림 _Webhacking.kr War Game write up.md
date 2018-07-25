@@ -1,4 +1,4 @@
-# War Game write up (18.07.26) #
+# Webhacking.kr War Game write up (18.07.26) #
 
 [Webhacking.kr](http://webhacking.kr) 으로 워게임 문제를 풀고 write up 을 하려고 합니다.
 
@@ -97,8 +97,9 @@ no............ 그리고 url를 보면 id=admin이라고 필터링이 된다.
 그러면 한번 더 인코딩을 해준 뒤, get 방식으로 전달을 하게 되면 .........................!!!!
 
 짜라안!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-![24](https://user-images.githubusercontent.com/40850499/43212210-54ed3a9a-906e-11e8-8ad7-cd3ad6246f98.PNG)
 
+
+![24](https://user-images.githubusercontent.com/40850499/43212210-54ed3a9a-906e-11e8-8ad7-cd3ad6246f98.PNG)
 
 
 
