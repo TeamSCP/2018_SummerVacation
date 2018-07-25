@@ -23,7 +23,7 @@ Windows2000, Windows XP, ···, Windows 10에서 lsass 프로세스를 찾아 �
 
 ## :blue_heart: PPL(Protected Process Light)
 
-Windows 8.1 부터 적용 되었습니다.
+같은 Dll Injector로 `lsass.exe` 프로세스에 더미 dll 파일을 인젝션 해 보았다.
 
 > Windows7 64bit Dll Injection
 <img src="https://user-images.githubusercontent.com/40850499/43158769-7eabde12-8fbb-11e8-9849-49e41b6f571d.PNG"/>
@@ -31,3 +31,14 @@ Windows 8.1 부터 적용 되었습니다.
 > Windows10 64bit Dll Injection
 <img src="https://user-images.githubusercontent.com/40850499/43158763-7b6af940-8fbb-11e8-9eda-d16c10357b20.PNG"/>
 
+두 운영체제에 LSASS.EXE 프로세스에 대한 PROTECTION LEVEL이 적용되어 있는지 확인 해 보겠습니다.
+1. WinDBG 설치(<a href="http://www.windbg.org/">링크</a>)
+
+EPROCESS -> Protection
+```
+1 _PS_PROTECTION
+2 +0x000 Level            : UChar
+3 +0x000 Type             : Pos 0, 3 Bits
+4 +0x000 Audit            : Pos 3, 1 Bit
+5 +0x000 Signer           : Pos 4, 4 Bits
+```
