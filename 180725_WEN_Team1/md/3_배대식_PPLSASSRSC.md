@@ -27,6 +27,10 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 
 ## :blue_heart: PPL(Protected Process Light)
 
+Windows 8.1 부터 도입된 개념이다.</br>
+저자의 글을 살펴보면 LSASS 프로세스에서 해쉬화된 로컬 관련 데이터들이 평문으로 유출 되는 점 외에도 문제점이 많아 보호된 프로세스 개념을 도입 했다고 칸다..<br>
+이제 PPL을 사용하여 lsass 프로세스로의 dll injection을 차단하는 작업을 해볼 것이다.<br>
+
 같은 Dll Injector로 `LSASS` 프로세스에 더미 dll 파일을 인젝션 해 보았습니다.
 
 > Windows7 32bit Dll Injection
