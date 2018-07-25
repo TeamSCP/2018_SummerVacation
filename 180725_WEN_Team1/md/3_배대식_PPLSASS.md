@@ -34,6 +34,8 @@ Windows2000, Windows XP, ···, Windows 10에서 lsass 프로세스를 찾아 �
 PPL 필드의 값을 알기 위해선 EPROCESS 구조체의 내용을 읽어봐야 합니다.</br>
 EPROCESS 구조체는 커널모드에서 사용하는 리소스이기 때문에 커널 디버거로 데이터를 확인 해야 합니다.</br>
 
+> Settings
+
 1. WinDBG 설치(<a href="http://www.windbg.org/">링크</a>)
 2. VMWare serial port 생성
 3. bcdedit /copy {current} /d "Debug"
@@ -43,11 +45,36 @@ EPROCESS 구조체는 커널모드에서 사용하는 리소스이기 때문에 
 7. Debug → Break
 8. Enjoy debugging :smile:
 
-EPROCESS -> Protection
+사진과 함께 있는 자세한 설명은 <a href="http://ruinick.tistory.com/96">여기</a>를 참조하세요!
+
+> EPROCESS -> Protection
+
 ```C
 1 _PS_PROTECTION
 2   +0x000 Level            : UChar
 3   +0x000 Type             : Pos 0, 3 Bits
 4   +0x000 Audit            : Pos 3, 1 Bit
 5   +0x000 Signer           : Pos 4, 4 Bits
+```
+_PS_PROTECTION 구조체는 8Bit를 사용하며  Type은 아래의 규격을 </br>
+
+```C
+1 _PS_PROTECTED_TYPE
+2   PsProtectedTypeNone = 0n0
+3   PsProtectedTypeProtectedLight = 0n1
+4   PsProtectedTypeProtected = 0n2
+5   PsProtectedTypeMax = 0n3
+```
+
+_PS_PROTECTED_SIGNER
+```C
+1 _PS_PROTECTED_SIGNER
+2   PsProtectedSignerNone = 0n0
+3   PsProtectedSignerAuthenticode = 0n1
+4   PsProtectedSignerCodeGen = 0n2
+5   PsProtectedSignerAntimalware = 0n3
+6   PsProtectedSignerLsa = 0n4
+7   PsProtectedSignerWindows = 0n5
+8   PsProtectedSignerWinTcb = 0n6
+9   PsProtectedSignerMax = 0n7
 ```
