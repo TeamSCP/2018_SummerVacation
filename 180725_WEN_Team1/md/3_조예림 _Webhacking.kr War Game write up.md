@@ -37,7 +37,7 @@ login 버튼을 누르면 값이 전달되고 admin 값을 누르면 admin.php �
 
 그래서 일단 yell 을 치고 login하고 admin에 들어가보니..!
 
-​           ![4](https://user-images.githubusercontent.com/40850499/43212067-05e91a72-906e-11e8-9a2b-9a467b7b79ca.PNG)
+![4](https://user-images.githubusercontent.com/40850499/43212067-05e91a72-906e-11e8-9a2b-9a467b7b79ca.PNG)
 
 
 어떠한 ip : yell 이라는 log가 나타남을 확인 할 수 있다.
