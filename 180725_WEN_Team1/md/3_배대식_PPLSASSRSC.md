@@ -6,6 +6,7 @@
 
 ## :green_book: ReadMe
   - LSASS
+  - CSRSS
   - PPL
   - PPL Bypass
   
