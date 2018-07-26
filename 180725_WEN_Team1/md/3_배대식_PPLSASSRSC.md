@@ -72,7 +72,8 @@ Windows 8.1 부터 도입된 개념입니다.</br>
 
 사진과 함께 있는 자세한 설명은 <a href="http://ruinick.tistory.com/96">여기</a>를 참조하세요!
 
-> EPROCESS → Protection
+
+> _PS_PROTECTION
 
 ```C
 1 _PS_PROTECTION
@@ -81,9 +82,7 @@ Windows 8.1 부터 도입된 개념입니다.</br>
 4   +0x000 Audit            : Pos 3, 1 Bit
 5   +0x000 Signer           : Pos 4, 4 Bits
 ```
-_PS_PROTECTION 구조체는 8Bit의 크기입니다.<br>
-
-\- 타입은 아래의 10진수 값이 적용되며 PPL은 1의 값을 가지고 있다.
+> _PS_PROTECTED_TYPE
 
 ```C
 1 _PS_PROTECTED_TYPE
@@ -93,9 +92,8 @@ _PS_PROTECTION 구조체는 8Bit의 크기입니다.<br>
 5   PsProtectedTypeMax = 0n3
 ```
 
-\- 서명자는 ProtectedSigner 뒤의 문자열이 서명자가 된다.
+> _PS_PROTECTED_SIGNER
 
-_PS_PROTECTED_SIGNER
 ```C
 1 _PS_PROTECTED_SIGNER
 2   PsProtectedSignerNone = 0n0
