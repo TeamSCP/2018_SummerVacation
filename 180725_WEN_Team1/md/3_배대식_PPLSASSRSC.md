@@ -35,7 +35,7 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 
 <img src="https://user-images.githubusercontent.com/40850499/43233770-dde97ee6-90b2-11e8-85cd-723b38bb6ce6.jpg"/>
 
-위의 이미지중 stage 5 과 stage7 사이에 sub system을 거치는데 이 부분이 `CSRSS` 입니다.
+위의 이미지중 stage 5 과 stage7 사이에 subsystem을 거치는데 이 부분이 `CSRSS` 입니다.
 즉, `CSRSS`에서 유저모드에서 접근 할 수 있게 프로세스와 스레드의 핸들 값 복사등 여러 초기화 작업을 먼저 해주기 때문에 다른 프로세스의 핸들을 가지고 있는 것이지요.<br>
 그리고 이 프로세스는 시스템 프로세스이며 `SeTcbPrivilege` 이상의 권한을 가지고 있을 때 열 수 있습니다.<br>
 결과적으로 `CSRSS` 프로세스에게 인젝션이나 핸들을 가져올려면 실행 권한과, 보호된 프로세스를 우회 해야할 것 입니다.<br>
