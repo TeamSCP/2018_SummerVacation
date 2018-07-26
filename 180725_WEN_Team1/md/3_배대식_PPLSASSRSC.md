@@ -23,10 +23,15 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 
 ## :heart: CSRSS(Client/Server Runtime Subsystem)
 
-솔직히 이놈이 뭐하는 프로세스인지는 잘 모르겠다.<br>
-<a href="https://ko.wikipedia.org/wiki/%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8/%EC%84%9C%EB%B2%84_%EB%9F%B0%ED%83%80%EC%9E%84_%ED%95%98%EC%9C%84_%EC%8B%9C%EC%8A%A4%ED%85%9C">링크</a>를 참조했으면 하는데.. 이해가 안가..<br>
-쨋든 그게 중요한게 아니라 csrss 프로세스는 위키를 읽어보면 다른 프로세스의 핸들을 가지고 있는데는 납득이 간다.<br>
-사용자 프로세스가 콘솔, 프로세스, 스레드 관련 함수를 호출 할 때 시스템 호출이 아닌 이놈한테 대신 전달하여 통신하는 방식이라 다른 프로세스의 핸들을 가지고 있는게 아닐까..?<br>
+<a href="https://ko.wikipedia.org/wiki/%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8/%EC%84%9C%EB%B2%84_%EB%9F%B0%ED%83%80%EC%9E%84_%ED%95%98%EC%9C%84_%EC%8B%9C%EC%8A%A4%ED%85%9C">위키</a>를 읽어보면 사용자 프로세스가 콘솔, 프로세스, 스레드 관련 함수를 호출 할 때 CSRSS 프로세스간 호출을 보낸다 한다.<br>
+이 정보론 왜 CSRSS가 다른 프로세스의 핸들을 가지고 있는지 이해를 할 수 없다<br>
+<a href="https://www.microsoftpressstore.com/articles/article.aspx?p=2233328&seqNum=3">링크</a>에는 윈도우에서 프로세스/쓰레드가 생성 될 때 어떤 작업을 거치는지 상세하게 설명 해준다.<br>
+
+<img src="https://f879bd6b-a-62cb3a1a-s-sites.googlegroups.com/site/sarvasite/windows-os-internals/processes-threads/process-internals/ProcessCreationStages.JPG?attachauth=ANoY7cru3BNyWP1jlbgiIPZyuppsHRmqwSnmN8DxLLjNFhhZJe1MPrKFIoIvvTLYlEanAMuDbccXozHjzCq3gTUasejAN4GUPRzyM7vgEjF_uj04ytweI7-BFVst0NypmKPTnH16oyxIbfd9ucCzmZDs64mY0ZfgoBtYPFVDRSkRRVy72arhnBt0l9JSHhuDjyrZ2nb8Lt1xiqxRQ6sx5wGkBrqVQdyNhxKzTkpTHLYgKzO-SXi_4xxKssBRzHmoJ1kkhwHiX00-pAThS7sEODo3ZJTSH8DiBb4P2-esUwm8ntKuflVDkPFPBYEOpZr95XuaF8QMGhu8&attredirects=0
+"/>
+
+위의 이미지중 step 6 과 step7 사이에 sub-system을 거치는데 이 부분이 csrss이다.
+즉, csrss에서 유저모드에서 접근 할 수 있게 프로세스와 스레드의 핸들 값 복사등 여러 초기화 작업을 먼저 해주기 때문에 다른 프로세스의 핸들을 가지고 있는 것 이다<br>
 그리고 이 프로세스는 시스템 프로세스이며 `SeTcbPrivilege` 이상의 권한을 가지고 있을 때 열 수 있다.<br>
 결과적으로 CSRSS 프로세스에게 인젝션이나 핸들을 가져올려면 실행 권한과, 보호된 프로세스를 우회 해야할 것 이다.<br>
 
