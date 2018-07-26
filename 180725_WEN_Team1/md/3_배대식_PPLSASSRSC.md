@@ -139,7 +139,7 @@ EPROCESS 시작주소를 심볼에서 가져온 EPROCESS랑 매칭 시켜준다.
 <img src="https://user-images.githubusercontent.com/40850499/43199609-82671b24-904d-11e8-851a-c9119fc18e2c.PNG"/>
 
 
-## PPL Bypass
+## :unlock: PPL Bypass
 
 매우 간단합니다. 보호 된 프로세스의 EPROCESS 주소를 구한 뒤 ProtectedProcess bit를 0으로 off 해주면 됩니다.<br>
 하지만 커널모드에 접근 해야 되므로 드라이버를 로드하여 작업을 해야되는 번거로움이 있습니다.<br>
