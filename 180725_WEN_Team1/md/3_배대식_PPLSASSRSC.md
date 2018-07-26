@@ -119,7 +119,7 @@ Windows 8.1 부터 도입된 개념입니다.</br>
 
 > kd : ?? ((nt!_EPROCESS*)0xADDRESS)
 
-:heavy_plus_sign: ProtectedProcess 멤버의 오프셋<br>
+ProtectedProcess 멤버의 오프셋<br>
 <img src="https://user-images.githubusercontent.com/40850499/43199618-83151e18-904d-11e8-89c6-60579042ddaf.PNG"/>
 
 EPROCESS 시작주소를 심볼에서 가져온 EPROCESS랑 매칭 시켜준다.<br>
