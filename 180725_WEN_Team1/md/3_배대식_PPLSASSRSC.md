@@ -8,6 +8,8 @@
   - LSASS
   - CSRSS
   - PPL
+  - ProtectedProcess Struct
+  - Let's first kernel debugging
   - PPL Bypass
   
 ## :purple_heart: LSASS(Local Security Authority)
