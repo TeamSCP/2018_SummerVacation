@@ -30,7 +30,7 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 ## :heart: CSRSS(Client/Server Runtime Subsystem)
 
 <a href="https://ko.wikipedia.org/wiki/%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8/%EC%84%9C%EB%B2%84_%EB%9F%B0%ED%83%80%EC%9E%84_%ED%95%98%EC%9C%84_%EC%8B%9C%EC%8A%A4%ED%85%9C">위키</a>를 읽어보면 사용자 프로세스가 콘솔, 프로세스, 스레드 관련 함수를 호출 할 때 CSRSS 프로세스간 호출을 보낸다 한다.<br>
-이 정보론 왜 CSRSS가 다른 프로세스의 핸들을 가지고 있는지 이해를 할 수가 없습니다 :sob:.<br>
+이 정보론 왜 CSRSS가 다른 프로세스의 핸들을 가지고 있는지 이해를 할 수가 없습니다 :sob:<br>
 <a href="https://www.microsoftpressstore.com/articles/article.aspx?p=2233328&seqNum=3">링크</a>에는 윈도우에서 프로세스/쓰레드가 생성 될 때 어떤 작업을 거치는지 상세하게 설명 해줍니다.<br>
 
 <img src="https://user-images.githubusercontent.com/40850499/43233770-dde97ee6-90b2-11e8-85cd-723b38bb6ce6.jpg"/>
