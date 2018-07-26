@@ -1,7 +1,7 @@
 
 # :speech_balloon: PPL + LSASS + CSRSS
 
-해당 기술은 Windows Internals의 저자인 `Alex Ionescu`의 글을 참조 하였습니다.</br>
+해당 기술은 Windows Internals의 저자인 `Alex Ionescu`의 글을 참조 하였습니다.<br>
 원문 글을 보고 싶은 분들은 <a href="http://www.alex-ionescu.com/?p=97">링크</a>를 클릭 해 주세요 :)
 
 ## :green_book: ReadMe
@@ -14,9 +14,9 @@
   
 ## :purple_heart: LSASS(Local Security Authority)
 
-`LSASS` 프로세스는 `Windows 2000` 부터 윈도우 보안 모델에 적용된 기술입니다.</br>
-Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 볼 수 있습니다.</br>
-`LSASS` 는 윈도우에서 런타임 상태와 모든 로그인 작업을 담당합니다.</br>
+`LSASS` 프로세스는 `Windows 2000` 부터 윈도우 보안 모델에 적용된 기술입니다.<br>
+Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 볼 수 있습니다.<br>
+`LSASS` 는 윈도우에서 런타임 상태와 모든 로그인 작업, 계정 보안에 관련하여 담당합니다.<br>
 > 그렇다면 왜 LSASS는 다른 프로세스의 핸들을 가지고 있나요?
 
 예를 들어 프로그램A가 프로그램B의 프로세스 핸들을 OpenProcess로 요청했습니다.<br>
@@ -44,7 +44,7 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 
 ## :blue_heart: PPL(Protected Process Light)
 
-Windows 8.1 부터 도입된 개념입니다.</br>
+Windows 8.1 부터 도입된 개념입니다.<br>
 저자의 글을 살펴보면 LSASS 프로세스에서 해쉬화된 로컬 관련 데이터들이 평문으로 유출 되는 점 외에도 문제점이 많아 보호된 프로세스 개념을 도입 했다고 칸다..<br>
 이제 PPL을 사용하여 lsass 프로세스로의 dll injection을 차단하는 작업을 해볼 것입니다.<br>
 
@@ -59,7 +59,7 @@ Windows 8.1 부터 도입된 개념입니다.</br>
 두 운영체제 모두 다 잘 되는것을 확인 할 수 있습니다.<br>
 그렇다면 Windows10에서 `_PS_PROTECTION` 구조체의 값을 수정하여 DLL Injection을 차단 해 보겠습니다.<br>
 `_PS_PROTECTION` 구조체는 `EPROCESS` 구조체의 `멤버`입니다.<br>
-하지만 `EPROCESS` 구조체는 커널모드에서 사용하는 리소스이기 때문에 커널 디버거로 데이터를 확인 해야 합니다.</br>
+하지만 `EPROCESS` 구조체는 커널모드에서 사용하는 리소스이기 때문에 커널 디버거로 데이터를 확인 해야 합니다.<br>
 
 > Settings
 
