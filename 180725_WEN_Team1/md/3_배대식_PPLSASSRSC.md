@@ -115,14 +115,14 @@ Windows 8.1 부터 도입된 개념입니다.<br>
 
 <img src="https://user-images.githubusercontent.com/40850499/43199611-82948276-904d-11e8-81f3-99eebeb0f21d.PNG"/>
 
-빨간색 박스 부분이 EPROCESS의 시작 주소이다.
+빨간색 박스 부분이 EPROCESS의 시작 주소입니다.
 
-> kd : ?? ((nt!_EPROCESS*)0xADDRESS)
+> kd : ?? ((nt!_EPROCESS*)0xAddress)
 
-ProtectedProcess 멤버의 오프셋<br>
+ProtectedProcess 멤버의 오프셋 <br>
 <img src="https://user-images.githubusercontent.com/40850499/43199618-83151e18-904d-11e8-89c6-60579042ddaf.PNG"/>
 
-EPROCESS 시작주소를 심볼에서 가져온 EPROCESS랑 매칭 시켜준다.<br>
+주소를 심볼에서 가져온 EPROCESS랑 매칭 시켜준다.<br>
 이미지를 확인해보면 0x6B2에 1Byte를 사용 하는 것을 알 수 있다!<br>
 상세한 내용을 확인해보면?<br>
 
@@ -210,10 +210,10 @@ int main()
 }
 ```
 위의 코드는 PID를 요청 했을 때 OpenProcess로 프로세스 핸들을 출력 해주는 간단한 프로그램입니다.<br>
-만약 ProtectedProcess가 걸려있을 경우 ErrorCode: 5를 리턴하며 끝나게 되는데요.<br>
+만약 ProtectedProcess가 걸려있을 경우 ErrorCode: 5를 리턴하며 끝나게 되는데요<br>
 WinDbg로 직접 해당 값을 수정하여 핸들을 구해보도록 하겠습니다.<br>
 
-:one:  csrss.exe의 핸들 값 구하기 시도.
+:one:  csrss.exe의 핸들 값 구하기 시도
 
 <img src="https://user-images.githubusercontent.com/40850499/43200955-250bd2a8-9052-11e8-86a4-804bf1576787.PNG"/>
 
