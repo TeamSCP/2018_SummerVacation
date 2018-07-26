@@ -30,19 +30,19 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 ## :heart: CSRSS(Client/Server Runtime Subsystem)
 
 <a href="https://ko.wikipedia.org/wiki/%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8/%EC%84%9C%EB%B2%84_%EB%9F%B0%ED%83%80%EC%9E%84_%ED%95%98%EC%9C%84_%EC%8B%9C%EC%8A%A4%ED%85%9C">위키</a>를 읽어보면 사용자 프로세스가 콘솔, 프로세스, 스레드 관련 함수를 호출 할 때 CSRSS 프로세스간 호출을 보낸다 한다.<br>
-이 정보론 왜 CSRSS가 다른 프로세스의 핸들을 가지고 있는지 이해를 할 수 없다.<br>
-<a href="https://www.microsoftpressstore.com/articles/article.aspx?p=2233328&seqNum=3">링크</a>에는 윈도우에서 프로세스/쓰레드가 생성 될 때 어떤 작업을 거치는지 상세하게 설명 해준다.<br>
+이 정보론 왜 CSRSS가 다른 프로세스의 핸들을 가지고 있는지 이해를 할 수가 없습니다. :sob:<br>
+<a href="https://www.microsoftpressstore.com/articles/article.aspx?p=2233328&seqNum=3">링크</a>에는 윈도우에서 프로세스/쓰레드가 생성 될 때 어떤 작업을 거치는지 상세하게 설명 해줍니다.<br>
 
 <img src="https://user-images.githubusercontent.com/40850499/43233770-dde97ee6-90b2-11e8-85cd-723b38bb6ce6.jpg"/>
 
-위의 이미지중 stage 5 과 stage7 사이에 sub system을 거치는데 이 부분이 csrss이다.
-즉, csrss에서 유저모드에서 접근 할 수 있게 프로세스와 스레드의 핸들 값 복사등 여러 초기화 작업을 먼저 해주기 때문에 다른 프로세스의 핸들을 가지고 있는 것 이다<br>
-그리고 이 프로세스는 시스템 프로세스이며 `SeTcbPrivilege` 이상의 권한을 가지고 있을 때 열 수 있다.<br>
-결과적으로 CSRSS 프로세스에게 인젝션이나 핸들을 가져올려면 실행 권한과, 보호된 프로세스를 우회 해야할 것 이다.<br>
+위의 이미지중 stage 5 과 stage7 사이에 sub system을 거치는데 이 부분이 `CSRSS` 입니다.
+즉, `CSRSS`에서 유저모드에서 접근 할 수 있게 프로세스와 스레드의 핸들 값 복사등 여러 초기화 작업을 먼저 해주기 때문에 다른 프로세스의 핸들을 가지고 있는 것이지요.<br>
+그리고 이 프로세스는 시스템 프로세스이며 `SeTcbPrivilege` 이상의 권한을 가지고 있을 때 열 수 있습니다.<br>
+결과적으로 `CSRSS` 프로세스에게 인젝션이나 핸들을 가져올려면 실행 권한과, 보호된 프로세스를 우회 해야할 것 입니다.<br>
 
 ## :blue_heart: PPL(Protected Process Light)
 
-Windows 8.1 부터 도입된 개념이다.</br>
+Windows 8.1 부터 도입된 개념입니다.</br>
 저자의 글을 살펴보면 LSASS 프로세스에서 해쉬화된 로컬 관련 데이터들이 평문으로 유출 되는 점 외에도 문제점이 많아 보호된 프로세스 개념을 도입 했다고 칸다..<br>
 이제 PPL을 사용하여 lsass 프로세스로의 dll injection을 차단하는 작업을 해볼 것입니다.<br>
 
@@ -81,9 +81,9 @@ Windows 8.1 부터 도입된 개념이다.</br>
 4   +0x000 Audit            : Pos 3, 1 Bit
 5   +0x000 Signer           : Pos 4, 4 Bits
 ```
-_PS_PROTECTION 구조체는 8Bit의 크기이다.<br>
+_PS_PROTECTION 구조체는 8Bit의 크기입니다.<br>
 
-- 타입은 아래의 10진수 값이 적용되며 PPL은 1의 값을 가지고 있다.
+\- 타입은 아래의 10진수 값이 적용되며 PPL은 1의 값을 가지고 있다.
 
 ```C
 1 _PS_PROTECTED_TYPE
@@ -93,7 +93,7 @@ _PS_PROTECTION 구조체는 8Bit의 크기이다.<br>
 5   PsProtectedTypeMax = 0n3
 ```
 
-- 서명자는 ProtectedSigner 뒤의 문자열이 서명자가 된다.
+\- 서명자는 ProtectedSigner 뒤의 문자열이 서명자가 된다.
 
 _PS_PROTECTED_SIGNER
 ```C
