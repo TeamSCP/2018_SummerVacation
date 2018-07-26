@@ -72,6 +72,7 @@ Windows 8.1 부터 도입된 개념입니다.</br>
 
 사진과 함께 있는 자세한 설명은 <a href="http://ruinick.tistory.com/96">여기</a>를 참조하세요!
 
+## :sparkling_heart: ProtectedProcess Struct
 
 > _PS_PROTECTION
 
@@ -106,7 +107,7 @@ Windows 8.1 부터 도입된 개념입니다.</br>
 9   PsProtectedSignerMax = 0n7
 ```
 
-자 그러면 실제 LSASS 프로세스의 _PS_PROTECTED 구조체를 확인 해보고, 비트를 설정 해준 뒤 다시 인젝션을 해보자!<br>
+## :cupid: Let's first kernel debugging
 
 > kd : process 0 0 lsass.exe
 
