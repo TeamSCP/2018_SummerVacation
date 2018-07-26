@@ -21,6 +21,9 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 그렇지만 프로그램B는 프로그램A보다 권한이 높습니다.<br>
 결과적으로 프로그램A는 프로그램B의 핸들을 얻어 올 수 없게 됩니다.<br>
 이러한 권한 작업을 확인하는 놈이 `SRM(SecurityReferenceMoniter)`인 것입니다.<br>
+
+<img src="https://user-images.githubusercontent.com/40850499/43234559-9e321e20-90b7-11e8-9247-ed59eef499ef.PNG"/>
+
 다시 한번 정리하자면 프로그램A가 프로그램B의 핸들을 요청하기 위해 Lsass에게 보내고<br> 
 이 요청을 SRM에서 확인 후 핸들 리턴 여부를 확인 하는 것 입니다.<br>
 
