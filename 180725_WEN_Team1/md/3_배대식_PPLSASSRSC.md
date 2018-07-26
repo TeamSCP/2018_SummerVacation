@@ -27,8 +27,7 @@ Windows2000, Windows XP, ···, Windows 10에서 LSASS 프로세스를 찾아 �
 이 정보론 왜 CSRSS가 다른 프로세스의 핸들을 가지고 있는지 이해를 할 수 없다<br>
 <a href="https://www.microsoftpressstore.com/articles/article.aspx?p=2233328&seqNum=3">링크</a>에는 윈도우에서 프로세스/쓰레드가 생성 될 때 어떤 작업을 거치는지 상세하게 설명 해준다.<br>
 
-<img src="https://f879bd6b-a-62cb3a1a-s-sites.googlegroups.com/site/sarvasite/windows-os-internals/processes-threads/process-internals/ProcessCreationStages.JPG?attachauth=ANoY7cru3BNyWP1jlbgiIPZyuppsHRmqwSnmN8DxLLjNFhhZJe1MPrKFIoIvvTLYlEanAMuDbccXozHjzCq3gTUasejAN4GUPRzyM7vgEjF_uj04ytweI7-BFVst0NypmKPTnH16oyxIbfd9ucCzmZDs64mY0ZfgoBtYPFVDRSkRRVy72arhnBt0l9JSHhuDjyrZ2nb8Lt1xiqxRQ6sx5wGkBrqVQdyNhxKzTkpTHLYgKzO-SXi_4xxKssBRzHmoJ1kkhwHiX00-pAThS7sEODo3ZJTSH8DiBb4P2-esUwm8ntKuflVDkPFPBYEOpZr95XuaF8QMGhu8&attredirects=0
-"/>
+<img src="https://user-images.githubusercontent.com/40850499/43233770-dde97ee6-90b2-11e8-85cd-723b38bb6ce6.jpg"/>
 
 위의 이미지중 step 6 과 step7 사이에 sub-system을 거치는데 이 부분이 csrss이다.
 즉, csrss에서 유저모드에서 접근 할 수 있게 프로세스와 스레드의 핸들 값 복사등 여러 초기화 작업을 먼저 해주기 때문에 다른 프로세스의 핸들을 가지고 있는 것 이다<br>
