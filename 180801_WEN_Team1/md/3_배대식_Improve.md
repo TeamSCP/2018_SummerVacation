@@ -49,8 +49,8 @@ Sub Table에서 0번째 구조체는 _HANDLE_TABLE_ENTRY 라는 것을 알리므
 
 __\# TableCode의 구조와 특성__<br>
 
-`( _HANDLE_TABLE_ENTRY | Level Index )`의 형식을 따른다.<br>
-ex) 0x9131ec02 = ( 0x9131ec00 | 2 )<br>
+`(_HANDLE_TABLE_ENTRY | Level Index)`의 형식을 따른다.<br>
+ex) 0x9131ec02 = (0x9131ec00 | 2)<br>
 
 ```python
 >> Level Index Values
@@ -59,7 +59,7 @@ ex) 0x9131ec02 = ( 0x9131ec00 | 2 )<br>
   2 - Top table
 ```
 Level Index = TableCode & 0x3<br>
-_HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~0x3
+_HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~2
 
 __\# \_HANDLE\_TABLE\_ENTRY의 구조와 특성__<br>
 
