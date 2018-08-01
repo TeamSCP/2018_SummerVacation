@@ -55,6 +55,7 @@ _HANDLE_TABLE_ENTRY를 구하려면 level Index bit를 구한 뒤 각 Level에 �
 
 _HANDLE_TABLE_ENTRY의 특성<BR>
   _HANDLE_TABLE_ENTRY의 Bit 0 - Lock Flag, Bit 1 - Inherit Flag, Bit 2 - Admit Flag 이므로<br>
+  각 비트는 API의 생성시 특정 인자를 이용해 설정 하거나, SetHandleInformation API를 사용하여 설정 해 줄 수 있다.<br>
   _OBJECT_HEADER의 포인터로 사용되는 주소는 `(TableCode & ~0x3)`을 해야 확인 할 수 있다.<br>
 
 
