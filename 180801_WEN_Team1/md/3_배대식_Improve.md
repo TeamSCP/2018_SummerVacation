@@ -61,7 +61,7 @@ ex) 0x9131ec02 = ( 0x9131ec00 | 2 )<br>
 Level Index = TableCode & 0x3
 _HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~0x3
 
-__\# _HANDLE_TABLE_ENTRY의 구조와 특성__
+__\# \_HANDLE\_TABLE\_ENTRY의 구조와 특성__<br>
 
 | _OBJECT_HEADER | AIL Bits |
 | ------------- | -------- | 
