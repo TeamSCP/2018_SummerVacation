@@ -23,7 +23,7 @@ Built by: 7601.17514.x86fre.win7sp1_rtm.101119-1850
 ```
 
 __\# 테스팅 환경__<br>
-- PPT 이미지 삽입 -
+<img src="https://user-images.githubusercontent.com/40850499/43530597-f10477e8-95e8-11e8-8acc-e811a4131fcc.png"/>
 
 __\# 무엇을 확인 해 볼 껀가요?__<br>
 - Handle 값의 의미
