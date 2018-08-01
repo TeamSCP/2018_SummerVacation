@@ -71,11 +71,11 @@ __\# _HANDLE_TABLE_ENTRY의 구조와 특성__<BR>
 | 00000000000000000000000000000 | 111 | 
 
 ```python
->> AILP Bits List
+>> LIAP Bits List
   Bit #0  - Lock flag
   Bit #1  - Inherit Flag
   Bit #2  - Admit Flag
-  Bit #25 - flag protect on close
+  Bit #25 - Protect on close flag 
 ```
 
 각 비트는 API의 생성시 특정 인자를 이용해 설정 하거나, SetHandleInformation API를 사용하여 설정 해 줄 수 있다.<br>
