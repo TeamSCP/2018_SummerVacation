@@ -2,7 +2,7 @@
 
 UC 포럼의 마지막 가이드 스레드 <a href="https://www.unknowncheats.me/forum/anti-cheat-bypass/261176-silentjack-ultimate-handle-hijacking-user-mode-multi-ac-bypass-eac-tested.html">Stealth-aware handle hijacking</a>를 진행 하기전에 핸들에 대해서 상세 분석 해보려합니다.<br>
 
-## :heavy_check_mark: Question
+## :question: Question
 
 A 프로세스와 B 프로세스가 있습니다.<br>
 C 프로세스의 핸들을 A와 B가 요청 하였을 때 A와 B의 핸들 값은 같을까요 다를까요?<br>
