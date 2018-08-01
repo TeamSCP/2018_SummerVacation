@@ -28,10 +28,10 @@ Built by: 7601.17514.x86fre.win7sp1_rtm.101119-1850
 3. _OBJECT_HEADER → Body
 4. (_TYPE*)input = _OBJECT_HEADER → Body
 
-Handle = 2bit = tag = 4씩 증가.
-TableCode = 3bit = Level index
-_HANDLE_TABLE_ENTRY = 1bit = LockBit
-sub 테이블의 첫 번째 인덱스는 사용되지 않음 - 1 = 32 * 1024 * 511 = 16744448
+Handle = 2bit = tag = 4씩 증가.<br>
+TableCode = 3bit = Level index<br>
+_HANDLE_TABLE_ENTRY = 1bit = LockBit<br>
+sub 테이블의 첫 번째 인덱스는 사용되지 않음 - 1 = 32 * 1024 * 511 = 16744448<br>
 
 핸들의 구조는 다음과 같습니다.
 
