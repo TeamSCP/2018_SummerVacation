@@ -22,6 +22,19 @@ Windows 7 Kernel Version 7601 MP (1 procs) Free x86 compatible
 Built by: 7601.17514.x86fre.win7sp1_rtm.101119-1850
 ```
 
+핸들로 커널 오브젝트를 구하는 과정은 다음과 같습니다.
+1. _EPROCESS → ObjectTable(_HANDLE_TABLE)
+2. TableCode → _HANDLE_TABLE_ENTRY
+3. _OBJECT_HEADER → Body
+4. (_TYPE*)input = _OBJECT_HEADER → Body
+
+핸들의 구조는 다음과 같습니다.
+
+| UNUSED | TOP | MIDDLE | SUB | TAG |
+| ------ | --- | ------ | --- | --- |
+| UNUSED | 11111 | 1111111111 | 111111111 | 11 |
+
+
 커널 오브젝트를 구조체로 표현 할 수 있는 방법은 다음과 같습니다.
 
 | File| Process | Token | Driver |
