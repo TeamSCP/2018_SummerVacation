@@ -55,7 +55,7 @@ __\# TableCode의 구조와 특성__<br>
 `( _HANDLE_TABLE_ENTRY | Level Index )`의 형식을 따른다.<br>
 ex) 0x9131ec02 = ( 0x9131ec00 | 2 )<br>
 
-```
+```python
 >> Level Index Values
   0 - Sub table
   1 - Middle table
@@ -70,7 +70,7 @@ __\# _HANDLE_TABLE_ENTRY의 구조와 특성__<BR>
 | ------------- | -------- | 
 | 00000000000000000000000000000 | 111 | 
 
-```
+```python
 >> AILP Bits List
   Bit #0  - Lock flag
   Bit #1  - Inherit Flag
