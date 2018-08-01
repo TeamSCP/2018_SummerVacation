@@ -106,5 +106,17 @@ __\# 윈도우에서 사용하는 커널 오브젝트에 대한 구조체__
 
 ---
 
+<img src="https://user-images.githubusercontent.com/40850499/43532561-5c62092a-95ed-11e8-9716-baa7c005a9ed.PNG"/>
 
+---
+:speech_balloon: _HANDLE_TABLE의 첫 번째 멤버인 `TableCode`는 _HANDLE_TABLE_ENTRY의 첫 번째 주소를 가지고 있다. <br>
 
+---
+
+<img src="https://user-images.githubusercontent.com/40850499/43538417-f475452e-95fc-11e8-8d71-9b9087f20575.PNG"/>
+
+---
+:speech_balloon: SubTable의 첫 번째 멤버는 자신이 _HANDLE_TABLE_ENTRY임을 알리는 역할을 하며, 핸들로 사용 될 수 없다.<br>
+그러므로 SubTable의 생성 개수는 `2^9 - 1`인 것이다.
+
+---
