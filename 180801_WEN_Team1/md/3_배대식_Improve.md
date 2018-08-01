@@ -58,7 +58,7 @@ ex) 0x9131ec02 = ( 0x9131ec00 | 2 )<br>
   1 - Middle table
   2 - Top table
 ```
-Level Index = TableCode & 0x3
+Level Index = TableCode & 0x3<br>
 _HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~0x3
 
 __\# \_HANDLE\_TABLE\_ENTRY의 구조와 특성__<br>
@@ -105,5 +105,6 @@ __\# 윈도우에서 사용하는 커널 오브젝트에 대한 구조체__
 :speech_balloon: 위의 이미지에선 _HANDLE_TABLE의 주소를 바로 구했지만, _EPROCESS->ObjectTable에 위치해 있다.<br>
 
 ---
+
 
 
