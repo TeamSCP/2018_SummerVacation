@@ -62,9 +62,10 @@ ex) 0x9131ec02 = ( 0x9131ec00 | 2 )<br>
   2 - Top table
 ```
 Level Index = TableCode & 0x3<br>
-_HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~0x3
+_HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~0x3<br>
 
 __\# _HANDLE_TABLE_ENTRY의 구조와 특성__<br>
+
 | _OBJECT_HEADER | AIL Bits |
 | ------------- | -------- | 
 | 00000000000000000000000000000 | 111 | 
@@ -76,12 +77,11 @@ __\# _HANDLE_TABLE_ENTRY의 구조와 특성__<br>
   Bit #2  - Admit Flag
   Bit #25 - Protect on close flag 
 ```
-
 각 비트는 API의 생성시 특정 인자를 이용해 설정 하거나, SetHandleInformation API를 사용하여 설정 해 줄 수 있다.<br>
 _OBJECT_HEADER의 포인터로 사용되는 주소는 `(TableCode & ~0x3)`을 해야 확인 할 수 있다.<br>
 
 
-\# 윈도우에서 사용하는 커널 오브젝트에 대한 구조체
+__\# 윈도우에서 사용하는 커널 오브젝트에 대한 구조체__
 
 | File| Process | Token | Driver |
 | --- | ------- | ----- | ------ |
