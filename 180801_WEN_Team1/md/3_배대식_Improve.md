@@ -16,27 +16,27 @@ C 프로세스의 핸들을 A와 B가 요청 하였을 때 A와 B의 핸들 값�
 
 ## :pushpin: More deeper
 
-\# 디버깅 환경
+__\# 디버깅 환경__
 ```
 Windows 7 Kernel Version 7601 MP (1 procs) Free x86 compatible
 Built by: 7601.17514.x86fre.win7sp1_rtm.101119-1850
 ```
 
-\# 테스팅 환경
-\- PPT 이미지 삽입 -
+__\# 테스팅 환경__<br>
+- PPT 이미지 삽입 -
 
-\# 무엇을 확인 해 볼 껀가요?
+__\# 무엇을 확인 해 볼 껀가요?__<br>
 - Handle 값의 의미
 - 구조체마다 가지고 있는 특수 bit
 - 디버깅으로 커널 오브젝트 얻어보기
 
-\# 전체 과정 요약
+__\# 전체 과정 요약__<br>
 1. _EPROCESS → ObjectTable(_HANDLE_TABLE)
 2. TableCode → _HANDLE_TABLE_ENTRY
 3. _OBJECT_HEADER → Body
 4. (_TYPE*)input = _OBJECT_HEADER → Body
 
-\# 핸들의 구조
+__\# 핸들의 구조__<br>
 
 예시 값 - 0x20<br>
 
@@ -50,7 +50,7 @@ Tag로 인해 핸들의 값은 4씩 증가하게 된다.<br>
 Sub Table에서 0번째 구조체는 _HANDLE_TABLE_ENTRY 라는 것을 알리므로 커널 오브젝트 주소를 할당 할 수 없다.<br>
 즉, 핸들 생성 가능 개수는 `(2^5)*(2^10)*(2^9-1) = 16744448` 이다.<br>
 
-\# TableCode의 구조와 특성<br>
+__\# TableCode의 구조와 특성__<br>
 
 ( _HANDLE_TABLE_ENTRY | Level Index )의 형식을 따른다.<br>
 ex) 0x9131ec02 = ( 0x9131ec00 | 2 )<br>
@@ -60,10 +60,10 @@ ex) 0x9131ec02 = ( 0x9131ec00 | 2 )<br>
 1 - Middle table
 2 - Top table
 ```
-Level Index = TableCode & 0x3
-_HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~0x3
+Level Index = TableCode & 0x3<br>
+_HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~0x3<br>
 
-\# _HANDLE_TABLE_ENTRY의 구조와 특성<BR>
+__\# _HANDLE_TABLE_ENTRY의 구조와 특성__<BR>
   
 | _OBJECT_HEADER | AIL Bits |
 | ------------- | -------- | 
