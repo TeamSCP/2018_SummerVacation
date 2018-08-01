@@ -137,7 +137,7 @@ __\# 윈도우에서 사용하는 커널 오브젝트에 대한 구조체__
 
 ---
 
-https://user-images.githubusercontent.com/40850499/43540638-424b3cb2-9603-11e8-81e6-535fff6f14a2.PNG
+<img src="https://user-images.githubusercontent.com/40850499/43540638-424b3cb2-9603-11e8-81e6-535fff6f14a2.PNG"/>
 
 ---
 :speech_balloon: 길고 길었던 기본적인 핸들 값 찾기가 완료 되었다.<br>
