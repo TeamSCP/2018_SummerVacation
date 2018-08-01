@@ -65,7 +65,6 @@ Level Index = TableCode & 0x3<br>
 _HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~0x3
 
 __\# _HANDLE_TABLE_ENTRY의 구조와 특성__<br>
-  
 | _OBJECT_HEADER | AIL Bits |
 | ------------- | -------- | 
 | 00000000000000000000000000000 | 111 | 
