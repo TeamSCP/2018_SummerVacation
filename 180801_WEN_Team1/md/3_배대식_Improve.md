@@ -75,7 +75,7 @@ __\# \_HANDLE\_TABLE\_ENTRY의 구조와 특성__<br>
   Bit #25 - Protect on close flag 
 ```
 각 비트는 API의 생성시 특정 인자를 이용해 설정 하거나, SetHandleInformation API를 사용하여 설정 해 줄 수 있다.<br>
-_OBJECT_HEADER의 포인터로 사용되는 주소는 `(TableCode & ~0x3)`을 해야 확인 할 수 있다.<br>
+_OBJECT_HEADER의 포인터로 사용되는 주소는 `(TableCode & ~0x8)`을 해야 확인 할 수 있다.<br>
 
 
 __\# 윈도우에서 사용하는 커널 오브젝트에 대한 구조체__
@@ -120,3 +120,11 @@ __\# 윈도우에서 사용하는 커널 오브젝트에 대한 구조체__
 그러므로 SubTable의 생성 개수는 `2^9 - 1`인 것이다.
 
 ---
+
+<img src="https://user-images.githubusercontent.com/40850499/43539581-3b2ab988-9600-11e8-8afb-191398a22162.PNG"/>
+
+---
+:speech_balloon: _HANDLE_TABLE_ENTRY는 8Byte의 구조체이고 HANDLE 값은 Tag에 의해 4씩 증가한다. 즉, `0x20/4 * 8`를 한 값이 맞는 인덱스가 될 것이다. 그 다음 Object의 빨간색으로 표시된 3을 주시해보면 LIA Bit중 Lock과 Inherit 비트가 활성화 되있는 것을 확인 할 수 있다. 최대 값을 7까지 가질 수 있으므로 `~8을 And 연산`하면 _OBJECT_HEADER 구조체의 값을 구할 수 있다.
+
+---
+
