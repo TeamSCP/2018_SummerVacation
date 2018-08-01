@@ -128,3 +128,19 @@ __\# 윈도우에서 사용하는 커널 오브젝트에 대한 구조체__
 
 ---
 
+<img src="https://user-images.githubusercontent.com/40850499/43540525-f533fda6-9602-11e8-97a0-8b2368fa52f2.PNG"/>
+
+---
+:speech_balloon: _OBJECT_HEADER는 Header와 Body로 나뉘는데 Body가 커널 오브젝트의 시작 주소이다.<br>
+이미지를 확인해보면 body offset은 0x18이다.<br>
+`_OBJECT_HEADER의 시작주소 + 0x18 = 핸들에 대한 커널 오브젝트의 시작주소`일 것이다.
+
+---
+
+https://user-images.githubusercontent.com/40850499/43540638-424b3cb2-9603-11e8-81e6-535fff6f14a2.PNG
+
+---
+:speech_balloon: 길고 길었던 기본적인 핸들 값 찾기가 완료 되었다.<br>
+calc.exe 프로세스의 EPROCESS 주소와 핸들 값으로부터 구한 EPROCESS 주소가 일치한다.
+
+---
