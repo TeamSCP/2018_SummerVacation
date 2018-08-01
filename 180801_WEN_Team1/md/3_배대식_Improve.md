@@ -6,3 +6,18 @@ UC 포럼의 마지막 글 <a href="https://www.unknowncheats.me/forum/anti-chea
 - 커널 오브젝트와 오브젝트 핸들 테이블의 정리
 - 권한 상승을 통한 PPL Bypass
 - C++ and class
+
+## :heavy_check_mark: Handle
+
+A 프로세스와 B 프로세스가 있습니다.<br>
+C 프로세스의 핸들을 A와 B가 요청 하였을 때 A와 B의 핸들 값은 같을까요 다를까요?<br>
+정답은 같을 수도 있고 다를 수도 있습니다.<br>
+왜 그럴까요? 그리고 윈도우는 핸들 값을 가지고 어떻게 커널 오브젝트까지 찾아 갈 수 있을까요?<br>
+
+## :pushpin: More deeper
+
+커널 오브젝트를 구조체로 표현 할 수 있는 방법은 다음과 같습니다.
+
+| File| Process | Token | Driver |
+| --- | ------- | ----- | ------ |
+|   _FILE_OBJECT   | _EPROCESS     | _TOKEN     | _DRIVER_OBJECT|
