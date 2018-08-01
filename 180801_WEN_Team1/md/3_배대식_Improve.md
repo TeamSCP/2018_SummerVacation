@@ -40,25 +40,26 @@ __\# 핸들의 구조__<br>
 
 예시 값 - 0x20<br>
 
-| UnUsed | Top | Middle | Sub | Tag |
+| UnUsed<2^6> | Top<2^5> | Middle<2^10> | Sub<2^9> | Tag<2^2> |
 | ------ | --- | ------ | --- | --- |
-| 00000000 | 00000 | 0000000000 | 000001000 | 00 |
+| 000000 | 00000 | 0000000000 | 000001000 | 00 |
 
 
-Tag로 인해 핸들의 값은 4씩 증가하게 된다.<br>
+Tag로 인해 `핸들의 값은 4씩 증가`하게 된다.<br>
 이로 인해 _HANDLE_TABLE_ENTRY를 계산 할 때 `(HandleValue/4 * 8)`이 된다.<br>
 Sub Table에서 0번째 구조체는 _HANDLE_TABLE_ENTRY 라는 것을 알리므로 커널 오브젝트 주소를 할당 할 수 없다.<br>
 즉, 핸들 생성 가능 개수는 `(2^5)*(2^10)*(2^9-1) = 16744448` 이다.<br>
 
 __\# TableCode의 구조와 특성__<br>
 
-( _HANDLE_TABLE_ENTRY | Level Index )의 형식을 따른다.<br>
+`( _HANDLE_TABLE_ENTRY | Level Index )`의 형식을 따른다.<br>
 ex) 0x9131ec02 = ( 0x9131ec00 | 2 )<br>
 
 ```
-0 - Sub table
-1 - Middle table
-2 - Top table
+>> Level Index Values
+  0 - Sub table
+  1 - Middle table
+  2 - Top table
 ```
 Level Index = TableCode & 0x3<br>
 _HANDLE_TABLE_ENTRY(sub_table) = TableCode & ~0x3<br>
@@ -70,10 +71,11 @@ __\# _HANDLE_TABLE_ENTRY의 구조와 특성__<BR>
 | 00000000000000000000000000000 | 111 | 
 
 ```
-Bit #0  - Lock flag
-Bit #1  - Inherit Flag
-Bit #2  - Admit Flag
-Bit #25 - flag protect on close
+>> AILP Bits List
+  Bit #0  - Lock flag
+  Bit #1  - Inherit Flag
+  Bit #2  - Admit Flag
+  Bit #25 - flag protect on close
 ```
 
 각 비트는 API의 생성시 특정 인자를 이용해 설정 하거나, SetHandleInformation API를 사용하여 설정 해 줄 수 있다.<br>
