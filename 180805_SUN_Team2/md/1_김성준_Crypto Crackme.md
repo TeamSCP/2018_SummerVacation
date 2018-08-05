@@ -7,7 +7,7 @@ wargame.kr Crypto 문제를 rev 으로 풀어 보겠습니다.
 
 ![kakaotalk_photo_2018-08-06-02-16-56](https://user-images.githubusercontent.com/40850499/43688182-47463d06-991f-11e8-858a-0aa3b5bc7e8f.png)
 
-다운을 받으면 닷넷 프레임워크 2.0이 필요하다고 하는데 저는 dnSpy을 이용해 디버깅을 해보기전 실행을 시켜봤습니다.
+다운을 받으면 닷넷 프레임워크 2.0이 필요하다고 하는데 저는 dnSpy을 이용해 디컴파일을 해보기전 실행을 시켜봤습니다.
 
 ![kakaotalk_photo_2018-08-06-02-22-13](https://user-images.githubusercontent.com/40850499/43688196-90b2b32a-991f-11e8-98ed-f760f2f4e7a5.png)
 
@@ -29,7 +29,7 @@ private static void Main(string[] args)
       }
 ```
 
-dsSpy 을 이용해 디버깅 해보면 이런 메인 부분을 볼수있습니다.
+dsSpy 을 이용해 디컴파일 해보면 이런 메인 부분을 볼수있습니다.
 
 if 문을 봐보면 name은 BIuSH4G 이고 패스워드는 myEncrypt 을 통해 어떤값과 비교한다.
 
