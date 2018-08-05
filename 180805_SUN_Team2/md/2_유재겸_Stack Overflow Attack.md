@@ -26,11 +26,11 @@ Stack overflow란 허용된 buffer의 크기를 초과하여 return값도 채우
 다음부터는 실습 내용이다.(중간부터 막혀서 다음주에 마저 완성하도록 하겠습니다.)
 <br>![](https://user-images.githubusercontent.com/37801624/43686538-c6d41fec-9902-11e8-9546-1fea19869f5a.PNG)<br>
 공격대상은 Easy RM to MP# Converter입니다.
-<br>![](https://user-images.githubusercontent.com/37801624/43686540-c7280760-9902-11e8-8530-3aac9ad603d0.PNG)<br>
+<br>![](https://user-images.githubusercontent.com/37801624/43686539-c6fddc60-9902-11e8-8f63-012e2b3b0109.PNG)<br>
 perl을 이용해서 x41(=A) 10000개 입력 후 Crasg.m3u라는 파일로 저장
-<br>![](https://user-images.githubusercontent.com/37801624/43686541-c7538cc8-9902-11e8-9129-bdc1a8c54a43.PNG)<br>
+<br>![](https://user-images.githubusercontent.com/37801624/43686540-c7280760-9902-11e8-8530-3aac9ad603d0.PNG)<br>
  다음과 같은 명령어어를 입력 후 F5버튼을 누르면, 저장되면서 해당 코드가 실행됩니다.(저장 명은 test1.pl로 했습니다.)
-<br>![](https://user-images.githubusercontent.com/37801624/43686542-c77cc124-9902-11e8-89ea-e43ed08e4bdf.PNG)<br>
+<br>![](https://user-images.githubusercontent.com/37801624/43686541-c7538cc8-9902-11e8-9129-bdc1a8c54a43.PNG)<br>
 
 <br>![](https://user-images.githubusercontent.com/37801624/43686543-c7a6c186-9902-11e8-841d-66cc617c5f68.PNG)<br>
 crash.m3u라는 파일을 Easy Rm to MP3 Converter로 실행시켜보면 아직은 프로그램이 터지지 않은 것을 볼 수 있습니다.
