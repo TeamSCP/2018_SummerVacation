@@ -51,4 +51,4 @@ crash.m3u라는 파일을 Easy Rm to MP3 Converter로 실행시켜보면 아직�
 참고 내용
 - [안랩코코넛 SECU-LETTER 10월호<가 기재되어있는 카페글](http://cafe345.daum.net/_c21_/bbs_search_read?grpid=RYQP&fldid=359b&contentval=0006ozzzzzzzzzzzzzzzzzzzzzzzzz&nenc=&fenc=&q=%C5%F8%B9%D9%B1%B8%BC%BA%BF%E4%BC%D2&nil_profile=cafetop&nil_menu=sch_updw)<br>
 - [corelan 팀의 [Exploit] Exploit writing tutorial part 1 : Stack Based Overflows](https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/)
-- [http://sizzf.tistory.com/12](http://sizzf.tistory.com/12)
+- [http://sizzf.tistory.com/12](http://sizzf.tistory.com/12).
