@@ -25,6 +25,7 @@ Stack overflow란 허용된 buffer의 크기를 초과하여 return값도 채우
 <hr>
 다음부터는 실습 내용이다.(중간부터 막혀서 다음주에 마저 완성하도록 하겠습니다.)
 <br>![](https://user-images.githubusercontent.com/37801624/43686538-c6d41fec-9902-11e8-9546-1fea19869f5a.PNG)<br>
+
 공격대상은 Easy RM to MP# Converter입니다.
 <br>![](https://user-images.githubusercontent.com/37801624/43686539-c6fddc60-9902-11e8-8f63-012e2b3b0109.PNG)<br>
 perl을 이용해서 x41(=A) 10000개 입력 후 Crasg.m3u라는 파일로 저장
