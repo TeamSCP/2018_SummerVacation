@@ -24,6 +24,7 @@ Stack overflow란 허용된 buffer의 크기를 초과하여 return값도 채우
 3. 공격자가 실행을 원하는 악성코드를 파일 또는 시스템의 메모리 상에 위치시키고 그 주소값을 EIP 값에 덮어씌우고 실행하는 방식으로 악성코드를 실행
 <hr>
 다음부터는 실습 내용이다.(중간부터 막혀서 다음주에 마저 완성하도록 하겠습니다.)
+
 <br>![](https://user-images.githubusercontent.com/37801624/43686538-c6d41fec-9902-11e8-9546-1fea19869f5a.PNG)<br>
 
 공격대상은 Easy RM to MP# Converter입니다.
