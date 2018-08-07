@@ -52,3 +52,5 @@
 6. lsass 프로세스내 스레드 중 멈추거나 컨텍스트를 변경해도 문제 없는 스레드를 찾는다.
 7. 스레드를 멈춘 뒤, Context 구조체내에 EIP 값을 수정하여 쉘코드로 이동하게 설정 해준다.
 
+## :: Step by Step \- Create handless share memory
+
