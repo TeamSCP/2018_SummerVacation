@@ -39,6 +39,16 @@ Ultimate Handle Hijacking 에서는 탐지 당할 수 있는 벡터를 아래와
 <img src="https://user-images.githubusercontent.com/40850499/43772484-3fcf8672-9a7d-11e8-8ff9-b965a82579e2.PNG" />
 클라이언트와 lsass, csrss에 삽입된 DLL과의 NamedPipe를 통해 서로 통신을 하여 실질적인 작업은 삽입된 DLL에서 해주는 방법입니다.<br>
 
+반면에 Ultimate Handle Hijacking은 어떤가요? 생각외로 복잡한 방법이네요 :( <br>
+<img src="https://user-images.githubusercontent.com/40850499/43793129-9f16660e-9ab5-11e8-975f-b179c4c40ebf.png" />
+
+이 기법에 주된 우회 방법은 재사용이라는 키워드로 정리 할 수 있을 것 같습니다.<br>
+첫 번째로 Lsass.exe 같은 시스템 프로세스가 이름있는 파이프를 열어서 통신 할 일이 있을까요? AC에서는 Lsass.exe 프로세스에 대해서 파이프가 생성되면 악의적인 작업을 하는 것으로 간주 할 수 있습니다.<br>
+두 번째로 DLL 목록을 검사하여 코드를 실행시키는 블록이 있는지를 확인하는 작업 또한 AC에서 가능 할 것이라 예상 할 수 있습니다.<br>
+세 번째로 메모리 페이지가 실행옵션이 걸린 상태로 생성 된다면 코드케이빙이 가능하기 때문에 이 또한 탐지벡터에 걸릴 수 있습니다.<br>
+마지막으로, 새로운 스레드가 생성되면 실행분기가 하나 더 생긴다 라고 가정 할 수 있고 CreateRemoteThread를 이용한 DLL Injection 또한 생각 해볼 수 있을 것입니다.<br>
+이제 AC를 우회하기 위한 방법을 Step by step으로 천천히 진행 해보려 합니다.<br>
+
 ## :: Step by Step \- Create handless share memory
 
 윈도우에서 API를 통해 공유메모리를 생성 하는 방법은 다음과 같습니다.<br>
