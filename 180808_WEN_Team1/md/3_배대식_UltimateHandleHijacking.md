@@ -75,3 +75,11 @@ MSDN을 읽어보시면 Remark에서 CloseHandle로 핸들을 닫아 주어도 �
 기존에 파이프를 이용한 IPC는 핸들을 계속 참조하여야 했습니다. lsass 프로세스는 파이프를 사용하지 않음에 불구하고 말이지요.<br>
 이러한 상황은 보안 솔루션이 충분히 탐지 가능한 영역입니다.<br>
 그러기 때문에 IPC에서 사용될 메모리 영역만 남겨두고, 핸들은 닫아 버리는 것입니다. 어차피 MapViewOfFile 리턴 값으로 공유메모리의 주소가 넘어 오기 때문이지요.<br>
+
+## :: Step by Step \- DuplicateHandle
+
+## :: Step by Step \- Searching R/W/E Section
+
+## :: Step by Step \- Finding Thread
+
+## :: Step by Step \- Execute Shell-code by Thread context->EIP
