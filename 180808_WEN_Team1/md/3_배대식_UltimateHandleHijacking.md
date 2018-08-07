@@ -76,6 +76,8 @@ MSDN을 읽어보시면 Remark에서 CloseHandle로 핸들을 닫아 주어도 �
 이러한 상황은 보안 솔루션이 충분히 탐지 가능한 영역입니다.<br>
 그러기 때문에 IPC에서 사용될 메모리 영역만 남겨두고, 핸들은 닫아 버리는 것입니다. 어차피 MapViewOfFile 리턴 값으로 공유메모리의 주소가 넘어 오기 때문이지요.<br>
 
+## :: Step by Step \- Windows Authority
+
 ## :: Step by Step \- DuplicateHandle
 
 ## :: Step by Step \- Searching R/W/E Section
