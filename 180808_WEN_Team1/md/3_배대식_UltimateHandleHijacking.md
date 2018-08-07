@@ -43,7 +43,7 @@ Ultimate Handle Hijacking 에서는 탐지 당할 수 있는 벡터를 아래와
 <img src="https://user-images.githubusercontent.com/40850499/43793129-9f16660e-9ab5-11e8-975f-b179c4c40ebf.png" />
 
 이 보완된 기법에 주된 우회 방법은 `재사용`이라는 키워드로 정리 할 수 있을 것 같습니다.<br>
-AC를 어떠한 이유로 탐지가 가능하고, 이것을 우회 할 수 있는 방법을 Step by step으로 진행 하겠습니다.<br>
+AC가 어떠한 이유로 기존의 핸들하이재킹을 탐지가 가능하고, 이것을 우회 할 수 있는 방법을 Step by step으로 진행 하겠습니다.<br>
 
 ## :: Step by Step \- Create handless share memory
 
