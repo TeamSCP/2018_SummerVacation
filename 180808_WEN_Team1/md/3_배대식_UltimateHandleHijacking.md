@@ -54,3 +54,24 @@
 
 ## :: Step by Step \- Create handless share memory
 
+윈도우에서 API를 통해 공유메모리를 생성 하는 방법은 다음과 같습니다.<br>
+두가지의 경우가 있는데, 첫 번째는 공유메모리를 생성 하는 방법이고 두 번째는 만들어진 공유메모리를 사용하는 방법입니다.<br>
+
+\# 방법1. 공유메모리를 생성하고 닫는 과정<br>
+```
+1. CreateFileMapping
+2. MapViewOfFile
+3. UnMapViewOfFile
+4. CloseHandle
+```
+\# 방법2. 만들어진 공유메모리를 사용 하는 방법<br>
+```
+1. OpenFileMapping
+2. MapViewOfFile
+3. CloseHandle
+```
+MSDN을 읽어보시면 Remark에서 CloseHandle로 핸들을 닫아 주어도 공유메모리는 그대로 사용 될 수 있음을 명시합니다.<br>
+그러면 핸들은 어디에서 사용 될까요? 핸들은 만들어진 공유메모리 섹션을 연결 할 때 사용됩니다. OpenFileMapping에서 사용되지요.<br>
+기존에 파이프를 이용한 IPC는 핸들을 계속 참조하여야 했습니다. lsass 프로세스는 파이프를 사용하지 않음에 불구하고 말이지요.<br>
+이러한 상황은 보안 솔루션이 충분히 탐지 가능한 영역입니다.<br>
+그러기 때문에 IPC에서 사용될 메모리 영역만 남겨두고, 핸들은 닫아 버리는 것입니다. 어차피 MapViewOfFile 리턴 값으로 공유메모리의 주소가 넘어 오기 때문이지요.<br>
