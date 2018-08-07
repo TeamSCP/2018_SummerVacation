@@ -24,6 +24,15 @@
   - 스레드를 검색 할 수 있는 방법.
   - _HANDLE_TABLE을 복사 할 수 있는 방법.
 ```
-에 대해 이해하여야 합니다.
+에 대해 이해하여야 합니다.<br>
+마지막으로 위의 내용에 대해서 구현을 하기 위해 필요한 주된 API 목록은 다음과 같습니다.<br>
+
+```
+  - CreateFileMapping, OpenFileMapping, MapViewOfFile
+  - VirtualQueryEx
+  - GetThreadContext, SetThreadContext
+```
 
 ## :: So what different?
+
+기존의 핸들 하이재킹 구상 이미지를 한 번 보고 가 봅시다.
