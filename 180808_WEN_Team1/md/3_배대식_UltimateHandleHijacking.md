@@ -37,6 +37,7 @@
 
 기존의 핸들 하이재킹 구상 이미지를 한 번 보고 가 봅시다.
 
+<img src="https://user-images.githubusercontent.com/40850499/43772484-3fcf8672-9a7d-11e8-8ff9-b965a82579e2.PNG" />
 1. 클라이언트 프로그램에서 파이프를 생성하고 서버의 연결을 기다린다.
 2. 타겟 프로세스 핸들을 가지고 있는 lsass, csrss에 파이프 서버 DLL을 주입한다.
 3. 클라이언트 프로그램에서 ReadProcessMemory를 요청
