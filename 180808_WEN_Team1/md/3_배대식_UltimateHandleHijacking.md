@@ -71,6 +71,16 @@ lsass 프로세스는 파이프를 사용하지 않음에 불구하고 말이지
 그러기 때문에 IPC에서 사용될 메모리 영역만 남겨두고, 핸들은 닫아 버리는 것입니다. 어차피 MapViewOfFile 리턴 값으로 공유메모리의 주소가 넘어 오기 때문이지요.<br>
 
 ## :: Step by Step \- Windows Authority
+이 프로그램에서는 Lsass.exe라는 시스템 프로세스를 OpenProcess로 연 뒤 메모리를 조사하여야 합니다.<br>
+윈도우에서는 프로세스가 생성 될 때 해당 로그인 되어있는 유저의 권한을 부여하는데 이러한 권한이 특정 옵션은 꺼져있습니다.<br>
+물론 내 계정은 Administrator 이지만, 보안을 위한 명목하에 설정 되어 있는 정책이지요.<br>
+
+```
+1. OpenProcessToken
+2. LookupPrivilegeToken
+3. AdjustTokenPrivileges
+```
+위의 세가지 API를 거쳐서 현재 가지고 있는 토큰을 가져 온 뒤 권한을 찾고 그 권한을 적용 해 줍니다.
 
 ## :: Step by Step \- DuplicateHandle
 
