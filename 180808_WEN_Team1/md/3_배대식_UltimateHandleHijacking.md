@@ -228,6 +228,8 @@ int main()
 
 ## :: Step by Step \- Finding Thread
 
+ToolHelp를 통한 TID 수집, NtQueryInformationThread를 통한 스레드 시작주소 수집, 시작주소가 어디 모듈에 속해 있는지 확인.
+
 ## :: Step by Step \- Execute Shell-code by Thread context->EIP
 `Searching R/W/E Section` 에서 코드가 실행 될 수 있는 영역을 찾았습니다.<br>
 그리고 쉘 코드의 길이를 조사해 남아있는 공간과 비교 한 뒤, 어셈블리 코드를 복사한 상태입니다.<br>
