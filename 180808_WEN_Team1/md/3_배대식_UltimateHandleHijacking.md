@@ -64,28 +64,47 @@ AC가 어떠한 이유로 기존의 핸들하이재킹을 탐지가 가능하고
 3. CloseHandle
 ```
 MSDN을 읽어보시면 Remarks에서 핸들을 닫아 주어도 공유메모리는 그대로 사용 될 수 있음을 명시합니다.<br>
+
+```
+Mapped views of a file mapping object maintain internal references to the object, and a file mapping object does not close until all references to it are released. Therefore, to fully close a file mapping object, an application must unmap all mapped views of the file mapping object by calling UnmapViewOfFile and close the file mapping object handle by calling CloseHandle. These functions can be called in any order.
+```
+
 그러면 핸들은 어디에서 사용 될까요? 핸들은 만들어진 공유메모리 섹션을 연결 할 때 사용됩니다.<br>
-기존에 파이프를 이용한 IPC는 핸들을 계속 참조하여야 했습니다.<BR>
+기존에 파이프를 이용한 IPC는 핸들을 계속 참조하여야 했습니다.<br>
 lsass 프로세스는 파이프를 사용하지 않음에 불구하고 말이지요.<br>
-이러한 상황은 보안 솔루션이 충분히 탐지 가능한 영역입니다.<br>
+이러한 상황은 AC가 충분히 탐지 가능한 영역입니다.<br>
 그러기 때문에 IPC에서 사용될 메모리 영역만 남겨두고, 핸들은 닫아 버리는 것입니다. 어차피 MapViewOfFile 리턴 값으로 공유메모리의 주소가 넘어 오기 때문이지요.<br>
 
+여기서 한 가지 더 생각 해야 하는 점이 있습니다.<br>
+공유메모리의 생성은 어떤 프로세스가 하는지, 만들어진 공유메모리에 접근은 어떤 프로세스가 하는지를 명확히 할 필요가 있습니다.<br>
+lsass, csrss는 시스템에서 사용하는 프로세스입니다. 커널과도 통신을 하는 프로세스지요.<br>
+즉, 좀 더 높은 권한을 가지고 있는 프로세스에 공유메모리 생성을 하는 것은 권한 문제로 부적절 할 수 있습니다.<br>
+
 ## :: Step by Step \- Windows Authority
-이 프로그램에서는 Lsass.exe라는 시스템 프로세스를 OpenProcess로 연 뒤 메모리를 조사하여야 합니다.<br>
-윈도우에서는 프로세스가 생성 될 때 해당 로그인 되어있는 유저의 권한을 부여하는데 이러한 권한이 특정 옵션은 꺼져있습니다.<br>
-물론 내 계정은 Administrator 이지만, 보안을 위한 명목하에 설정 되어 있는 정책이지요.<br>
+이 프로그램에서는 Lsass라는 시스템 프로세스를 OpenProcess로 연 뒤 메모리를 조사하여야 합니다.<br>
+윈도우에서는 프로세스가 생성 될 때 해당 로그인 되어있는 유저의 권한을 부여하게 됩니다.<br>
+그런데도 불구하고 시스템 프로세스를 열 때 권한 문제로 실패하게 되는 현상을 볼 수 있습니다.<br>
 
 ```
 1. OpenProcessToken
 2. LookupPrivilegeToken
 3. AdjustTokenPrivileges
 ```
-위의 세가지 API를 거쳐서 현재 가지고 있는 토큰을 가져 온 뒤 권한을 찾고 그 권한을 적용 해 줍니다.
+위의 세가지 API를 거쳐서 현재 가지고 있는 토큰을 가져 온 뒤 권한을 찾고 그 권한을 적용 해 줍니다.<br>
 
 ## :: Step by Step \- DuplicateHandle
 
 ## :: Step by Step \- Searching R/W/E Section
+프로세스에서 사용되고 있는 메모리 섹션을 조사하는 방법은 `VirtualQuery, VirtualQueryEx`라는 API가 있습니다.<br>
+API는 out으로 MEMORY_BASIC_INFORMATION 구조체에 메모리 섹션에 대한 정보를 담게 됩니다.<br>
+
 
 ## :: Step by Step \- Finding Thread
 
 ## :: Step by Step \- Execute Shell-code by Thread context->EIP
+`Searching R/W/E Section` 에서 코드가 실행 될 수 있는 영역을 찾았습니다.<br>
+그리고 쉘 코드의 길이를 조사해 남아있는 공간과 비교 한 뒤, 어셈블리 코드를 복사한 상태입니다.<br>
+하지만 이 영역을 실행 시켜줄, 매개체를 어디서 찾을까요?<br>
+저는 스레드로 새로운 실행 흐름을 만들 수도 없고, DLL Injection으로 DLLMain의 시작 지점을 호출되게 할 수 없는 상태입니다.<br>
+여기서 사용 될 수 있는 방법이 크리티컬하지 않은 스레드를 찾아 그 스레드를 멈추고 Context를 바꾸어 주는 작업을 하야 EIP 위치를 쉘코드로 바꾸어 주는 것 입니다.<br>
+
