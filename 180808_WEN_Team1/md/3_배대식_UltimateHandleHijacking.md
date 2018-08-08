@@ -66,8 +66,10 @@ AC가 어떠한 이유로 기존의 핸들하이재킹을 탐지가 가능하고
 MSDN을 읽어보시면 Remarks에서 핸들을 닫아 주어도 공유메모리는 그대로 사용 될 수 있음을 명시합니다.<br>
 
 ```
-Mapped views of a file mapping object maintain internal references to the object, and a file mapping object does not close until all references to it are released.
-Therefore, to fully close a file mapping object, an application must unmap all mapped views of the file mapping object by calling UnmapViewOfFile and close the file mapping object handle by calling CloseHandle. 
+Mapped views of a file mapping object maintain internal references to the object, 
+and a file mapping object does not close until all references to it are released.
+Therefore, to fully close a file mapping object, 
+an application must unmap all mapped views of the file mapping object by calling UnmapViewOfFile and close the file mapping object handle by calling CloseHandle. 
 These functions can be called in any order.
 ```
 
