@@ -226,7 +226,9 @@ int main()
 }
 ```
 
-## :: Step by Step \- Finding Thread
+## :: Step by Step \- How to make shellcode and What is spinlock? 
+
+## :: Step by Step \- Finding Thread information
 
 ToolHelp를 통한 TID 수집, NtQueryInformationThread를 통한 스레드 시작주소 수집, 시작주소가 어디 모듈에 속해 있는지 확인.
 
