@@ -96,6 +96,47 @@ lsass, csrss는 시스템에서 사용하는 프로세스입니다. 커널과도
 ```
 위의 세가지 API를 거쳐서 현재 가지고 있는 토큰을 가져 온 뒤 권한을 찾고 그 권한을 적용 해 줍니다.<br>
 
+```c++
+bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
+	HANDLE hToken;
+	TOKEN_PRIVILEGES priv = { 0,0,0,0 };
+	LUID luid = { 0, };
+	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken))
+	{
+		if (hToken) {
+			CloseHandle(hToken);
+		}
+		cout << "OpenProcessToken Failed. GetLastError: " << GetLastError() << endl;
+		return false;
+	}
+	if (!LookupPrivilegeValue(NULL, lpszPrivilege, &luid))
+	{
+		if (hToken) {
+			CloseHandle(hToken);
+		}
+		cout << "LookupPrivilegeValue Failed. GetLastError: " << GetLastError() << endl;
+		return false;
+	}
+
+	priv.PrivilegeCount = 1;
+	priv.Privileges[0].Attributes = bEnablePrivilege ? SE_PRIVILEGE_ENABLED : SE_PRIVILEGE_REMOVED;
+	priv.Privileges[0].Luid = luid;
+
+	if (!AdjustTokenPrivileges(hToken, false, &priv, sizeof(TOKEN_PRIVILEGES), 0, 0))
+	{
+		if (hToken) {
+			CloseHandle(hToken);
+		}
+		cout << "AdjustTokenPrivileges Failed. GetLastError: " << GetLastError() << endl;
+		return false;
+	}
+	if (hToken) {
+		CloseHandle(hToken);
+	}
+	return true;
+}
+```
+
 ## :: Step by Step \- DuplicateHandle
 
 ## :: Step by Step \- Searching R/W/E Section
