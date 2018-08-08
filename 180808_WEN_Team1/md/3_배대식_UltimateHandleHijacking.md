@@ -234,4 +234,11 @@ int main()
 하지만 이 영역을 실행 시켜줄, 매개체를 어디서 찾을까요?<br>
 저는 스레드로 새로운 실행 흐름을 만들 수도 없고, DLL Injection으로 DLLMain의 시작 지점을 호출되게 할 수 없는 상태입니다.<br>
 여기서 사용 될 수 있는 방법이 크리티컬하지 않은 스레드를 찾아 그 스레드를 멈추고 Context를 바꾸어 주는 작업을 하야 EIP 위치를 쉘코드로 바꾸어 주는 것 입니다.<br>
-
+```
+SuspenThread
+GetThreadContext
+SetThreadContext
+CONTEXT ctx;
+ctx.EIP = Shellcode address;
+ResumeThread
+```
