@@ -97,6 +97,22 @@ lsass, csrss는 시스템에서 사용하는 프로세스입니다. 커널과도
 위의 세가지 API를 거쳐서 현재 가지고 있는 토큰을 가져 온 뒤 권한을 찾고 그 권한을 적용 해 줍니다.<br>
 
 ```c++
+#define SE_TCB_NAME                                  TEXT("SeTcbPrivilege")
+#define SE_LOAD_DRIVER_NAME                          TEXT("SeLoadDriverPrivilege")
+#define SE_SYSTEM_PROFILE_NAME                       TEXT("SeSystemProfilePrivilege")
+#define SE_SYSTEMTIME_NAME                           TEXT("SeSystemtimePrivilege")
+#define SE_PROF_SINGLE_PROCESS_NAME                  TEXT("SeProfileSingleProcessPrivilege")
+#define SE_INC_BASE_PRIORITY_NAME                    TEXT("SeIncreaseBasePriorityPrivilege")
+#define SE_CREATE_PAGEFILE_NAME                      TEXT("SeCreatePagefilePrivilege")
+#define SE_CREATE_PERMANENT_NAME                     TEXT("SeCreatePermanentPrivilege")
+#define SE_BACKUP_NAME                               TEXT("SeBackupPrivilege")
+#define SE_RESTORE_NAME                              TEXT("SeRestorePrivilege")
+#define SE_SHUTDOWN_NAME                             TEXT("SeShutdownPrivilege")
+#define SE_DEBUG_NAME                                TEXT("SeDebugPrivilege")
+#define SE_AUDIT_NAME                                TEXT("SeAuditPrivilege")
+```
+
+```c++
 bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
 	HANDLE hToken;
 	TOKEN_PRIVILEGES priv = { 0,0,0,0 };
