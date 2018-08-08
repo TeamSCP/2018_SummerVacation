@@ -232,6 +232,23 @@ int main()
 
 ToolHelp를 통한 TID 수집, NtQueryInformationThread를 통한 스레드 시작주소 수집, 시작주소가 어디 모듈에 속해 있는지 확인.
 
+```c++
+typedef struct _RSYSTEM_THREAD_INFORMATION   
+{  
+    LARGE_INTEGER KernelTime; // 커널 모드에서 수행된 시간  
+    LARGE_INTEGER UserTime; // 유저 모드에서 수행된 시간  
+    LARGE_INTEGER CreateTime; // 생성 시간  
+    ULONG WaitTime;  
+    PVOID StartAddress; // 시작 주소  
+    CLIENT_ID ClientId; // 프로세스/스레드 아이디  
+    ULONG Priority;   
+    LONG BasePriority;  
+    ULONG ContextSwitches;   
+    ULONG ThreadState; // 현재 스레드 수행 상태  
+    ULONG WaitReason; // 대기 사유  
+} RSYSTEM_THREAD_INFORMATION, *PRSYSTEM_THREAD_INFORMATION; 
+```
+
 ## :: Step by Step \- Execute Shell-code by Thread context->EIP
 `Searching R/W/E Section` 에서 코드가 실행 될 수 있는 영역을 찾았습니다.<br>
 그리고 쉘 코드의 길이를 조사해 남아있는 공간과 비교 한 뒤, 어셈블리 코드를 복사한 상태입니다.<br>
