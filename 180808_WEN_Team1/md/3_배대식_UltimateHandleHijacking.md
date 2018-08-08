@@ -159,7 +159,7 @@ bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
 프로세스에서 사용되고 있는 메모리 섹션을 조사하는 방법은 `VirtualQuery, VirtualQueryEx`라는 API가 있습니다.<br>
 API는 out으로 MEMORY_BASIC_INFORMATION 구조체에 메모리 섹션에 대한 정보를 담게 됩니다.<br>
 
-```C
+```c++
 typedef struct _MEMORY_BASIC_INFORMATION {
     PVOID BaseAddress;
     PVOID AllocationBase;
@@ -169,6 +169,61 @@ typedef struct _MEMORY_BASIC_INFORMATION {
     DWORD Protect;
     DWORD Type;
 } MEMORY_BASIC_INFORMATION, *PMEMORY_BASIC_INFORMATION;
+```
+
+```c++
+int main()
+{
+	HANDLE hProcess;
+	DWORD PID;
+	MEMORY_BASIC_INFORMATION mbi;
+	DWORD Address = 0;
+	vector<MEMORY_BASIC_INFORMATION> exec_mbi;
+
+	if (!SetPrivilege(SE_DEBUG_NAME, TRUE))
+	{
+		cout << "SetPrivilege Failed. GetLastError: " << GetLastError() << endl;
+	}
+	cout << "Input LSASS PID: ";
+	cin >> dec >> PID;
+	hProcess = OpenProcess(PROCESS_ALL_ACCESS, NULL, PID);
+	if (!hProcess)
+	{
+		cout << "OpenProcess Failed. GetLastError: " << GetLastError() << endl;
+		return FALSE;
+	}
+	do {
+		VirtualQueryEx(hProcess, (LPCVOID)Address, &mbi, sizeof(MEMORY_BASIC_INFORMATION));
+
+		if (mbi.Protect == PAGE_EXECUTE_READ || mbi.Protect == PAGE_EXECUTE_READWRITE || mbi.Protect == PAGE_EXECUTE_WRITECOPY || mbi.Protect == PAGE_EXECUTE) {
+			exec_mbi.push_back(mbi);
+		}
+		Address += mbi.RegionSize;
+	} while (Address <= (DWORD)0x7FFFFFFF);
+
+	for (int i = 0; i < exec_mbi.size(); i++)
+	{
+		unsigned int size = 0;
+		unsigned char* Mem_Test = 0;
+
+		cout << "[+] AllocationBase = " << exec_mbi[i].AllocationBase << endl;
+		cout << "[+] AllocationProtect = " << exec_mbi[i].AllocationProtect << endl;
+		cout << "[+] BaseAddress = " << exec_mbi[i].BaseAddress << endl;
+		cout << "[+] Protect = " << exec_mbi[i].Protect << endl;
+		cout << "[+] RegionSize = " << exec_mbi[i].RegionSize << endl;
+		Mem_Test = (unsigned char*)malloc(exec_mbi[i].RegionSize);
+		ReadProcessMemory(hProcess, exec_mbi[i].BaseAddress, Mem_Test, exec_mbi[i].RegionSize, NULL);
+		for (size = (exec_mbi[i].RegionSize - 1); size > 0; size--)
+		{
+			if (Mem_Test[size] != 0)
+			{
+				break;
+			}
+		}
+		cout << "Usable Size : " << (exec_mbi[i].RegionSize - size) << endl;
+		free(Mem_Test);
+	}
+}
 ```
 
 ## :: Step by Step \- Finding Thread
