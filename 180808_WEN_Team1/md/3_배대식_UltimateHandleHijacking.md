@@ -29,8 +29,10 @@ Ultimate Handle Hijacking 에서는 탐지 당할 수 있는 벡터를 아래와
 
 ```
   - CreateFileMapping, OpenFileMapping, MapViewOfFile
+  - SuspendThread ,GetThreadContext, SetThreadContext, ResumeThread
   - VirtualQueryEx
-  - GetThreadContext, SetThreadContext
+  - CreateToolhelp32Snapshot, Thread32First, Thread32Next, NtQueryInformationThread, EnumProcessModules, GetModuleFileNameEx, GetModuleInformation
+  - DuplicateHandle
 ```
 
 ## :: So what different?
@@ -155,21 +157,27 @@ bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
 
 ## :: Step by Step \- DuplicateHandle
 
+Create handless share memory를 생성 할 때 핸들을 닫게 되는데, 다시 공유메모리에 대한 경로를 남겨 두기 위해 DuplicationHandle API를 사용해<br>
+핸들을 화이트 프로세스(explorer.exe)로 복사해 둡니다.
+
 ## :: Step by Step \- Searching R/W/E Section
 프로세스에서 사용되고 있는 메모리 섹션을 조사하는 방법은 `VirtualQuery, VirtualQueryEx`라는 API가 있습니다.<br>
 API는 out으로 MEMORY_BASIC_INFORMATION 구조체에 메모리 섹션에 대한 정보를 담게 됩니다.<br>
 
 ```c++
 typedef struct _MEMORY_BASIC_INFORMATION {
-    PVOID BaseAddress;
+    PVOID BaseAddress;		// 실 메모리 섹션 주소
     PVOID AllocationBase;
     DWORD AllocationProtect;
-    SIZE_T RegionSize;
+    SIZE_T RegionSize;		// 메모리 섹션의 크기
     DWORD State;
-    DWORD Protect;
+    DWORD Protect;		// 메모리의 읽기, 쓰기, 실행 속성
     DWORD Type;
 } MEMORY_BASIC_INFORMATION, *PMEMORY_BASIC_INFORMATION;
 ```
+
+아래의 코드는 쉘 코드보다 작은 공간을 검색하기 위해 메모리 섹션이 실행 옵션이 있고, 섹션의 마지막으로부터 0이아닌 부분을 찾아<br>
+코드를 삽입 할 수 있는 크기를 구하는 과정의 코드입니다.<br>
 
 ```c++
 int main()
@@ -227,6 +235,32 @@ int main()
 ```
 
 ## :: Step by Step \- How to make shellcode and What is spinlock? 
+```asm
+SpinLock: 
+	repe nop
+	cmp bl, [sharemem address]
+	jne SpinLock
+	ret
+```
+스핀 락의 개념은 특정 조건을 만족 할 때 까지 계속 도는 것입니다. 조건이 만족하면? 리턴 하는 간단한 구조입니다.<br>
+```asm
+SpinLock:
+	repe nop
+	xor eax,eax
+	mov eax, [sharemem_rpm]
+	cmp eax, 1 // on
+	jne IsEnd
+	push 0
+	push [sharemem_size]
+	push [sharemem_buffer]
+	push [sharemem_target_mem]
+	call ReadProcessMemory
+IsEnd:
+	cmp bl, [spinlock on]
+	jne SpinLock
+	ret
+```
+이런식으로 구현하여 공유메모리의 특정 공간을 통해 요청을 하면 프로세스간 통신이 성립 될 수 있다는 것이지요.<br>
 
 ## :: Step by Step \- Finding Thread information
 
