@@ -232,6 +232,104 @@ int main()
 
 ToolHelp를 통한 TID 수집, NtQueryInformationThread를 통한 스레드 시작주소 수집, 시작주소가 어디 모듈에 속해 있는지 확인.
 
+```c++
+#include <iostream>
+#include <Windows.h>
+#include <tlhelp32.h>
+#include <Winternl.h>
+#include <Psapi.h>
+#include <vector>
+
+using namespace std;
+
+#pragma comment (lib, "ntdll.lib")
+#define ThreadQuerySetWin32StartAddress 9
+
+int main()
+{
+	THREADENTRY32 th_list;
+	DWORD PID;
+	HANDLE hSnapShot;
+	HANDLE hProcess;
+	HMODULE hModules[1024];
+	DWORD cbNeed;
+	MODULEINFO mi;
+	vector<THREADENTRY32> tid_list;
+	vector<DWORD> thread_start_list;
+
+	if (!SetPrivilege(SE_DEBUG_NAME, TRUE))
+	{
+		cout << "SetPrivilege Failed. GetLastError: " << GetLastError() << endl;
+	}
+
+	cout << "Input lsass PID : ";
+	cin >> dec >> PID;
+
+	th_list.dwSize = sizeof(THREADENTRY32);
+
+	hSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, PID);
+	if (!hSnapShot)
+	{
+		return FALSE;
+	}
+
+	if (!Thread32First(hSnapShot, &th_list))
+	{
+		CloseHandle(hSnapShot);
+		return FALSE;
+	}
+	do {
+		if ((DWORD)th_list.th32OwnerProcessID == PID)
+		{
+			tid_list.push_back(th_list);
+		}
+	} while (Thread32Next(hSnapShot, &th_list));
+
+	for (int i = 0; i < tid_list.size(); i++)
+	{
+		HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, false, tid_list[i].th32ThreadID);
+		DWORD StartAddress = 0;
+
+		if (!hThread)
+		{
+			cout << "OpenThread Failed Reason : " << GetLastError() << endl;
+			return false;
+		}
+
+		NtQueryInformationThread(hThread, (THREADINFOCLASS)ThreadQuerySetWin32StartAddress, &StartAddress, sizeof(StartAddress), NULL);
+		CloseHandle(hThread);
+		thread_start_list.push_back((DWORD)StartAddress);
+		cout << "Thread ID : " << tid_list[i].th32ThreadID << endl;
+		cout << "Thread Start Address : " << hex << thread_start_list[i] << endl;
+	}
+	hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, PID);
+
+	if (!hProcess)
+	{
+		cout << "OpenProcess Failed Reason : " << GetLastError() << endl;
+		return false;
+	}
+	if (!EnumProcessModules(hProcess, hModules, sizeof(hModules), &cbNeed))
+	{
+		cout << "EnumProcessModules Call failed.. Reason : " << GetLastError() << endl;
+	}
+
+	for (int i = 0; i < (cbNeed/sizeof(HMODULE)); i++) {
+		TCHAR szModeName[256];
+		GetModuleFileNameEx(hProcess, hModules[i], szModeName, sizeof(szModeName) / sizeof(TCHAR));
+		GetModuleInformation(hProcess, hModules[i], &mi, sizeof(mi));
+
+		cout << "Module Name : " << szModeName << endl;
+		cout << "Base Address : " << mi.lpBaseOfDll << endl;
+	}
+
+	CloseHandle(hProcess);
+	CloseHandle(hSnapShot);
+
+	return 0;
+}
+```
+
 
 ## :: Step by Step \- Execute Shell-code by Thread context->EIP
 `Searching R/W/E Section` 에서 코드가 실행 될 수 있는 영역을 찾았습니다.<br>
