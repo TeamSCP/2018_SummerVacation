@@ -14,7 +14,7 @@ FTZ는 bof와 fsb를 공부하기 위한 문제들로 구성되어있기 때문�
 
 아래 그림은 메모리가 4GB일 때를 가정한 상황이다. ) 
 
-![메모리구조](C:\Users\96dks\Desktop\메모리구조.png)
+![default](https://user-images.githubusercontent.com/40850499/43872149-31ae1a1a-9bbb-11e8-8e04-9ce536f78398.png)
 
 메모리 구조는 낮은 주소를 위쪽으로 놓았을 때를 기준으로 CODE, DATA, HEAP, STACK 영역으로 구분된다.  
 
@@ -52,17 +52,15 @@ level11~19는 버퍼오버플로우 중에서도 스택 버퍼오버플로우에
 
 예를 들어 다음과 같은 소스가 있다고 하면,
 
-![스택프레임의 동작방식](C:\Users\96dks\Desktop\스택프레임의 동작방식.JPG)
+![default](https://user-images.githubusercontent.com/40850499/43872176-45f71ae4-9bbb-11e8-807f-bcfb85575aa9.JPG)
 
 
 
 
 
 다음 그림은 위 예제 코드에서 함수 호출에 의한 스택 프레임의 변화를 보여주고 있다. 
-
-![함수호출시 스택변화](C:\Users\96dks\Desktop\함수호출시 스택변화.JPG)
-
-![함수호출시 스택변화2](C:\Users\96dks\Desktop\함수호출시 스택변화2.JPG)
+![default](https://user-images.githubusercontent.com/40850499/43872169-40d5457c-9bbb-11e8-8635-ba2b21549fe7.JPG)
+![2](https://user-images.githubusercontent.com/40850499/43872170-42d30aa8-9bbb-11e8-9bd4-2a8d31238fbe.JPG)
 
 Step 1. 프로그램이 실행되면, 가장 먼저 main() 함수가 호출되어 main() 함수의 스택 프레임이 스택에 저장된다.
 
@@ -88,7 +86,7 @@ Step 6. main() 함수의 모든 작업이 완료되면, main() 함수의 스택 
 
 스택이 메모리상에서 LIFO구조로(거꾸로) 자라는 이유는  다음 그림에서 보이는 커널영역을 침범하지 않게 하기 위해서이다. 
 
-![메모리구조](C:\Users\96dks\Desktop\메모리구조.png)  
+![default](https://user-images.githubusercontent.com/40850499/43872149-31ae1a1a-9bbb-11e8-8e04-9ce536f78398.png)
 
  커널영역은 운영체제를 실행시키기 위해서 필요한 메모리 공간으로, 시스템을 운영하고 관리하는데 중요한 정보들이 있기때문에 유저 영역에서 실행 중인 프로그램이 커널 영역으로 접근을 시도하면 시스템에서 오류가 발생했음을 알리고 접근을 원천적으로 봉쇄한다. 
 
@@ -100,7 +98,7 @@ Step 6. main() 함수의 모든 작업이 완료되면, main() 함수의 스택 
 
 이렇게 스택의 모든 공간을 다 차지하고 난 후 더 이상의 여유 공간이 없을 때 또 다시 스택 프레임을 저장하면 데이터는 스택 영역을 넘어가서 저장되고, 다른 메모리 공간의 데이터를 덮어 씌울 수 있기때문에 프로그램이 오동작을 하거나 보안상의 큰 취약점을 가지게 된다.
 
-![함수호출시 스택변화3](C:\Users\96dks\Desktop\함수호출시 스택변화3.JPG)
+![3](https://user-images.githubusercontent.com/40850499/43872172-4499441a-9bbb-11e8-98a9-31c73b7a78d7.JPG)
 
 C언어에서는 실행 중인 프로그램에서 스택 오버플로우가 발생하면, 에러를 발생하고 곧바로 강제 종료시킨다. 
 
