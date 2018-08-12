@@ -74,7 +74,7 @@ These functions can be called in any order.
 ```
 
 그러면 핸들은 어디에서 사용 될까요? 핸들은 만들어진 공유메모리 섹션을 연결 할 때 사용됩니다.<br>
-OpenFileMapping의 마지막 인자인 lpName으로 핸들의 이름을 넣어 공유 메모리 공간을 매핑 시킬 수 있습니다.<br><br>
+OpenFileMapping의 마지막 인자인 lpName으로 핸들의 이름을 넣어 공유 메모리 공간을 매핑 시킬 수 있습니다.<br>
 
 기존의 파이프를 이용한 IPC는 핸들을 계속 참조하여야 했습니다.<br>
 LSASS는 파이프를 사용하지 않음에 불구하고 말이지요.<br>
