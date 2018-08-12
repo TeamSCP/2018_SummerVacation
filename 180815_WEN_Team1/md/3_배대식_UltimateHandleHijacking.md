@@ -92,16 +92,16 @@ LSASS, CSRSS는 시스템에서 사용하는 프로세스입니다. 커널과도
 
 이러한 상태를 이해하려면 윈도우 권한에 대해 이해하여야 합니다.<br>
 윈도우를 로그인 할 때 계정에 대한 `토큰`을 발급 받고, 프로세스들은 각자의 권한에 맞게 `토큰의 복제본`을 발급 받습니다.<br>
-그리고 이 토큰은 권한을 가지고 있는데 이 권한에 따라 운영체제에게 요청 할 수 있는 범위가 늘어나거나 줄어들 수 있습니다.<br>
-예를들어, 관리자 권한으로 실행되지 않은 프로세스들은 매우 적은 권한을 가지고 있는 것을 프로세스 모니터링 툴로 확인 할 수 있습니다.<br>
+그리고 이 토큰은 권한을 가지고 있는데 이 권한에 따라 운영체제에게 요청 할 수 있는 `범위가 늘어나거나 줄어들 수` 있습니다.<br>
+예를 들어, 관리자 권한으로 실행되지 않은 프로세스들은 매우 적은 권한을 가지고 있는 것을 프로세스 모니터링 툴로 확인 할 수 있습니다.<br>
 
 ```
 1. OpenProcessToken
-2. LookupPrivilegeToken
+2. LookupPrivilegeValue
 3. AdjustTokenPrivileges
 ```
 
-위의 내용을 API로 정리하자면, 프로세스의 토큰을 얻어온 뒤, 디버그 권한을 가지고 있는 LUID를 찾은 뒤, 해당 토큰의 권한에 적용 해주면 디버그 권한이 생기는 구조입니다.<br>
+위의 내용을 API로 정리한다면 OpenProcessToken 함수로 `토큰 요청`, LookupPrivilegeValue 함수로 텍스트에 대한 `LUID(LocalUniqueID) 값` 요청, AdustTokenPrivleges 함수로 권한이 변경된 토큰 적용하여 특정 권한을 활성화 시킵니다.<br>
 
 ```c++
 #define SE_TCB_NAME                                  TEXT("SeTcbPrivilege")
@@ -119,13 +119,16 @@ LSASS, CSRSS는 시스템에서 사용하는 프로세스입니다. 커널과도
 #define SE_AUDIT_NAME                                TEXT("SeAuditPrivilege")
 ```
 
-권한으로 설정되어 있는 매크로는 위와같이 많은 종류를 가지고 있는데 이걸 LookupPrivilegeToken으로 그 권한에 해당하는 LUID 값을 가져오게 되는 것이죠.<br>
+윈도우에선 위와 같이 많은 권한을 가지고 있는데 예를 들어 시스템을 종료하고 싶다면 SeShutdownPrivilege의 LUID 값이 필요하게 되고 프로세스를 디버깅 하고 싶다면 SeDebugPrivilege가 필요하게 되는 것 입니다.<br>
+
+아래의 코드는 lpszPrivilege로 권한의 텍스트 이름을 bEnablePrivilege로 활성, 비활성 여부를 설정합니다.
 
 ```c++
 bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
 	HANDLE hToken;
 	TOKEN_PRIVILEGES priv = { 0,0,0,0 };
 	LUID luid = { 0, };
+	
 	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken)) // Get process token
 	{
 		if (hToken) {
