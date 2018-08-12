@@ -10,8 +10,10 @@
 
 ## 분석 
 /bin/&Random = 임의의 문자열 
+
 /etc/cron.hourly/:
 gcc.sh: 지속성 유지
+
 / lib /
 libudev.so : "백업"용도
 
