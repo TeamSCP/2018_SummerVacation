@@ -392,5 +392,5 @@ ResumeThread
 
 ## :: 참조 링크
 
-<a href="https://docs.microsoft.com/ko-kr/windows/desktop/TermServ/kernel-object-namespaces">Kernel-object-namespaces</a>
+<a href="https://docs.microsoft.com/ko-kr/windows/desktop/TermServ/kernel-object-namespaces">Kernel-object-namespaces</a><br>
 <a href="https://docs.microsoft.com/ko-kr/windows/desktop/SecAuthZ/enabling-and-disabling-privileges-in-c--">Enable and disabling privileges in c++</a>
