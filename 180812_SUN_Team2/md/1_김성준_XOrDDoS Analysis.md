@@ -11,10 +11,18 @@
 <img width="795" alt="2018-08-13 4 14 59" src="https://user-images.githubusercontent.com/40850499/44005512-9b460c8e-9eaf-11e8-834c-6f1b5cd9ad1c.png">
 
 ## 분석 
+
+<img width="797" alt="2018-08-13 4 17 44" src="https://user-images.githubusercontent.com/40850499/44005538-e591ce22-9eaf-11e8-8e61-35dc2d14e200.png">
+
 /bin/&Random = 임의의 문자열 
+
+<img width="793" alt="2018-08-13 4 18 50" src="https://user-images.githubusercontent.com/40850499/44005548-086cd536-9eb0-11e8-9300-1146b0b920ed.png">
 
 /etc/cron.hourly/:
 gcc.sh: 지속성 유지
+$Random:이 파일은 매번 삭제 될 때마다 재생성되며, / bin에있는 Random 파일도 똑같은기능을한다.
+
+<img width="790" alt="2018-08-13 4 18 59" src="https://user-images.githubusercontent.com/40850499/44005551-1742bb98-9eb0-11e8-8fe6-82d2f85d8677.png">
 
 / lib /
 libudev.so : "백업"용도
