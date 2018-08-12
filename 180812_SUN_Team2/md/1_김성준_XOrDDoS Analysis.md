@@ -1,5 +1,5 @@
 ## XorDDoS Analysis
-
+2018.8.12 Pvgodd 김성준
 ### 요약
 해당악성코드는 공격자에 의해 감염 후 , 원격지와 통신을 수행하고 이통신을 통해 공격하고자 하는 대상의 ip 주소를 얻고,
 그후 대량의 Packet을 대상 주소로 전송하는 악성코드이다.
@@ -19,7 +19,9 @@
 <img width="793" alt="2018-08-13 4 18 50" src="https://user-images.githubusercontent.com/40850499/44005548-086cd536-9eb0-11e8-9300-1146b0b920ed.png">
 
 /etc/cron.hourly/:
+
 gcc.sh: 지속성 유지
+
 $Random:이 파일은 매번 삭제 될 때마다 재생성되며, / bin에있는 Random 파일도 똑같은기능을한다.
 
 <img width="790" alt="2018-08-13 4 18 59" src="https://user-images.githubusercontent.com/40850499/44005551-1742bb98-9eb0-11e8-8fe6-82d2f85d8677.png">
