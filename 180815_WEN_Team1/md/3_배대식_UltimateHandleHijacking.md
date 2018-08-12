@@ -172,11 +172,10 @@ Create handless share memory를 생성 할 때 핸들을 닫게 되는데, 다�
 
 ## :pencil2: Step4 \- Searching R/W/E Section
 메모리 영역이 실행 될 수 있는지 여부는 게임 해킹에서 매우 중요한 요소로 작용합니다.<br>
-실행 될 수 있다 하는 것은 곧, 사용자 코드를 메모리에 적어 넣으면 그 코드는 실행 됩니다. 이 코드가 나쁜지, 좋은지를 제외하고요<br>
-기법적인면으로 이야기 하자면 Code caving에 이용 될 수 있겠네요.<br>
+예를 들어, Read/Write 가능한 영역에 어셈블리 코드를 작성하여 넣었습니다. 하지만 실행 권한이 없으므로 EIP가 그 영역으로 간다 한들 아무 의미 없을 것입니다.<br>
 
 위에서 공유 메모리를 매핑하기 위해선 OpenFileMapping을 시스템 프로세스인 LSASS에서 호출 하여야 합니다.<br>
-그러한 코드를 어셈블리어로 작성하여 실행 될 수 있는 영역에 주어야 정상적으로 그 API를 호출 할 수 있겠죠?<br>
+그러한 코드를 어셈블리로 작성하여 실행 될 수 있는 영역에 주어야 정상적으로 그 API를 호출 할 수 있겠죠?<br>
 
 프로세스에서 사용되고 있는 메모리 섹션을 조사하는 방법은 `VirtualQuery, VirtualQueryEx`라는 API가 있습니다.<br>
 API는 out으로 MEMORY_BASIC_INFORMATION 구조체에 메모리 섹션에 대한 정보를 담게 됩니다.<br>
@@ -205,7 +204,7 @@ int main()
 	DWORD Address = 0;
 	vector<MEMORY_BASIC_INFORMATION> exec_mbi;
 
-	if (!SetPrivilege(SE_DEBUG_NAME, TRUE))
+	if (!SetPrivilege(SE_DEBUG_NAME, TRUE)) // VQE Need Debug privileges
 	{
 		cout << "SetPrivilege Failed. GetLastError: " << GetLastError() << endl;
 	}
@@ -224,7 +223,7 @@ int main()
 			exec_mbi.push_back(mbi);
 		}
 		Address += mbi.RegionSize;
-	} while (Address <= (DWORD)0x7FFFFFFF);
+	} while (Address <= (DWORD)0x7FFFFFFF); // 32bit
 
 	for (int i = 0; i < exec_mbi.size(); i++)
 	{
@@ -236,9 +235,9 @@ int main()
 		cout << "[+] BaseAddress = " << exec_mbi[i].BaseAddress << endl;
 		cout << "[+] Protect = " << exec_mbi[i].Protect << endl;
 		cout << "[+] RegionSize = " << exec_mbi[i].RegionSize << endl;
-		Mem_Test = (unsigned char*)malloc(exec_mbi[i].RegionSize);
-		ReadProcessMemory(hProcess, exec_mbi[i].BaseAddress, Mem_Test, exec_mbi[i].RegionSize, NULL);
-		for (size = (exec_mbi[i].RegionSize - 1); size > 0; size--)
+		Mem_Test = (unsigned char*)malloc(exec_mbi[i].RegionSize); // Allocating be region size
+		ReadProcessMemory(hProcess, exec_mbi[i].BaseAddress, Mem_Test, exec_mbi[i].RegionSize, NULL); // Copy memory section
+		for (size = (exec_mbi[i].RegionSize - 1); size > 0; size--) 
 		{
 			if (Mem_Test[size] != 0)
 			{
@@ -250,6 +249,8 @@ int main()
 	}
 }
 ```
+
+공유 메모리를 매핑시키는 코드와 IPC를 구현 하기 위한 Spinlock 코드보다 작은 메모리 공간은 사용 될 수 없기 때문에, 크기 체크는 꼭 필요합니다.<br>
 
 ## :pencil2: Step5 \- How to make shellcode and What is spinlock? 
 ```asm
@@ -380,7 +381,6 @@ int main()
 	return 0;
 }
 ```
-
 
 ## :pencil2: Step7 \- Execute Shell-code by Thread context->EIP
 `Searching R/W/E Section` 에서 코드가 실행 될 수 있는 영역을 찾았습니다.<br>
