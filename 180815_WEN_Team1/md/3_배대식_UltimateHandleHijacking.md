@@ -88,12 +88,12 @@ LSASS, CSRSS는 시스템에서 사용하는 프로세스입니다. 커널과도
 ## :pencil2: Step2 \- Windows Authority
 이 기법에서는 LSASS라는 시스템 프로세스를 OpenProcess로 연 뒤 메모리를 조사하여야 합니다.<br>
 하지만 프로세스의 핸들을 요청했지만 `Access is denied` 에러가 발생 하면서 핸들을 주는 것을 거부합니다.<br>
-접근 거부 에러가 발생 하는 이유는 권한이 부족하기 때문입니다. 하지만 저는 Administrator 계정으로 로그인 되어 있는 상태인데 무엇이 문제일까요?<br><br>
+접근 거부 에러가 발생 하는 이유는 권한이 부족하기 때문입니다. 하지만 저는 Administrator 계정으로 로그인 되어 있는 상태인데 무엇이 문제일까요?<br>
 
 이러한 상태를 이해하려면 윈도우 권한에 대해 이해하여야 합니다.<br>
-윈도우를 로그인 할 때 계정에 대한 `토큰`을 발급 받고, 프로세스들은 각자의 권한에 맞게 토큰의 복제본을 발급 받습니다.<br>
-그리고 이 토큰은 권한을 가지고 있는데 이 권한에 따라 운영체제에게 요청 할 수 있는 범위가 적어지거나 늘어 날 수 있습니다.<br>
-예를들어, 관리자 권한으로 실행되지 않은 프로세스들은 매우 작은 권한을 가지고 있는 것을 프로세스 모니터링 툴로 확인 할 수 있습니다.<br>
+윈도우를 로그인 할 때 계정에 대한 `토큰`을 발급 받고, 프로세스들은 각자의 권한에 맞게 `토큰의 복제본`을 발급 받습니다.<br>
+그리고 이 토큰은 권한을 가지고 있는데 이 권한에 따라 운영체제에게 요청 할 수 있는 범위가 늘어나거나 줄어들 수 있습니다.<br>
+예를들어, 관리자 권한으로 실행되지 않은 프로세스들은 매우 적은 권한을 가지고 있는 것을 프로세스 모니터링 툴로 확인 할 수 있습니다.<br>
 
 ```
 1. OpenProcessToken
@@ -126,7 +126,7 @@ bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
 	HANDLE hToken;
 	TOKEN_PRIVILEGES priv = { 0,0,0,0 };
 	LUID luid = { 0, };
-	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken))
+	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken)) // Get process token
 	{
 		if (hToken) {
 			CloseHandle(hToken);
@@ -134,7 +134,7 @@ bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
 		cout << "OpenProcessToken Failed. GetLastError: " << GetLastError() << endl;
 		return false;
 	}
-	if (!LookupPrivilegeValue(NULL, lpszPrivilege, &luid))
+	if (!LookupPrivilegeValue(NULL, lpszPrivilege, &luid)) // Find privilege value with text macros.
 	{
 		if (hToken) {
 			CloseHandle(hToken);
@@ -144,10 +144,10 @@ bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
 	}
 
 	priv.PrivilegeCount = 1;
-	priv.Privileges[0].Attributes = bEnablePrivilege ? SE_PRIVILEGE_ENABLED : SE_PRIVILEGE_REMOVED;
-	priv.Privileges[0].Luid = luid;
+	priv.Privileges[0].Attributes = bEnablePrivilege ? SE_PRIVILEGE_ENABLED : SE_PRIVILEGE_REMOVED; 
+	priv.Privileges[0].Luid = luid; // Privileges
 
-	if (!AdjustTokenPrivileges(hToken, false, &priv, sizeof(TOKEN_PRIVILEGES), 0, 0))
+	if (!AdjustTokenPrivileges(hToken, false, &priv, sizeof(TOKEN_PRIVILEGES), 0, 0)) // Change privileges
 	{
 		if (hToken) {
 			CloseHandle(hToken);
@@ -168,6 +168,13 @@ Create handless share memory를 생성 할 때 핸들을 닫게 되는데, 다�
 핸들을 화이트 프로세스(explorer.exe)로 복사해 둡니다.
 
 ## :pencil2: Step4 \- Searching R/W/E Section
+메모리 영역이 실행 될 수 있는지 여부는 게임 해킹에서 매우 중요한 요소로 작용합니다.<br>
+실행 될 수 있다 하는 것은 곧, 사용자 코드를 메모리에 적어 넣으면 그 코드는 실행 됩니다. 이 코드가 나쁜지, 좋은지를 제외하고요<br>
+기법적인면으로 이야기 하자면 Code caving에 이용 될 수 있겠네요.<br>
+
+위에서 공유 메모리를 매핑하기 위해선 OpenFileMapping을 시스템 프로세스인 LSASS에서 호출 하여야 합니다.<br>
+그러한 코드를 어셈블리어로 작성하여 실행 될 수 있는 영역에 주어야 정상적으로 그 API를 호출 할 수 있겠죠?<br>
+
 프로세스에서 사용되고 있는 메모리 섹션을 조사하는 방법은 `VirtualQuery, VirtualQueryEx`라는 API가 있습니다.<br>
 API는 out으로 MEMORY_BASIC_INFORMATION 구조체에 메모리 섹션에 대한 정보를 담게 됩니다.<br>
 
