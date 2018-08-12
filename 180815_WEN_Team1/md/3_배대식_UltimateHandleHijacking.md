@@ -35,7 +35,7 @@ Ultimate Handle Hijacking 에서는 탐지 당할 수 있는 벡터를 아래와
   - DuplicateHandle
 ```
 
-## :: So what different?
+## :grey_question: So what different?
 
 기존의 Handle Hijacking 구상 방법은 아래의 이미지와 같습니다.<br>
 <img src="https://user-images.githubusercontent.com/40850499/43772484-3fcf8672-9a7d-11e8-8ff9-b965a82579e2.PNG" />
@@ -438,10 +438,10 @@ typedef struct _CONTEXT {
 } CONTEXT;
 ```
 
-## :: 후기
-살려줘..
+## :star: 후기
+어렵다 -_-..
 
-## :: 참조 링크
+## :bookmark_tabs: 참조 링크
 
 <a href="https://docs.microsoft.com/ko-kr/windows/desktop/TermServ/kernel-object-namespaces">Kernel-object-namespaces</a><br>
 <a href="https://docs.microsoft.com/ko-kr/windows/desktop/SecAuthZ/enabling-and-disabling-privileges-in-c--">Enable and disabling privileges in c++</a>
