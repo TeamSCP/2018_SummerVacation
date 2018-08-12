@@ -8,6 +8,8 @@
 
 (Kali-KM 사진참조)
 
+<img width="795" alt="2018-08-13 4 14 59" src="https://user-images.githubusercontent.com/40850499/44005512-9b460c8e-9eaf-11e8-834c-6f1b5cd9ad1c.png">
+
 ## 분석 
 /bin/&Random = 임의의 문자열 
 
