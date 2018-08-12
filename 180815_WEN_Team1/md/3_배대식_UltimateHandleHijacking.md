@@ -89,7 +89,12 @@ LSASS, CSRSS는 시스템에서 사용하는 프로세스입니다. 커널과도
 ## :pencil2: Step2 \- Windows Authority
 이 기법에서는 LSASS라는 시스템 프로세스를 OpenProcess로 연 뒤 메모리를 조사하여야 합니다.<br>
 하지만 프로세스의 핸들을 요청했지만 `Access is denied` 에러가 발생 하면서 핸들을 주는 것을 거부합니다.<br>
-접근 거부 에러가 발생 하는 이유는 권한이 부족하기 때문입니다. 하지만 저는 Administrator 계정으로 로그인 되어 있는 상태인데 무엇이 문제일까요?<br>
+접근 거부 에러가 발생 하는 이유는 권한이 부족하기 때문입니다. 하지만 저는 Administrator 계정으로 로그인 되어 있는 상태인데 무엇이 문제일까요?<br><br>
+
+이러한 상태를 이해하려면 윈도우 권한에 대해 이해하여야 합니다.<br>
+윈도우를 로그인 할 때 계정에 대한 `토큰`을 발급 받고, 프로세스들은 각자의 권한에 맞게 토큰의 복제본을 발급 받습니다.<br>
+그리고 이 토큰은 권한을 가지고 있는데 이 권한에 따라 운영체제에게 요청 할 수 있는 범위가 적어지거나 늘어 날 수 있습니다.<br>
+예를들어, 관리자 권한으로 실행되지 않은 프로세스들은 매우 작은 권한을 가지고 있는 것을 프로세스 모니터링 툴로 확인 할 수 있습니다.<br>
 
 ```
 1. OpenProcessToken
@@ -97,7 +102,7 @@ LSASS, CSRSS는 시스템에서 사용하는 프로세스입니다. 커널과도
 3. AdjustTokenPrivileges
 ```
 
-위의 세가지 API를 거쳐서 현재 가지고 있는 토큰을 가져 온 뒤 권한을 찾고 그 권한을 적용 해 줍니다.<br>
+위의 내용을 API로 정리하자면, 프로세스의 토큰을 얻어온 뒤, 디버그 권한을 가지고 있는 LUID를 찾은 뒤, 해당 토큰의 권한에 적용 해주면 디버그 권한이 생기는 구조입니다.<br>
 
 ```c++
 #define SE_TCB_NAME                                  TEXT("SeTcbPrivilege")
@@ -114,6 +119,8 @@ LSASS, CSRSS는 시스템에서 사용하는 프로세스입니다. 커널과도
 #define SE_DEBUG_NAME                                TEXT("SeDebugPrivilege")
 #define SE_AUDIT_NAME                                TEXT("SeAuditPrivilege")
 ```
+
+권한으로 설정되어 있는 매크로는 위와같이 많은 종류를 가지고 있는데 이걸 LookupPrivilegeToken으로 그 권한에 해당하는 LUID 값을 가져오게 되는 것이죠.<br>
 
 ```c++
 bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
