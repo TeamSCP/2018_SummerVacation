@@ -192,8 +192,7 @@ typedef struct _MEMORY_BASIC_INFORMATION {
 } MEMORY_BASIC_INFORMATION, *PMEMORY_BASIC_INFORMATION;
 ```
 
-아래의 코드는 쉘 코드보다 작은 공간을 검색하기 위해 메모리 섹션이 실행 옵션이 있고, 섹션의 마지막으로부터 0이아닌 부분을 찾아<br>
-코드를 삽입 할 수 있는 크기를 구하는 과정의 코드입니다.<br>
+아래의 코드는 쉘 코드보다 작은 공간을 검색하기 위해 메모리 섹션이 실행 옵션이 있고, 섹션의 마지막으로부터 0이아닌 부분을 찾아 코드를 삽입 할 수 있는 크기를 구하는 과정의 코드입니다.<br>
 
 ```c++
 int main()
@@ -250,7 +249,7 @@ int main()
 }
 ```
 
-공유 메모리를 매핑시키는 코드와 IPC를 구현 하기 위한 Spinlock 코드보다 작은 메모리 공간은 사용 될 수 없기 때문에, 크기 체크는 꼭 필요합니다.<br>
+공유 메모리를 매핑시키는 코드와 IPC를 구현 하기 위한 Spinlock 코드보다 작은 메모리 공간은 사용 될 수 없기 때문에, 크기 확인은 꼭 필요합니다.<br>
 
 ## :pencil2: Step5 \- How to make shellcode and What is spinlock? 
 ```asm
@@ -386,15 +385,55 @@ int main()
 `Searching R/W/E Section` 에서 코드가 실행 될 수 있는 영역을 찾았습니다.<br>
 그리고 쉘 코드의 길이를 조사해 남아있는 공간과 비교 한 뒤, 어셈블리 코드를 복사한 상태입니다.<br>
 하지만 이 영역을 실행 시켜줄, 매개체를 어디서 찾을까요?<br>
-저는 스레드로 새로운 실행 흐름을 만들 수도 없고, DLL Injection으로 DLLMain의 시작 지점을 호출되게 할 수 없는 상태입니다.<br>
+스레드로 새로운 실행 흐름을 만들 수도 없고, DLL Injection으로 DLLMain의 시작 지점을 호출되게 할 수 없는 상태입니다.<br>
 여기서 사용 될 수 있는 방법이 크리티컬하지 않은 스레드를 찾아 그 스레드를 멈추고 Context를 바꾸어 주는 작업을 하야 EIP 위치를 쉘코드로 바꾸어 주는 것 입니다.<br>
+
 ```
+OpenThread
 SuspenThread
 GetThreadContext
 SetThreadContext
-CONTEXT ctx;
-ctx.EIP = Shellcode address;
 ResumeThread
+```
+
+여기서 크리티컬하지 않다는 의미는 스레드가 사용 되지 않아도 LSASS 로직상 문제가 발생하지 않을 경우의 스레드를 의미합니다.<br>
+스레드들은 각각의 실행 흐름을 가지고 있습니다. 그리고 스레드의 특성상 같은 메모리는 공유하나 레지스터는 틀리죠.<br>
+즉 Context 내에 각각의 레지스터의 정보를 가지고 있을 것이고 EIP 값을 쉘코드의 주소로 바꾸어 주면 작업은 완료됩니다.<br>
+
+```
+typedef struct _CONTEXT {
+    DWORD ContextFlags;
+
+    DWORD   Dr0;
+    DWORD   Dr1;
+    DWORD   Dr2;
+    DWORD   Dr3;
+    DWORD   Dr6;
+    DWORD   Dr7;
+
+    FLOATING_SAVE_AREA FloatSave;
+    
+    DWORD   SegGs;
+    DWORD   SegFs;
+    DWORD   SegEs;
+    DWORD   SegDs;
+
+    DWORD   Edi;
+    DWORD   Esi;
+    DWORD   Ebx;
+    DWORD   Edx;
+    DWORD   Ecx;
+    DWORD   Eax;
+
+    DWORD   Ebp;
+    DWORD   Eip;
+    DWORD   SegCs;              // MUST BE SANITIZED
+    DWORD   EFlags;             // MUST BE SANITIZED
+    DWORD   Esp;
+    DWORD   SegSs;
+    
+    BYTE    ExtendedRegisters[MAXIMUM_SUPPORTED_EXTENSION];
+} CONTEXT;
 ```
 
 ## :: 후기
