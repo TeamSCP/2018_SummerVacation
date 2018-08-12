@@ -5,7 +5,7 @@
 
 ## :green_book: ReadMe
 
-기존의 `Handle Hijacking`을 AC(Anti Cheat)가 탐지 할 수 있는 요소(벡터)들을 생각하여 보완된 기술 입니다.<br>
+기존의 `Handle Hijacking`을 AC(Anti Cheat)가 탐지 할 수 있는 벡터(요소)들을 생각하여 보완된 기술 입니다.<br>
 Ultimate Handle Hijacking 에서는 탐지 당할 수 있는 벡터를 아래와 같이 4가지로 정의 하였습니다.<br>
 
 ```
@@ -24,12 +24,12 @@ Ultimate Handle Hijacking 에서는 탐지 당할 수 있는 벡터를 아래와
   - 스레드를 검색 할 수 있는 방법.
   - _HANDLE_TABLE을 복사 할 수 있는 방법.
 ```
-에 대해 이해 하여야 합니다.<br>
-마지막으로 위의 내용에 대해서 구현을 하기 위해 필요한 주된 API 목록은 다음과 같습니다.<br>
+에 대해 구현을 할 줄 알아야 합니다.<br>
+위의 내용에 대해서 구현을 하기 위한 필요한 API 목록은 다음과 같습니다.<br>
 
 ```
   - CreateFileMapping, OpenFileMapping, MapViewOfFile
-  - SuspendThread ,GetThreadContext, SetThreadContext, ResumeThread
+  - SuspendThread, GetThreadContext, SetThreadContext, ResumeThread
   - VirtualQueryEx
   - CreateToolhelp32Snapshot, Thread32First, Thread32Next, NtQueryInformationThread, EnumProcessModules, GetModuleFileNameEx, GetModuleInformation
   - DuplicateHandle
@@ -39,18 +39,18 @@ Ultimate Handle Hijacking 에서는 탐지 당할 수 있는 벡터를 아래와
 
 기존의 Handle Hijacking 구상 방법은 아래의 이미지와 같습니다.<br>
 <img src="https://user-images.githubusercontent.com/40850499/43772484-3fcf8672-9a7d-11e8-8ff9-b965a82579e2.PNG" />
-클라이언트와 lsass, csrss에 삽입된 DLL과의 NamedPipe를 통해 서로 통신을 하여 실질적인 작업은 삽입된 DLL에서 해주는 방법입니다.<br>
+클라이언트와 LSASS 혹은 CSRSS에 삽입된 DLL과의 NamedPipe를 통해 서로 통신을 하여 실질적인 작업은 삽입된 DLL에서 처리 해주는 방법입니다.<br>
 
-반면에 Ultimate Handle Hijacking은 어떤가요? 생각외로 복잡한 방법이네요 :( <br>
+반면에 Ultimate Handle Hijacking은 어떤가요? 생각외로 복잡한 방법이네요 :flushed: <br>
 <img src="https://user-images.githubusercontent.com/40850499/43793129-9f16660e-9ab5-11e8-975f-b179c4c40ebf.png" />
 
 이 보완된 기법에 주된 우회 방법은 `재사용`이라는 키워드로 정리 할 수 있을 것 같습니다.<br>
-AC가 어떠한 이유로 기존의 핸들하이재킹을 탐지가 가능하고, 이것을 우회 할 수 있는 방법을 Step by step으로 진행 하겠습니다.<br>
+AC가 어떠한 이유로 기존의 핸들 하이재킹을 탐지가 가능하고, 이것을 우회 할 수 있는 방법을 단계별로 진행 하겠습니다.<br>
 
-## :: Step by Step \- Create handless share memory
+## :pencil2: Step 1 \- Create handless share memory
 
 윈도우에서 API를 통해 공유메모리를 생성 하는 방법은 다음과 같습니다.<br>
-두가지의 경우가 있는데, 첫 번째는 공유메모리를 생성 하는 방법이고 두 번째는 만들어진 공유메모리를 사용하는 방법입니다.<br>
+두 가지의 경우가 있는데, 첫 번째는 공유메모리를 생성 하는 방법이고 두 번째는 만들어진 공유메모리를 사용하는 방법입니다.<br>
 
 \# 방법1. 공유메모리를 생성하고 닫는 과정<br>
 ```
@@ -65,29 +65,30 @@ AC가 어떠한 이유로 기존의 핸들하이재킹을 탐지가 가능하고
 2. MapViewOfFile
 3. CloseHandle
 ```
-MSDN을 읽어보시면 Remarks에서 핸들을 닫아 주어도 공유메모리는 그대로 사용 될 수 있음을 명시합니다.<br>
+MSDN 항목 중 Remarks에서 핸들을 닫아 주어도 공유메모리는 그대로 사용 될 수 있음을 명시합니다.<br>
 
 ```
-Mapped views of a file mapping object maintain internal references to the object, 
-and a file mapping object does not close until all references to it are released.
-Therefore, to fully close a file mapping object, 
-an application must unmap all mapped views of the file mapping object by calling UnmapViewOfFile and close the file mapping object handle by calling CloseHandle. 
+Mapped views of a file mapping object maintain internal references to the object, and a file mapping object does not close until all references to it are released.
+Therefore, to fully close a file mapping object, an application must unmap all mapped views of the file mapping object by calling UnmapViewOfFile and close the file mapping object handle by calling CloseHandle. 
 These functions can be called in any order.
 ```
 
 그러면 핸들은 어디에서 사용 될까요? 핸들은 만들어진 공유메모리 섹션을 연결 할 때 사용됩니다.<br>
-기존에 파이프를 이용한 IPC는 핸들을 계속 참조하여야 했습니다.<br>
-lsass 프로세스는 파이프를 사용하지 않음에 불구하고 말이지요.<br>
+OpenFileMapping의 마지막 인자인 lpName으로 핸들의 이름을 넣어 공유 메모리 공간을 매핑 시킬 수 있습니다.<br><br>
+
+기존의 파이프를 이용한 IPC는 핸들을 계속 참조하여야 했습니다.<br>
+LSASS는 파이프를 사용하지 않음에 불구하고 말이지요.<br>
 이러한 상황은 AC가 충분히 탐지 가능한 영역입니다.<br>
-그러기 때문에 IPC에서 사용될 메모리 영역만 남겨두고, 핸들은 닫아 버리는 것입니다. 어차피 MapViewOfFile 리턴 값으로 공유메모리의 주소가 넘어 오기 때문이지요.<br>
+그러기 때문에 핸들로 접근 하는것이 아닌 실제 메모리 영역의 주소를 탐색하여 접근 할 수 있게끔 설계를 해두는 것 입니다.<BR>
 
 여기서 한 가지 더 생각 해야 하는 점이 있습니다.<br>
 공유메모리의 생성은 어떤 프로세스가 하는지, 만들어진 공유메모리에 접근은 어떤 프로세스가 하는지를 명확히 할 필요가 있습니다.<br>
-lsass, csrss는 시스템에서 사용하는 프로세스입니다. 커널과도 통신을 하는 프로세스지요.<br>
+LSASS, CSRSS는 시스템에서 사용하는 프로세스입니다. 커널과도 통신을 하는 프로세스지요.<br>
 즉, 좀 더 높은 권한을 가지고 있는 프로세스에 공유메모리 생성을 하는 것은 권한 문제로 부적절 할 수 있습니다.<br>
 
-## :: Step by Step \- Windows Authority
-이 프로그램에서는 Lsass라는 시스템 프로세스를 OpenProcess로 연 뒤 메모리를 조사하여야 합니다.<br>
+## :pencil2: Step2 \- Windows Authority
+이 프로그램에서는 LSASS라는 시스템 프로세스를 OpenProcess로 연 뒤 메모리를 조사하여야 합니다.<br>
+하지만 프로세스의 핸들을 요청했지만 `Access is denied` 에러가 발생 하면서 핸들을 주는 것을 거부합니다.<br>
 윈도우에서는 프로세스가 생성 될 때 해당 로그인 되어있는 유저의 권한을 부여하게 됩니다.<br>
 그런데도 불구하고 시스템 프로세스를 열 때 권한 문제로 실패하게 되는 현상을 볼 수 있습니다.<br>
 
