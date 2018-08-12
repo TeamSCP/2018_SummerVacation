@@ -163,12 +163,12 @@ bool SetPrivilege(LPCSTR lpszPrivilege, BOOL bEnablePrivilege) {
 }
 ```
 
-## :: Step by Step \- DuplicateHandle
+## :pencil2: Step3 \- DuplicateHandle
 
 Create handless share memory를 생성 할 때 핸들을 닫게 되는데, 다시 공유메모리에 대한 경로를 남겨 두기 위해 DuplicationHandle API를 사용해<br>
 핸들을 화이트 프로세스(explorer.exe)로 복사해 둡니다.
 
-## :: Step by Step \- Searching R/W/E Section
+## :pencil2: Step4 \- Searching R/W/E Section
 프로세스에서 사용되고 있는 메모리 섹션을 조사하는 방법은 `VirtualQuery, VirtualQueryEx`라는 API가 있습니다.<br>
 API는 out으로 MEMORY_BASIC_INFORMATION 구조체에 메모리 섹션에 대한 정보를 담게 됩니다.<br>
 
@@ -242,7 +242,7 @@ int main()
 }
 ```
 
-## :: Step by Step \- How to make shellcode and What is spinlock? 
+## :pencil2: Step5 \- How to make shellcode and What is spinlock? 
 ```asm
 SpinLock: 
 	repe nop
@@ -270,7 +270,7 @@ IsEnd:
 ```
 이런식으로 구현하여 공유메모리의 특정 공간을 통해 요청을 하면 프로세스간 통신이 성립 될 수 있다는 것이지요.<br>
 
-## :: Step by Step \- Finding Thread information
+## :pencil2: Step6 \- Finding Thread information
 
 ToolHelp를 통한 TID 수집, NtQueryInformationThread를 통한 스레드 시작주소 수집, 시작주소가 어디 모듈에 속해 있는지 확인.
 
@@ -373,7 +373,7 @@ int main()
 ```
 
 
-## :: Step by Step \- Execute Shell-code by Thread context->EIP
+## :pencil2: Step7 \- Execute Shell-code by Thread context->EIP
 `Searching R/W/E Section` 에서 코드가 실행 될 수 있는 영역을 찾았습니다.<br>
 그리고 쉘 코드의 길이를 조사해 남아있는 공간과 비교 한 뒤, 어셈블리 코드를 복사한 상태입니다.<br>
 하지만 이 영역을 실행 시켜줄, 매개체를 어디서 찾을까요?<br>
@@ -389,6 +389,4 @@ ResumeThread
 ```
 
 ## :: 후기
-사용되는 API, 알고 있어야 되는 개념이 생각보다 많이 필요한 힘든 프로젝트였습니다.<br>
-원래 이번 차례때 발표였으나 아직 제 생각에도 여러분께는 프로그램이 어떻게 돌아가는지만 이해 시킬 수 있지 완벽하게 코딩적인 부분을 해결한 것은 아닙니다.<br>
-다음주로 미뤄진 관계로 모든 내용에 대해 세세하게 다뤄 보겠습니다. 읽어 주셔서 감사합니다 ^^;<br>
+살려줘..
