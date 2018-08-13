@@ -8,15 +8,15 @@
 
 일단 15~17번 문제를 보자. 
 
-![15](C:\Users\96dks\Desktop\15.JPG)
+![15](https://user-images.githubusercontent.com/40850499/44011662-dceedcb6-9ef4-11e8-9152-b61518a708fb.JPG)
 
 [15번]
 
-![16](C:\Users\96dks\Desktop\16.JPG)
+![16](https://user-images.githubusercontent.com/40850499/44011663-de4130a0-9ef4-11e8-8685-14b8233b61a3.JPG)
 
 [16번]
 
-![17](C:\Users\96dks\Desktop\17.JPG)
+![17](https://user-images.githubusercontent.com/40850499/44011664-e01719ee-9ef4-11e8-94ad-7bfd9a2d86e0.JPG)
 
 [17번]
 
@@ -62,9 +62,9 @@
 
 이 문제는 소스가 엄청 길다. 문제를 보자. 
 
- ![18-1](C:\Users\96dks\Desktop\18-1.JPG)
+![18-1](https://user-images.githubusercontent.com/40850499/44011666-e32d37d0-9ef4-11e8-90a1-be33d5137a55.JPG)
 
-![18-2](C:\Users\96dks\Desktop\18-2.JPG)
+![18-2](https://user-images.githubusercontent.com/40850499/44011669-e49dfd84-9ef4-11e8-8272-6d4e9be19794.JPG)
 
 (사진이 끊겨있지만 찰떡같이 봐주세요) 
 
@@ -148,7 +148,7 @@ check부분에 deadbeef를 넣어주면 shellout()이 실행된다. -끝-
 
 앞선 FTZ 문제들은 소스에 setreuid가 지정되어있었다. 
 
-​    ![19](C:\Users\96dks\Desktop\19.JPG)
+​    ![19](https://user-images.githubusercontent.com/40850499/44011672-e6524626-9ef4-11e8-918f-955da73b493a.JPG)
 
 그런데 19번은 없다 !! 
 
