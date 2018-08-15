@@ -1,7 +1,7 @@
 # Webhacking.kr war game write up 3 (18.08.09) #
 
-[Webhacking.kr](Webhacking.kr) 에서 16번 
-
+[Webhacking.kr](Webhacking.kr) 에서 16번 , 24번 
+ 
 
 
 ## 1. Webhacking 16번 
