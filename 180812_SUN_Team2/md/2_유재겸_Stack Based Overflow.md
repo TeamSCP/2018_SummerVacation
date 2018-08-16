@@ -22,7 +22,9 @@ windbg -I 옵션으로 windbg를 postmodern명령어로 등록해줍니다.
 
 <br>
 <br>
+
 ![](https://user-images.githubusercontent.com/37801624/44163619-e3df4e00-a0fe-11e8-8045-7939cbdfe89a.PNG)
+
 <br>
 
 저번 실습에서 A를 30000개 넣으면 오류가 발생했었습니다.
