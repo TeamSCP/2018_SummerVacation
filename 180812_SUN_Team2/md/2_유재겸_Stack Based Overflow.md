@@ -5,7 +5,10 @@ stack based overflow (저번 파일에 이어서 올리겠습니다.)
 
 
 <br>
+
 ![](https://user-images.githubusercontent.com/37801624/44163614-dfb33080-a0fe-11e8-9729-6686ee3c0ea0.PNG)
+
+
 <br>
 
 windbg -I 옵션으로 windbg를 postmodern명령어로 등록해줍니다.
@@ -13,16 +16,21 @@ windbg -I 옵션으로 windbg를 postmodern명령어로 등록해줍니다.
 
 <br>
 <br>
+
 ![](https://user-images.githubusercontent.com/37801624/44163618-e2ae2100-a0fe-11e8-8f63-6b07d86e7fdf.PNG)
+
+
 <br>
 <br>
 ![](https://user-images.githubusercontent.com/37801624/44163619-e3df4e00-a0fe-11e8-8045-7939cbdfe89a.PNG)
 <br>
 
 저번 실습에서 A를 30000개 넣으면 오류가 발생했었습니다.
+
 <br>
 <br>
 <br>
+
 ![](https://user-images.githubusercontent.com/37801624/44163621-e5107b00-a0fe-11e8-9db4-3a5817387aba.PNG)
 <br><br>
 그러면 다음과 같은 창이 뜨는데, eip값이 41414141(=AAAA)로 덮인것을 볼 수 있습니다.
